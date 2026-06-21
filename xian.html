@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>西安库一线数据看板</title>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+:root {
+  --red:#e74c3c;--yellow:#f0a020;--green:#27ae60;--blue:#2563eb;
+  --bg-card:rgba(255,255,255,0.65);--bg-card-solid:#fff;
+  --text:#0f172a;--text-secondary:#64748b;--text-muted:#94a3b8;
+  --border:rgba(200,210,230,0.6);--border-solid:#e2e8f0;
+  --shadow:0 1px 4px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card:0 4px 16px rgba(100,120,180,0.10);
+  --shadow-hover:0 4px 20px rgba(0,0,0,0.10);
+  --table-header-bg:#f8fafc;--table-hover:#f8fafc;
+  --kpi-bg:#f8fafc;
+  --radius:12px;--radius-sm:8px;--radius-pill:40px;
+  --sidebar-width:210px;
+  --transition-fast:0.15s ease;--transition-base:0.25s ease;
+}
+body.dark {
+  --bg-card:rgba(30,41,59,0.75);--bg-card-solid:#1e293b;
+  --text:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;
+  --border:rgba(100,120,160,0.4);--border-solid:#334155;
+  --shadow:0 2px 12px rgba(0,0,0,0.3);--shadow-card:0 4px 20px rgba(0,0,0,0.4);--shadow-hover:0 4px 20px rgba(0,0,0,0.4);
+  --table-header-bg:#334155;--table-hover:#2d3748;--kpi-bg:#243352;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei','Segoe UI',system-ui,sans-serif;background:linear-gradient(135deg,#e8edf5 0%,#dce4f0 50%,#e4e8f4 100%);background-attachment:fixed;color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background 0.4s,color 0.4s}
+body.dark{background:linear-gradient(135deg,#0f172a 0%,#1a2744 50%,#162032 100%);background-attachment:fixed}
+
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:transparent;border-radius:4px}
+*:hover::-webkit-scrollbar-thumb{background:rgba(148,163,184,0.4)}
+::-webkit-scrollbar-thumb:hover{background:rgba(148,163,184,0.7)}
+
+/* Layout */
+#zb-layout{display:flex;height:100vh;overflow:hidden;background:transparent}
+#zb-sidebar{width:var(--sidebar-width);min-width:var(--sidebar-width);background:rgba(255,255,255,0.55);backdrop-filter:blur(24px) saturate(200%);-webkit-backdrop-filter:blur(24px) saturate(200%);border-right:1px solid rgba(255,255,255,0.75);box-shadow:2px 0 16px rgba(100,120,180,0.08);display:flex;flex-direction:column;z-index:50}
+body.dark #zb-sidebar{background:rgba(30,41,59,0.75);border-right-color:rgba(100,120,160,0.4)}
+.zb-logo{padding:20px 14px 14px;border-bottom:1px solid rgba(200,210,230,0.5)}
+.zb-logo .zb-brand{font-size:19px;font-weight:900;color:#2563eb;letter-spacing:0.5px;line-height:1.2;position:relative;overflow:hidden;cursor:default}
+@keyframes brand-shimmer{0%{left:-80%}100%{left:120%}}
+.zb-logo .zb-brand::after{content:'';position:absolute;top:0;left:-80%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.75),transparent);animation:brand-shimmer 5.6s ease-in-out infinite;pointer-events:none}
+.zb-logo .zb-sub{font-size:10px;color:var(--text-muted);margin-top:3px}
+.zb-nav-lbl{padding:12px 14px 4px;font-size:10px;color:var(--text-muted);letter-spacing:1.5px;font-weight:600;text-transform:uppercase}
+.zb-nav-item{display:flex;align-items:center;gap:9px;padding:10px 16px;margin:1px 0;border-radius:0;cursor:pointer;font-size:13px;color:var(--text-secondary);border-left:3px solid transparent;transition:all 0.18s}
+.zb-nav-item:hover{background:rgba(37,99,235,0.07);color:#1e40af}
+.zb-nav-item.active{background:rgba(37,99,235,0.10);color:#2563eb;border-left-color:#2563eb;font-weight:600}
+.zb-sidebar-footer{margin-top:auto;border-top:1px solid rgba(200,210,230,0.5)}
+.zb-sidebar-footer .zb-ver{padding:8px 14px;font-size:10px;color:#c8d0dc;cursor:default;user-select:none;letter-spacing:.04em}
+#zbSidebarActionRow{display:flex;align-items:center;gap:2px;padding:10px 10px 4px}
+#zbSidebarActionRow button{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;border:none;background:transparent;color:var(--text-secondary);cursor:pointer;transition:all .15s;flex-shrink:0;font-size:14px}
+#zbSidebarActionRow button:hover{background:rgba(37,99,235,0.08);color:#2563eb}
+
+#zb-main{flex:1;overflow-y:auto;min-width:0;padding:20px 24px;background:transparent}
+.zb-page{display:none}
+.zb-page.active{display:block;animation:pageSlideIn 0.35s cubic-bezier(0.25,0.46,0.45,0.94) both}
+@keyframes pageSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Top Bar */
+.top-bar{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.70);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:var(--radius);padding:7px 16px;margin-bottom:8px;border:1px solid var(--border);box-shadow:0 2px 10px rgba(100,120,180,0.08);flex-wrap:wrap;gap:8px}
+body.dark .top-bar{background:rgba(30,41,59,0.80)}
+.marquee-wrap{flex:1;min-width:0;overflow:hidden;margin:0 12px;background:rgba(59,130,246,0.06);border-radius:20px;border:1px solid rgba(59,130,246,0.15);height:30px;position:relative}
+.marquee-inner{position:absolute;top:50%;white-space:nowrap;font-size:12px;color:var(--blue);font-weight:500;will-change:transform}
+.marquee-inner.mq-run{animation:mq var(--mq-dur,28s) linear infinite}
+.marquee-inner.mq-run:hover{animation-play-state:paused}
+@keyframes mq{from{transform:translateY(-50%) translateX(var(--mq-start,800px))}to{transform:translateY(-50%) translateX(calc(-100% - 40px))}}
+
+/* Sticky Filter Bar */
+.sticky-filter-bar{position:sticky;top:0;z-index:100;padding:5px 0;border-bottom:1px solid rgba(200,210,230,0.5)}
+.sticky-filter-inner{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;overflow-x:auto;background:rgba(255,255,255,0.70);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:var(--radius);padding:5px 12px;border:1px solid var(--border);box-shadow:0 1px 6px rgba(100,120,180,0.06);scrollbar-width:none}
+body.dark .sticky-filter-inner{background:rgba(30,41,59,0.80)}
+.sticky-filter-inner::-webkit-scrollbar{display:none}
+.sticky-divider{width:1px;height:18px;background:var(--border);flex-shrink:0}
+
+/* Nav Tabs */
+.cat-tab{padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--kpi-bg);color:var(--text-secondary);cursor:pointer;transition:all 0.15s;white-space:nowrap;flex-shrink:0}
+.cat-tab:hover{border-color:var(--blue);color:var(--blue)}
+.cat-tab.active{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 2px 6px rgba(37,99,235,0.25)}
+.trend-tab{padding:3px 12px;border-radius:4px;font-size:11px;font-weight:600;border:none;background:transparent;color:var(--text-secondary);cursor:pointer;transition:all 0.15s;white-space:nowrap}
+.trend-tab:hover{background:rgba(37,99,235,0.08);color:var(--blue)}
+.trend-tab.active{background:var(--bg-card-solid);color:var(--blue);box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+body.dark .trend-tab.active{background:#475569;color:#93c5fd}
+body.dark .trend-tab:hover{background:rgba(96,165,250,0.12);color:#93c5fd}
+.prob-tag{display:inline-block;margin:1px 3px 1px 0;padding:1px 7px;border-radius:10px;background:rgba(37,99,235,0.07);font-size:10px;color:var(--text-secondary);white-space:nowrap;line-height:1.6}
+#topPersonTable tbody tr{cursor:pointer}
+#topPersonTable tbody tr:hover{background:rgba(37,99,235,0.04)}
+.admin-only{display:none!important}
+body.is-admin .admin-only{display:revert!important}
+
+/* Flow Bar */
+.flow-step{transition:all 0.2s}
+.flow-step:hover{background:rgba(37,99,235,0.06)!important;color:#2563eb!important;transform:translateY(-1px)}
+.flow-step.active{background:linear-gradient(135deg,rgba(37,99,235,0.1),rgba(99,102,241,0.06))!important;color:#2563eb!important;box-shadow:0 2px 8px rgba(37,99,235,0.15)!important}
+body.dark .flow-step.active{background:linear-gradient(135deg,rgba(96,165,250,0.2),rgba(147,197,253,0.1))!important;color:#93c5fd!important}
+body.dark .flow-step:hover{background:rgba(96,165,250,0.1)!important;color:#93c5fd!important}
+/* Tree SOP */
+.cat-header{cursor:pointer;user-select:none;transition:all 0.2s;position:relative}
+.cat-header:hover{background:rgba(37,99,235,0.03);transform:translateY(-1px)}
+.cat-header::after{content:'';position:absolute;bottom:0;left:16px;right:16px;height:2px;background:linear-gradient(90deg,var(--blue),#10b981,#f59e0b,var(--red));border-radius:1px;opacity:0;transition:opacity 0.3s}
+.cat-header:hover::after{opacity:1}
+.card[id^="cat-"]{box-shadow:0 4px 20px rgba(100,120,180,0.08);border-radius:12px;transition:box-shadow 0.3s}
+.card[id^="cat-"]:hover{box-shadow:0 8px 30px rgba(100,120,180,0.12)}
+.cat-arrow{font-size:10px;transition:transform 0.2s;display:inline-block;color:var(--text-muted)}
+.cat-header.collapsed .cat-arrow{transform:rotate(-90deg)}
+.cat-body{overflow:hidden;transition:max-height 0.3s}
+.cat-body.hidden{display:none}
+.tree-item{border-top:1px solid var(--border);margin:3px 0;border-radius:8px;overflow:hidden;transition:all 0.2s;border-left:3px solid transparent}
+.tree-item:first-child{border-top:none}
+.tree-item:hover{box-shadow:0 3px 12px rgba(0,0,0,0.06);border-left-color:var(--blue)}
+.tree-item.is-key{border-left-color:var(--red)}
+.tree-item.is-key:hover{border-left-color:var(--red);box-shadow:0 3px 12px rgba(231,76,60,0.1)}
+@keyframes pulse-key{0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,0.3)}50%{box-shadow:0 0 0 4px rgba(231,76,60,0)}}
+.tree-item.is-key .step-num{animation:pulse-key 2s infinite}
+.tree-header{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;user-select:none;font-size:14px;font-weight:500;color:var(--text);transition:all 0.15s;border-radius:8px}
+.tree-header:hover{background:rgba(37,99,235,0.04)}
+.tree-header .step-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff;font-size:11px;font-weight:700;flex-shrink:0;box-shadow:0 2px 6px rgba(37,99,235,0.3)}
+.tree-arrow{font-size:10px;color:var(--text-muted);transition:transform 0.15s;flex-shrink:0;width:14px;text-align:center}
+.tree-header.open .tree-arrow{transform:rotate(90deg);color:var(--blue)}
+.tree-body{display:none;padding:8px 14px 16px 40px;font-size:13px;line-height:1.7;position:relative}
+.tree-body::before{content:'';position:absolute;left:18px;top:0;bottom:16px;width:2px;background:var(--border);border-radius:1px}
+/* Nesting levels */
+.tree-body .tree-body{padding-left:32px}
+.tree-body .tree-body::before{left:12px}
+.tree-body .tree-body .tree-body{padding-left:28px}
+.tree-body .tree-body .tree-body::before{left:10px}
+/* Level colors */
+.tree-item:nth-child(odd)>.tree-header{background:rgba(248,250,252,0.6)}
+body.dark .tree-item:nth-child(odd)>.tree-header{background:rgba(30,41,59,0.4)}
+body.dark .block{background:rgba(30,41,59,0.6);border-color:rgba(100,120,160,0.3)}
+body.dark .block:hover{box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+body.dark .tree-item:hover{box-shadow:0 3px 12px rgba(100,120,180,0.15)}
+.tree-header.open+.tree-body{display:block;animation:fadeIn 0.15s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+
+/* Type Cards */
+.type-card{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;border-radius:10px;border:2px solid var(--border);cursor:pointer;transition:all 0.15s;background:var(--kpi-bg);text-align:center;font-size:10px;font-weight:600;color:var(--text-secondary)}
+.type-card:hover{border-color:#93c5fd;background:rgba(37,99,235,0.04);transform:translateY(-2px)}
+.type-card.selected{border-color:var(--blue);background:rgba(37,99,235,0.08);color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
+body.dark .type-card{background:rgba(30,41,59,0.6);border-color:rgba(100,120,160,0.3)}
+body.dark .type-card.selected{background:rgba(37,99,235,0.15);border-color:#60a5fa}
+/* Mode Switches */
+.mode-switch{display:flex;align-items:center;gap:5px;cursor:pointer;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap;flex-shrink:0;transition:all 0.15s;color:var(--text-secondary);border:1px solid transparent}
+.mode-switch:hover{background:rgba(0,0,0,0.03)}
+.mode-switch.key-swt:hover{color:var(--red)}
+.mode-switch.edit-swt:hover{color:var(--blue)}
+.mode-switch input[type=checkbox]{width:14px;height:14px;cursor:pointer;accent-color:var(--red)}
+.mode-switch.edit-swt input[type=checkbox]{accent-color:var(--blue)}
+
+body.key-mode .step:not(.is-key){display:none}
+body.key-mode .step.is-key .step-body{display:block}
+body.key-mode .step.is-key .step-header{cursor:default}
+body.key-mode .step.is-key .step-header .arrow{display:none}
+
+/* Cards */
+.card{background:var(--bg-card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 2px 10px rgba(100,120,180,0.08);padding:20px 24px;margin-bottom:18px;transition:transform 0.18s,box-shadow 0.18s;animation:cardFadeIn 0.4s cubic-bezier(0.25,0.46,0.45,0.94) both}
+.card:nth-child(1){animation-delay:0ms}.card:nth-child(2){animation-delay:50ms}.card:nth-child(3){animation-delay:100ms}.card:nth-child(4){animation-delay:150ms}.card:nth-child(5){animation-delay:200ms}.card:nth-child(6){animation-delay:250ms}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+@keyframes cardFadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card-title{font-size:14px;font-weight:700;color:#334155;display:flex;align-items:center;gap:8px;margin-bottom:16px}
+body.dark .card-title{color:var(--text)}
+.card-title-bar{width:3px;height:15px;border-radius:2px;flex-shrink:0;background:var(--blue)}
+
+/* Stats Grid */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:8px}
+.stats-item{background:var(--bg-card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:var(--radius);padding:0;border:1px solid var(--border);box-shadow:0 2px 8px rgba(100,120,180,0.07);cursor:pointer;display:flex;overflow:hidden;transition:transform 0.15s,box-shadow 0.15s;animation:cardFadeIn 0.3s ease both}
+.stats-item:nth-child(1){animation-delay:.04s}.stats-item:nth-child(2){animation-delay:.08s}.stats-item:nth-child(3){animation-delay:.12s}.stats-item:nth-child(4){animation-delay:.16s}
+.stats-item:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.stats-item-side{width:5px;flex-shrink:0}
+.stats-item.red .stats-item-side{background:linear-gradient(180deg,#ef4444,#f87171)}
+.stats-item.blue .stats-item-side{background:linear-gradient(180deg,#2563eb,#60a5fa)}
+.stats-item.yellow .stats-item-side{background:linear-gradient(180deg,#f59e0b,#fbbf24)}
+.stats-item.green .stats-item-side{background:linear-gradient(180deg,#10b981,#34d399)}
+.stats-item-body{padding:14px 16px;flex:1}
+.stats-number{font-size:28px;font-weight:800;line-height:1.15;margin:4px 0 2px}
+.stats-label{font-size:11px;color:var(--text-secondary);font-weight:500;margin-bottom:1px}
+.stats-sub{font-size:10px;font-weight:500;color:var(--text-secondary);margin-top:2px}
+
+/* SOP Steps */
+.step-list .step{border-bottom:1px solid var(--border);transition:all 0.15s}
+.step-list .step:last-child{border-bottom:none}
+.step-header{padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:10px;transition:background 0.15s;user-select:none}
+.step-header:hover{background:rgba(0,0,0,0.02)}
+.step-header .arrow{font-size:10px;transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);color:var(--text-muted);min-width:12px}
+.step-header.open .arrow{transform:rotate(90deg);color:var(--blue)}
+.step-header.open{background:rgba(37,99,235,0.04)}
+.step-num{background:var(--blue);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;box-shadow:0 2px 6px rgba(37,99,235,0.2)}
+.step-num.sub{background:var(--text-muted);box-shadow:0 2px 6px rgba(148,163,184,0.2)}
+.step-title{flex:1;font-weight:600;font-size:14px}
+.step-tags{display:flex;gap:4px;flex-shrink:0}
+.tag{font-size:10px;padding:2px 9px;border-radius:10px;font-weight:700;white-space:nowrap}
+.tag-red{background:#fef2f2;color:var(--red)}
+.tag-yellow{background:#fffcf0;color:#b87310}
+.tag-green{background:#f0fdf6;color:var(--green)}
+.step-body{display:none;padding:0 18px 16px 54px;animation:fadeSlide 0.2s ease}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.step-body.show{display:block}
+.step-body .block{margin-bottom:10px;font-size:13px;padding:12px 14px;background:rgba(248,250,252,0.8);border-radius:10px;border:1px solid var(--border);transition:all 0.2s;position:relative}
+.block:hover{box-shadow:0 2px 8px rgba(0,0,0,0.04);transform:translateY(-1px)}
+.block-title{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:4px;display:inline-flex;align-items:center;gap:4px}
+.block .highlight-card{background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(239,68,68,0.04));border-radius:8px;padding:10px 14px;border:1px solid rgba(245,158,11,0.2);margin:6px 0}
+.block .koujue{background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(239,68,68,0.06));padding:8px 14px;border-radius:8px;font-weight:700;font-size:14px;color:#d97706;text-align:center;letter-spacing:0.5px}
+.step-body .block-title{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:3px}
+.highlight-card{background:rgba(239,68,68,0.04);border-left:3px solid var(--red);padding:12px 14px;margin:8px 0;border-radius:0 10px 10px 0}
+.highlight-card.warn{background:rgba(240,160,32,0.04);border-left-color:var(--yellow)}
+.highlight-card table{width:100%;border-collapse:collapse;font-size:12px}
+.highlight-card td{padding:3px 6px;vertical-align:top}
+.highlight-card td:first-child{font-weight:700;color:var(--text-secondary);white-space:nowrap;width:80px}
+.highlight-card .koujue{background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;padding:6px 12px;border-radius:20px;font-weight:700;font-size:12px;display:inline-block;margin-top:6px}
+
+/* Edit mode */
+body.edit-mode .tree-header{padding-right:124px;position:relative}
+.tree-item .btn-del{display:none;position:absolute;right:84px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:none;background:rgba(239,68,68,0.12);color:#ef4444;font-size:12px;cursor:pointer;line-height:20px;text-align:center}
+.tree-item .btn-del:hover{background:#ef4444;color:#fff}
+body.edit-mode .tree-item .btn-del{display:block}
+.tree-item .btn-add-blk{display:none;position:absolute;right:10px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:none;background:rgba(37,99,235,0.12);color:#2563eb;font-size:13px;cursor:pointer;line-height:20px;text-align:center}
+.tree-item .btn-add-blk:hover{background:#2563eb;color:#fff}
+body.edit-mode .tree-item .btn-add-blk{display:block}
+.tree-item .btn-edit-item{display:none;position:absolute;right:60px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:none;background:rgba(245,158,11,0.12);color:#f59e0b;font-size:11px;cursor:pointer;line-height:20px;text-align:center}
+.tree-item .btn-edit-item:hover{background:#f59e0b;color:#fff}
+body.edit-mode .tree-item .btn-edit-item{display:block}
+.tree-item .btn-add-sub{display:none;position:absolute;right:36px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:none;background:rgba(16,185,129,0.12);color:#10b981;font-size:12px;cursor:pointer;line-height:20px;text-align:center}
+.tree-item .btn-add-sub:hover{background:#10b981;color:#fff}
+body.edit-mode .tree-item .btn-add-sub{display:block}
+.btn-add-tree-item{display:none;margin:0;padding:10px 0;width:100%;border:2px dashed rgba(100,120,180,0.3);border-radius:0 0 8px 8px;background:rgba(37,99,235,0.03);color:var(--blue);font-size:12px;cursor:pointer;transition:all 0.15s;text-align:center}
+.btn-add-tree-item:hover{background:rgba(37,99,235,0.08);border-color:var(--blue)}
+body.edit-mode .btn-add-tree-item{display:block}
+body.edit-mode .tree-body .block{position:relative;padding-right:32px}
+.block .btn-blk-del{display:none;position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;border:none;background:rgba(239,68,68,0.1);color:#ef4444;font-size:10px;cursor:pointer;line-height:16px;text-align:center}
+.block .btn-blk-del:hover{background:#ef4444;color:#fff}
+body.edit-mode .block .btn-blk-del{display:block}
+.edit-btn{display:none;margin-left:auto;width:24px;height:24px;border-radius:50%;background:rgba(37,99,235,0.1);color:var(--blue);font-size:16px;font-weight:700;cursor:pointer;text-align:center;line-height:24px;flex-shrink:0;transition:all 0.12s}
+.edit-btn:hover{transform:scale(1.15)} .edit-add{background:rgba(37,99,235,0.1);color:#2563eb} .edit-add:hover{background:#2563eb;color:#fff} .edit-sub{background:rgba(16,185,129,0.1);color:#059669} .edit-sub:hover{background:#10b981;color:#fff}
+body.edit-mode .edit-btn{display:inline-flex;align-items:center;justify-content:center}
+.btn-edit-cat{display:none;position:absolute;right:42px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:none;background:rgba(245,158,11,0.12);color:#f59e0b;font-size:11px;cursor:pointer;line-height:20px;text-align:center}
+.btn-edit-cat:hover{background:#f59e0b;color:#fff}
+body.edit-mode .btn-edit-cat{display:block}
+body.edit-mode .cat-header{padding-right:76px;position:relative}
+
+/* Tables */
+.rank-table{width:100%;border-collapse:collapse;font-size:12px}
+.rank-table th,.rank-table td{border:1px solid var(--border);padding:9px 10px;text-align:center;white-space:nowrap}
+.rank-table th{background:var(--table-header-bg);font-weight:600;font-size:11px;color:var(--text-secondary)}
+.rank-table tbody tr{transition:all 0.15s}
+.rank-table tbody tr:hover{background:var(--bg-card);box-shadow:0 2px 12px rgba(0,0,0,0.08);transform:translateY(-1px);position:relative;z-index:2;cursor:pointer}
+.rank-1{background:#fde8e8}.rank-2{background:#e8f5e9}.rank-3{background:#e6f2ff}
+body.dark .rank-1{background:rgba(220,38,38,0.2)}body.dark .rank-2{background:rgba(22,163,74,0.15)}body.dark .rank-3{background:rgba(37,99,235,0.15)}
+.rank-pct-bar{display:inline-block;height:5px;border-radius:3px;margin-right:6px;vertical-align:middle;background:linear-gradient(90deg,var(--blue),#93b4f5);transition:width 0.6s ease}
+.empty-hint{text-align:center;color:var(--text-muted);padding:32px 12px!important;font-size:13px}
+
+/* Blacklist */
+.blacklist-table{width:100%;border-collapse:collapse;font-size:12px}
+.blacklist-table th{background:var(--table-header-bg);padding:10px 12px;text-align:left;font-size:11px;font-weight:700;color:var(--text-secondary);border-bottom:2px solid var(--border)}
+.blacklist-table td{padding:10px 12px;border-bottom:1px solid var(--border)}
+.blacklist-table tbody tr:hover td{background:rgba(0,0,0,0.02)}
+
+/* Buttons */
+.btn-glass{padding:6px 16px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap;border:1px solid var(--border);display:inline-flex;align-items:center;gap:5px;background:var(--kpi-bg);color:var(--text-secondary)}
+.btn-glass:hover{transform:translateY(-1px)}
+.btn-glass.primary{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 2px 6px rgba(37,99,235,0.2)}
+.btn-glass.primary:hover{background:#1d4ed8;box-shadow:0 4px 12px rgba(37,99,235,0.3)}
+.btn-glass.green{background:#10b981;color:#fff;border-color:#10b981}
+.btn-glass.green:hover{background:#059669}
+.btn-glass.red{background:#fef2f2;color:#dc2626;border-color:rgba(220,38,38,0.2)}
+.btn-glass.red:hover{background:#ef4444;color:#fff}
+
+/* Modal */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,0.6);backdrop-filter:blur(4px);z-index:300;justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--bg-card-solid);border-radius:var(--radius);padding:24px;max-width:500px;width:92%;max-height:82vh;overflow-y:auto;box-shadow:var(--shadow-card);color:var(--text);border:1px solid var(--border)}
+.modal-box h3{margin-bottom:16px;font-size:17px}
+.modal-box label{display:block;font-size:12px;font-weight:700;margin:10px 0 4px;color:var(--text-secondary)}
+.modal-box input[type=text],.modal-box textarea,.modal-box select{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;transition:all 0.2s;font-family:inherit;background:var(--bg-card);color:var(--text)}
+.modal-box input[type=text]:focus,.modal-box textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,0.1);outline:none}
+.modal-box textarea{height:70px;resize:vertical}
+.modal-box .tag-options{display:flex;gap:8px}
+.modal-box .tag-opt{padding:5px 14px;border-radius:20px;font-size:12px;cursor:pointer;border:2px solid #e2e8f0;background:#f8fafc;font-weight:600;transition:all 0.2s}
+.modal-box .tag-opt:hover{border-color:#94a3b8}
+.modal-box .tag-opt.selected.red{border-color:var(--red);background:#fef2f2;color:var(--red)}
+.modal-box .tag-opt.selected.yellow{border-color:var(--yellow);background:#fffcf0;color:#b87310}
+.modal-btns{margin-top:18px;display:flex;gap:8px;justify-content:flex-end}
+.modal-btns button{padding:9px 22px;border-radius:20px;border:none;cursor:pointer;font-size:13px;font-weight:700;transition:all 0.2s}
+.modal-btns .btn-save{background:var(--blue);color:#fff}
+.modal-btns .btn-save:hover{background:#1d4ed8;transform:translateY(-1px)}
+.modal-btns .btn-cancel{background:#f1f5f9;color:var(--text-secondary)}
+.modal-btns .btn-cancel:hover{background:#e2e8f0}
+
+/* Scroll to top */
+.back-top{position:fixed;bottom:28px;right:28px;width:40px;height:40px;background:var(--blue);color:#fff;border:none;border-radius:50%;cursor:pointer;font-size:16px;box-shadow:0 4px 16px rgba(37,99,235,0.3);display:none;z-index:200;transition:all 0.2s}
+.back-top:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(37,99,235,0.4)}
+.back-top.show{display:flex;align-items:center;justify-content:center}
+
+/* Responsive */
+@media(max-width:768px){
+  #zb-sidebar{display:none}
+  #zb-main{padding:12px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-number{font-size:22px}
+  .top-bar{flex-direction:column;gap:6px}
+  .card{padding:14px 16px}
+  .step-body{padding:0 10px 12px 16px}
+}
+
+@media print{
+  #zb-sidebar,.top-bar,.sticky-filter-bar,.back-top,.btn-add-step,.btn-del{display:none}
+  .step-body{display:block!important}
+  .card{break-inside:avoid;box-shadow:none}
+}
+</style>
+</head>
+<body class="is-admin edit-mode">
+
+<div id="zb-layout">
+
+<!-- ====== 侧边栏 ====== -->
+<nav id="zb-sidebar">
+  <div class="zb-logo">
+    <div class="zb-brand">西安库数据看板</div>
+    <div class="zb-sub">XA · 一线质检数据平台</div>
+  </div>
+  <div class="zb-nav-lbl">数据模块</div>
+  <div class="zb-nav-item active" onclick="zbNav('dashboard',this)">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> 数据看板
+  </div>
+  <div class="zb-sidebar-footer">
+    <div id="zbSidebarActionRow">
+      <button onclick="toggleDarkMode()" title="切换暗色模式" id="darkModeBtn">☽</button>
+      <button onclick="toggleAdminMode()" title="管理员模式" id="adminModeBtn" style="font-size:12px">🔓</button>
+    </div>
+    <div class="zb-ver">v2.0</div>
+  </div>
+</nav>
+
+<!-- ====== 主内容区 ====== -->
+<div id="zb-main">
+
+
+<!-- ========== PAGE: 数据看板 ========== -->
+<div class="zb-page active" id="zb-page-dashboard">
+
+<div class="top-bar">
+  <div class="marquee-wrap" id="mqDash"><span class="marquee-inner mq-run" style="--mq-start: 604px; --mq-dur: 12s;">数据驱动质量管理 · 上传Excel自动生成排名 · 点击卡片查看明细</span></div>
+  <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+    <label class="btn-glass green admin-only" style="cursor:pointer">
+      <input type="file" id="excelUpload" accept=".xlsx,.xls,.csv" onchange="handleExcelUpload(this)" style="display:none"> 📥 上传Excel
+    </label>
+    <button class="btn-glass red admin-only" onclick="exportShareVersion()" id="btnExport">💾 导出分享版</button>
+    <button class="btn-glass admin-only" onclick="exportDataJson()" id="btnJson">📄 导出JSON</button>
+  </div>
+</div>
+
+<div class="sticky-filter-bar">
+  <div class="sticky-filter-inner">
+    <span style="font-size:11px;font-weight:600;color:var(--text-secondary);flex-shrink:0">📊 数据看板</span>
+    <div class="sticky-divider"></div>
+    <span class="cat-tab active" id="dashTabAll" onclick="switchDashView('all',this)">全部数据</span>
+    <span class="cat-tab" id="dashTabPerson" onclick="switchDashView('person',this)">TOP人排名</span>
+    <span class="cat-tab" id="dashTabProblem" onclick="switchDashView('problem',this)">TOP问题项</span>
+    <span id="uploadMsg" style="font-size:11px;color:var(--text-secondary);margin-left:auto;flex-shrink:0">数据更新时间：2026-05-30</span>
+  </div>
+</div>
+
+<!-- KPI Cards -->
+<div class="card" style="padding-bottom:12px">
+  <div class="card-title"><div class="card-title-bar" style="background:var(--blue)"></div>核心指标 · 西安库</div>
+  <div class="stats-grid">
+    <div class="stats-item red" onclick="scrollToEl('topProblemTable')"><div class="stats-item-side"></div><div class="stats-item-body"><div class="stats-label">问题总数</div><div class="stats-number" id="totalProblems">37</div><div class="stats-sub">客观执行差异</div></div></div>
+    <div class="stats-item blue" onclick="scrollToEl('topPersonTable')"><div class="stats-item-side"></div><div class="stats-item-body"><div class="stats-label">涉及人数</div><div class="stats-number" id="totalPeople">15</div><div class="stats-sub">有差异的质检员</div></div></div>
+    <div class="stats-item yellow" onclick="scrollToEl('topProblemTable')"><div class="stats-item-side"></div><div class="stats-item-body"><div class="stats-label">TOP1问题项</div><div class="stats-number" id="topDefect" style="font-size:16px">后摄白底拍照有斑</div></div></div>
+    <div class="stats-item green" onclick="scrollToEl('topPersonTable')"><div class="stats-item-side"></div><div class="stats-item-body"><div class="stats-label">问题最多的人</div><div class="stats-number" id="topPerson" style="font-size:16px">郑豪</div></div></div>
+  </div>
+</div>
+
+<!-- Monthly Focus Card -->
+<div class="card" id="focusCard" style="border-left:4px solid #ef4444;background:linear-gradient(135deg,rgba(239,68,68,0.04),rgba(249,115,22,0.02));padding:16px 24px">
+  <div class="card-title" style="margin-bottom:12px"><div class="card-title-bar" style="background:#ef4444"></div>🎯 本月攻坚：相机问题 <span style="font-size:10px;color:var(--text-muted);font-weight:400;margin-left:6px">聚焦后摄/前摄/拍照/镜头相关</span></div>
+  <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+    <div style="text-align:center;min-width:80px">
+      <div style="font-size:30px;font-weight:900;color:#ef4444" id="camCount">7</div>
+      <div style="font-size:11px;color:var(--text-secondary)">相机问题总数</div>
+    </div>
+    <div style="text-align:center;min-width:80px">
+      <div style="font-size:30px;font-weight:900;color:#f59e0b" id="camPercent">18.9%</div>
+      <div style="font-size:11px;color:var(--text-secondary)">占总问题比例</div>
+    </div>
+    <div style="flex:1;min-width:220px">
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;font-weight:600">🔍 相机相关细分问题</div>
+      <div id="camDetail" style="font-size:12px;color:var(--text-secondary);line-height:1.8"><span style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;border-radius:10px;background:rgba(239,68,68,0.08);font-size:11px">后摄白底拍照有斑 <b style="color:#ef4444">3</b></span><span style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;border-radius:10px;background:rgba(239,68,68,0.08);font-size:11px">拍照坏点 <b style="color:#ef4444">2</b></span><span style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;border-radius:10px;background:rgba(239,68,68,0.08);font-size:11px">漏液（坏点＞0.5mm） <b style="color:#ef4444">1</b></span><span style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;border-radius:10px;background:rgba(239,68,68,0.08);font-size:11px">后壳-后盖与镜头保护罩连接处有胶水溢出 <b style="color:#ef4444">1</b></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Rankings -->
+<div class="card" style="padding:0;overflow:hidden" id="dashAllView">
+  <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px">
+    <div class="card-title-bar" style="background:var(--yellow)"></div><span style="font-weight:700;font-size:14px">TOP人排名 &amp; TOP问题项排名</span>
+    <span style="font-size:10px;color:var(--text-muted)">点击行查看详情</span>
+  </div>
+  <!-- 个人QA客观执行情况表 -->
+  <div style="padding:8px 14px;font-size:11px;font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border);border-top:1px solid var(--border)">👤 个人QA客观执行情况</div>
+  <div style="overflow-x:auto"><table class="rank-table" id="topPersonTable"><thead><tr><th>#</th><th>姓名</th><th>差异数</th><th>差异率</th><th>涉及问题</th></tr></thead><tbody><tr class="rank-1"><td><b>1</b></td><td>郑豪</td><td><b>5</b></td><td>13.5%</td><td style="max-width:280px"><span class="prob-tag">1.5mm-5mm且数量=1</span><span class="prob-tag">电池健康值不符</span><span class="prob-tag">外屏-感应孔样式与示例不符</span><span class="prob-tag">后壳-后盖与镜头保护罩连接处有胶水溢出</span><span class="prob-tag">2mm-10mm</span></td></tr><tr class="rank-2"><td><b>2</b></td><td>徐庆林</td><td><b>5</b></td><td>13.5%</td><td style="max-width:280px"><span class="prob-tag">部分零件维修更换</span><span class="prob-tag">无保护膜</span><span class="prob-tag">外屏-感应孔样式与示例不符</span><span class="prob-tag">外屏-屏幕支架更换-Xray</span><span class="prob-tag">外屏-APP黑边红线有缺失</span></td></tr><tr class="rank-3"><td><b>3</b></td><td>蒋金才</td><td><b>4</b></td><td>10.8%</td><td style="max-width:280px"><span class="prob-tag">后摄白底拍照有斑 x2</span><span class="prob-tag">拍照坏点</span><span class="prob-tag">状态栏以外透图（不可拍）</span></td></tr><tr class=""><td><b>4</b></td><td>文强</td><td><b>3</b></td><td>8.1%</td><td style="max-width:280px"><span class="prob-tag">屏幕边缘脱胶</span><span class="prob-tag">脱胶缝隙 ≥0.3mm</span><span class="prob-tag">后壳-壳内漆面受损</span></td></tr><tr class=""><td><b>5</b></td><td>钟成</td><td><b>3</b></td><td>8.1%</td><td style="max-width:280px"><span class="prob-tag">后壳-与中框有溢胶/撬痕</span><span class="prob-tag">刻字小于50%</span><span class="prob-tag">状态栏以外透图（可拍）</span></td></tr><tr class=""><td><b>6</b></td><td>杨彪</td><td><b>3</b></td><td>8.1%</td><td style="max-width:280px"><span class="prob-tag">后壳-壳内漆面受损</span><span class="prob-tag">部分零件维修更换</span><span class="prob-tag">1.5mm-5mm且数量=1</span></td></tr><tr class=""><td><b>7</b></td><td>蒋俊辉</td><td><b>2</b></td><td>5.4%</td><td style="max-width:280px"><span class="prob-tag">后壳-与中框有溢胶/撬痕</span><span class="prob-tag">拍照坏点</span></td></tr><tr class=""><td><b>8</b></td><td>李代富</td><td><b>2</b></td><td>5.4%</td><td style="max-width:280px"><span class="prob-tag">显示异常/无法正常显示 x2</span></td></tr><tr class=""><td><b>9</b></td><td>陈珍珍</td><td><b>2</b></td><td>5.4%</td><td style="max-width:280px"><span class="prob-tag">漏液（坏点＞0.5mm）</span><span class="prob-tag">外壳开孔切割弧度与原装不符</span></td></tr><tr class=""><td><b>10</b></td><td>余宗琳</td><td><b>2</b></td><td>5.4%</td><td style="max-width:280px"><span class="prob-tag">后壳-样式不匹配</span><span class="prob-tag">异常</span></td></tr><tr class=""><td><b>11</b></td><td>杨辉</td><td><b>2</b></td><td>5.4%</td><td style="max-width:280px"><span class="prob-tag">画面异常</span><span class="prob-tag">后壳-卡槽小型号与本机不一致/缺失</span></td></tr><tr class=""><td><b>12</b></td><td>张亚锋</td><td><b>1</b></td><td>2.7%</td><td style="max-width:280px"><span class="prob-tag">脱胶缝隙 ≥0.3mm</span></td></tr><tr class=""><td><b>13</b></td><td>System</td><td><b>1</b></td><td>2.7%</td><td style="max-width:280px"><span class="prob-tag">异常</span></td></tr><tr class=""><td><b>14</b></td><td>朱震皓</td><td><b>1</b></td><td>2.7%</td><td style="max-width:280px"><span class="prob-tag">状态栏以外透图（可拍）</span></td></tr><tr class=""><td><b>15</b></td><td>李攀</td><td><b>1</b></td><td>2.7%</td><td style="max-width:280px"><span class="prob-tag">后摄白底拍照有斑</span></td></tr></tbody></table></div>
+  <!-- TOP问题项排名 -->
+  <div style="padding:8px 14px;font-size:11px;font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border);border-top:1px solid var(--border)">🔍 TOP问题项排名</div>
+  <div style="overflow-x:auto"><table class="rank-table" id="topProblemTable"><thead><tr><th>#</th><th>问题项</th><th>数量</th><th>占比</th></tr></thead><tbody><tr class="rank-1"><td><b>1</b></td><td>后摄白底拍照有斑</td><td>3</td><td><span class="rank-pct-bar" style="width:80px"></span>8.1%</td></tr><tr class="rank-2"><td><b>2</b></td><td>后壳-与中框有溢胶/撬痕</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class="rank-3"><td><b>3</b></td><td>1.5mm-5mm且数量=1</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>4</b></td><td>显示异常/无法正常显示</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>5</b></td><td>后壳-壳内漆面受损</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>6</b></td><td>部分零件维修更换</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>7</b></td><td>拍照坏点</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>8</b></td><td>脱胶缝隙 ≥0.3mm</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>9</b></td><td>异常</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>10</b></td><td>外屏-感应孔样式与示例不符</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>11</b></td><td>状态栏以外透图（可拍）</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>12</b></td><td>屏幕边缘脱胶</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>13</b></td><td>漏液（坏点＞0.5mm）</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>14</b></td><td>后壳-样式不匹配</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>15</b></td><td>画面异常</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>16</b></td><td>电池健康值不符</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>17</b></td><td>状态栏以外透图（不可拍）</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>18</b></td><td>外壳开孔切割弧度与原装不符</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>19</b></td><td>刻字小于50%</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>20</b></td><td>无保护膜</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>21</b></td><td>外屏-屏幕支架更换-Xray</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>22</b></td><td>外屏-APP黑边红线有缺失</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>23</b></td><td>后壳-后盖与镜头保护罩连接处有胶水溢出</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>24</b></td><td>后壳-卡槽小型号与本机不一致/缺失</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>25</b></td><td>2mm-10mm</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr></tbody></table></div>
+</div>
+
+<!-- Trend Chart -->
+<div class="card" id="trendCard" style="">
+  <div class="card-title" style="justify-content:space-between;flex-wrap:wrap;gap:8px">
+    <div style="display:flex;align-items:center;gap:6px">
+      <div class="card-title-bar" style="background:#10b981"></div>差异趋势图<span style="font-size:10px;color:var(--text-muted);font-weight:400;margin-left:6px">Excel需包含"统计日期"列</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <div id="dimensionTabs" style="display:flex;gap:2px;background:var(--kpi-bg);border-radius:6px;padding:3px">
+        <button class="trend-tab active" onclick="switchTrendDimension('person',this)">人维度</button>
+        <button class="trend-tab" onclick="switchTrendDimension('problem',this)">项维度</button>
+      </div>
+      <div id="trendTabs" style="display:flex;gap:2px;background:var(--kpi-bg);border-radius:6px;padding:3px">
+        <button class="trend-tab active" onclick="switchTrendView('day',this)">日度</button>
+        <button class="trend-tab" onclick="switchTrendView('week',this)">周度</button>
+        <button class="trend-tab" onclick="switchTrendView('month',this)">月度</button>
+      </div>
+    </div>
+  </div>
+  <div id="personTrendChart" style="width: 100%; height: 380px; -webkit-user-select: none; position: relative;" _echarts_instance_="ec_1780643316034"><div style="position: relative; width: 968px; height: 380px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1936" height="760" style="position: absolute; left: 0px; top: 0px; width: 968px; height: 380px; -webkit-user-select: none; padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>
+  <div id="problemTrendChart" style="width:100%;height:380px;display:none"></div>
+</div>
+
+<!-- Person Detail Modal -->
+<div class="modal-overlay" id="personDetailModal">
+  <div class="modal-box" style="max-width:620px;padding:0;overflow:hidden">
+    <div style="background:linear-gradient(135deg,#eef6ff,#e4effd);padding:14px 18px 10px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <h3 id="personModalTitle" style="font-size:14px;font-weight:700;color:#1e3a8a;margin:0">质检员详情</h3>
+        <span onclick="closePersonDetailModal()" style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.7);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:#64748b;border:1px solid var(--border);line-height:1">×</span>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <span id="personModalTotal" style="font-size:10px;padding:2px 10px;border-radius:12px;background:rgba(37,99,235,0.1);color:#2563eb">共 0 条</span>
+      </div>
+    </div>
+    <div style="padding:0;max-height:55vh;overflow-y:auto">
+      <table class="rank-table" style="border:none">
+        <thead><tr><th style="width:40px">#</th><th style="width:120px">日期</th><th>问题项</th></tr></thead>
+        <tbody id="personDetailBody"><tr><td colspan="3" class="empty-hint">暂无数据</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div><!-- /zb-page-dashboard -->
+
+<!-- ========== PAGE: 漏检黑名单 ========== -->
+<div class="zb-page" id="zb-page-blacklist">
+
+<div class="top-bar">
+  <div class="marquee-wrap" id="mqBl"><span class="marquee-inner mq-run" style="--mq-start: 0px; --mq-dur: 12s;">分站高频漏检项 — 每日必看 · 排名越高越需重点关注</span></div>
+</div>
+
+<div class="card" style="padding:0;overflow:hidden">
+<div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px">
+  <div class="card-title-bar" style="background:var(--red)"></div><span style="font-weight:700;font-size:14px">🚨 漏检黑名单 Top 10</span>
+  <span style="font-size:11px;color:var(--text-muted);margin-left:auto">分站高频漏检项 — 每日必看</span>
+</div>
+<div style="overflow-x:auto;padding:0">
+<table class="blacklist-table">
+<thead><tr><th>排名</th><th>漏检项</th><th>所属工序</th><th>根本原因</th><th>对策</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>后盖/镜头连接处胶水溢出</td><td>②外壳外观</td><td>不检查缝隙，正面光下不明显</td><td>强制"转圈摸缝隙"动作</td></tr>
+<tr><td>2</td><td>后壳漆面受损</td><td>②外壳外观</td><td>边角弧度处漆面薄，深色机不明显</td><td>侧光30°检查纳入SOP</td></tr>
+<tr><td>3</td><td>感应孔样式与示例不符</td><td>⑤拆修痕迹</td><td>凭记忆判断，不看示例</td><td>每批次打印示例照片放工位</td></tr>
+<tr><td>4</td><td>按键处溢胶</td><td>②外壳外观</td><td>不按压时溢胶藏缝隙内不可见</td><td>强制"按压+摸边缘"动作</td></tr>
+<tr><td>5</td><td>脱胶/缝隙</td><td>②外壳外观</td><td>只用眼看不用塞规测量</td><td>0.3mm塞规必测所有连接处</td></tr>
+<tr><td>6</td><td>屏幕显示检查不完整</td><td>③屏幕检查</td><td>切换太快/亮度不够/漏检部分颜色</td><td>"黑白灰各4秒，亮度七成"口诀</td></tr>
+<tr><td>7</td><td>OLED隐藏暗线</td><td>③屏幕检查</td><td>不按压屏幕看不到暗线，不知道此检查项</td><td>按压屏幕上下方中间位置纳入检查步骤</td></tr>
+<tr><td>8</td><td>尾插接口破损</td><td>④功能检查</td><td>只看不晃动，充电线松动时才注意到</td><td>"左右4次上下2次"晃动测试</td></tr>
+<tr><td>9</td><td>装机后屏幕不平整/黑胶溢出</td><td>⑥拍照提交</td><td>装机后不复查平整度和缝隙</td><td>装机后强制四边按压+目视检查</td></tr>
+<tr><td>10</td><td>系统版本不达标（苹果15/16系列）</td><td>①扫码质检</td><td>忽略版本提示直接进入质检</td><td>质检界面弹出版本提示必须处理</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div><!-- /zb-page-blacklist -->
+
+</div><!-- /zb-main -->
+</div><!-- /zb-layout -->
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<!-- Modal -->
+<div class="modal-overlay" id="stepModal">
+  <div class="modal-box">
+    <h3 id="modalTitle">添加检查项</h3>
+    <label>检查项名称</label>
+    <input type="text" id="stepTitle" placeholder="例：边框磕碰检查">
+    <label>操作说明（可选）</label>
+    <textarea id="stepContent" placeholder="描述如何检查、判定标准…"></textarea>
+    <label>图片/视频链接（可选，支持直接粘贴截图）</label>
+    <textarea id="stepMedia" placeholder="粘贴图片链接或视频链接，每行一个。也可以直接粘贴截图（Ctrl+V）" style="height:60px"></textarea>
+    <div id="mediaPreview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px"></div>
+    <label>标记为（可多选）</label>
+    <div class="tag-options">
+      <span class="tag-opt" data-tag="red">重点</span>
+      <span class="tag-opt" data-tag="yellow">易漏</span>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">取消</button>
+      <button class="btn-save" onclick="saveNewStep()">添加</button>
+    </div>
+  </div>
+</div>
+
+<!-- Block Add Modal -->
+<div class="modal-overlay" id="blockModal">
+  <div class="modal-box" style="max-width:520px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:0 0 16px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#6366f1);display:inline-flex;align-items:center;justify-content:center;font-size:16px">+</span>
+        <h3 style="margin:0;font-size:16px;font-weight:700">添加内容块</h3>
+      </div>
+      <span onclick="closeBlockModal()" style="width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:#94a3b8;flex-shrink:0;line-height:1;transition:all .15s" onmouseover="this.style.background='rgba(239,68,68,0.15)';this.style.color='#ef4444'" onmouseout="this.style.background='rgba(0,0,0,0.06)';this.style.color='#94a3b8'">×</span>
+    </div>
+    <!-- Type Cards -->
+    <label style="font-size:11px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;display:block">选择内容类型</label>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 0 16px" id="blockTypeRow">
+      <div class="type-card" data-type="text" onclick="selectBlockType(this)">
+        <span style="font-size:28px">📝</span>
+        <span>文字说明</span>
+      </div>
+      <div class="type-card" data-type="img" onclick="selectBlockType(this)">
+        <span style="font-size:28px">🖼</span>
+        <span>图片</span>
+      </div>
+      <div class="type-card" data-type="video" onclick="selectBlockType(this)">
+        <span style="font-size:28px">🎦</span>
+        <span>视频</span>
+      </div>
+      <div class="type-card" data-type="doc" onclick="selectBlockType(this)">
+        <span style="font-size:28px">📄</span>
+        <span>文档链接</span>
+      </div>
+      <div class="type-card" data-type="ok" onclick="selectBlockType(this)">
+        <span style="font-size:28px">📣</span>
+        <span>口诀卡片</span>
+      </div>
+    </div>
+    <!-- Input Area -->
+    <div id="blockTextField" style="background: rgba(248, 250, 252, 0.8); border-radius: 10px; padding: 12px;">
+      <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block;color:var(--text)">📝 文字内容</label>
+      <textarea id="blockText" placeholder="输入要展示的文字内容、判定标准、操作步骤…" rows="4" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-size:13px;resize:vertical;font-family:inherit"></textarea>
+    </div>
+    <div id="blockUrlField" style="background: rgba(248, 250, 252, 0.8); border-radius: 10px; padding: 12px; display: none;">
+      <label style="font-weight:600;font-size:12px;margin-bottom:4px;display:block;color:var(--text)" id="blockUrlLabel">📝 文字内容</label>
+      <input type="text" id="blockUrl" placeholder="https://example.com/image.jpg" style="width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-size:13px;font-family:inherit">
+      <div style="font-size:10px;color:var(--text-muted);margin-top:6px;line-height:1.5" id="blockUrlHint">输入链接地址</div>
+    </div>
+    <div id="blockPasteArea" style="display:none;margin-top:8px;padding:20px;border:2px dashed rgba(100,120,180,0.35);border-radius:10px;text-align:center;color:var(--text-muted);font-size:12px;background:rgba(37,99,235,0.02);transition:all 0.2s">
+      <div style="font-size:32px;margin-bottom:4px">📎</div>
+      在此区域按 Ctrl+V 粘贴截图
+      <div id="blockPastePreview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center"></div>
+    </div>
+    <div class="modal-btns" style="margin-top:14px">
+      <button class="btn-cancel" onclick="closeBlockModal()">取消</button>
+      <button class="btn-save" onclick="saveBlock()" style="min-width:100px">✓ 添加到检查项</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== Core Navigation =====
+function zbNav(page, el) {
+  document.querySelectorAll('.zb-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.zb-nav-item').forEach(n => n.classList.remove('active'));
+  var target = document.getElementById('zb-page-' + page);
+  if (target) target.classList.add('active');
+  if (el) el.classList.add('active');
+  if (page === 'sop') document.getElementById('zb-main').scrollTop = 0;
+  initMarquees();
+}
+
+function zbNavSection(id) {
+  zbNav('sop', document.querySelector('.zb-nav-item.active'));
+  // Update flow bar active state
+  document.querySelectorAll('.flow-step').forEach(function(f) { f.classList.remove('active'); });
+  var flowSteps = document.querySelectorAll('.flow-step');
+  var catIds = ['cat-display','cat-back','cat-repair','cat-func','cat-flow'];
+  var idx = catIds.indexOf(id);
+  if (idx >= 0 && flowSteps[idx]) flowSteps[idx].classList.add('active');
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  }, 100);
+}
+
+function scrollToEl(id) {
+  zbNav('dashboard', document.querySelectorAll('.zb-nav-item')[1]);
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({behavior:'smooth',block:'center'});
+  }, 100);
+}
+
+// ===== Marquees =====
+function initMarquees() {
+  setTimeout(function() {
+    document.querySelectorAll('.marquee-inner').forEach(function(el) {
+      var wrap = el.parentElement;
+      if (!wrap) return;
+      var ww = wrap.clientWidth;
+      el.style.setProperty('--mq-start', ww + 'px');
+      var dur = Math.max(12, el.scrollWidth / 35);
+      el.style.setProperty('--mq-dur', dur + 's');
+      el.classList.add('mq-run');
+    });
+  }, 100);
+}
+
+// ===== Dark Mode =====
+function toggleDarkMode() {
+  document.body.classList.toggle('dark');
+  var isDark = document.body.classList.contains('dark');
+  document.getElementById('darkModeBtn').innerHTML = isDark ? '&#9788;' : '&#9789;';
+  try { localStorage.setItem('xa_dark', isDark ? '1' : '0'); } catch(e) {}
+}
+try { if (localStorage.getItem('xa_dark') === '1') { document.body.classList.add('dark'); } } catch(e) {}
+
+// ===== Key Mode =====
+function markKeySteps() {
+  document.querySelectorAll('.step').forEach(function(s) {
+    if (s.querySelector('.tag-red, .tag-yellow')) s.classList.add('is-key');
+  });
+}
+function toggleKeyMode() {
+  var on = document.getElementById('keyModeToggle').checked;
+  if (on) { document.body.classList.add('key-mode'); }
+  else { document.body.classList.remove('key-mode'); }
+  var btn = document.getElementById('keyModeSideBtn');
+  if (btn) btn.style.color = on ? 'var(--red)' : '';
+}
+function toggleKeyModeSidebar() {
+  var cb = document.getElementById('keyModeToggle');
+  cb.checked = !cb.checked; toggleKeyMode();
+}
+
+// ===== Edit Mode =====
+var editBtnInjected = false;
+var EDIT_PASSWORD = 'admin123';
+
+// ===== Auto-Save =====
+function autoSaveSOP() {
+  try {
+    var sop = document.getElementById('sopContent');
+    if (!sop) return;
+    var data = { html: sop.innerHTML, time: new Date().toISOString() };
+    localStorage.setItem('qc_sop_backup', JSON.stringify(data));
+  } catch(e) {}
+}
+function restoreSOP() {
+  try {
+    var raw = localStorage.getItem('qc_sop_backup');
+    if (!raw) return false;
+    var data = JSON.parse(raw);
+    var sop = document.getElementById('sopContent');
+    if (!sop || !data.html) return false;
+    // Strip old onclick attributes from tree headers
+    var cleanHtml = data.html.replace(/ onclick="[^"]*"/g, '');
+    sop.innerHTML = cleanHtml;
+    // Re-bind edit buttons
+    if (document.body.classList.contains('edit-mode')) {
+      editBtnInjected = false;
+      injectEditButtons();
+    }
+    return true;
+  } catch(e) { return false; }
+}
+// Auto-save after every edit
+function withAutoSave(fn) {
+  return function() {
+    var result = fn.apply(this, arguments);
+    setTimeout(autoSaveSOP, 100);
+    return result;
+  };
+}
+// Watch for changes and auto-save (delay start to avoid overwriting restore)
+
+  // Clear auto-save if from old version with onclick bug
+  var raw = localStorage.getItem('qc_sop_backup');
+  if (raw && raw.indexOf('toggleTreeNode') >= 0) {
+    // Old data has onclick bug, clean it
+    var data = JSON.parse(raw);
+    data.html = data.html.replace(/ onclick="[^"]*"/g, '');
+    localStorage.setItem('qc_sop_backup', JSON.stringify(data));
+  }
+var _autoSaveReady = false;
+setTimeout(function() { _autoSaveReady = true; }, 2000);
+(function() {
+  var sop = document.getElementById('sopContent');
+  if (sop) {
+    var observer = new MutationObserver(function() {
+      if (_autoSaveReady) autoSaveSOP();
+    });
+    observer.observe(sop, { childList: true, subtree: true, characterData: true });
+  }
+})();
+// Check for saved content on load
+(function() {
+  var raw = localStorage.getItem('qc_sop_backup');
+  if (raw) {
+    try {
+      var data = JSON.parse(raw);
+      var savedTime = new Date(data.time);
+      var now = new Date();
+      var hoursSinceSave = (now - savedTime) / 3600000;
+      // Only prompt if saved within 24 hours
+      if (hoursSinceSave < 24) {
+        var timeStr = savedTime.toLocaleString('zh-CN');
+        var shouldRestore = confirm('检测到上次编辑内容（' + timeStr + '），是否恢复？');
+        if (shouldRestore) restoreSOP();
+      }
+    } catch(e) {}
+  }
+})();
+
+function toggleEditMode() {
+  var cb = document.getElementById('editModeToggle');
+  if (cb.checked) {
+    var pw = prompt('请输入编辑密码：');
+    if (pw !== EDIT_PASSWORD) { alert('密码错误，无法开启编辑模式'); cb.checked = false; return; }
+    document.body.classList.add('edit-mode');
+    if (!editBtnInjected) injectEditButtons();
+  } else {
+    document.body.classList.remove('edit-mode');
+  }
+}
+function toggleEditModeSidebar() {
+  var cb = document.getElementById('editModeToggle');
+  cb.checked = !cb.checked; toggleEditMode();
+}
+
+function toggleAdminMode() {
+  if (document.body.classList.contains('is-admin')) {
+    document.body.classList.remove('is-admin');
+    var btn = document.getElementById('adminModeBtn');
+    if (btn) btn.innerHTML = '&#128274;';
+    sessionStorage.removeItem('qc_admin');
+  } else {
+    var pw = prompt('请输入管理员密码：');
+    if (pw === 'zhijian2026') {
+      document.body.classList.add('is-admin');
+      var btn = document.getElementById('adminModeBtn');
+      if (btn) btn.innerHTML = '&#128275;';
+      sessionStorage.setItem('qc_admin', '1');
+    } else if (pw !== null) {
+      alert('密码错误');
+    }
+  }
+}
+
+// Restore admin state on load
+(function() {
+  if (sessionStorage.getItem('qc_admin') === '1') {
+    document.body.classList.add('is-admin');
+  }
+})();
+
+function injectEditButtons() {
+  editBtnInjected = true;
+  document.querySelectorAll('.tree-header').forEach(function(h) {
+    if (h.querySelector('.edit-btn')) return;
+    var sub = document.createElement('span');
+    sub.className = 'edit-btn edit-sub'; sub.textContent = '↳';
+    sub.title = '添加子级';
+    h.appendChild(sub);
+    var plus = document.createElement('span');
+    plus.className = 'edit-btn edit-add'; plus.textContent = '+';
+    plus.title = '添加内容';
+    h.appendChild(plus);
+  });
+}
+function addBlockEditButtons(block) {
+  if (block.querySelector('.btn-blk-del')) return;
+  var del = document.createElement('button');
+  del.className = 'btn-blk-del'; del.textContent = '×';
+  del.title = '删除此内容块';
+  del.onclick = function(e) { e.stopPropagation(); block.remove(); };
+  block.appendChild(del);
+}
+
+function deleteStep(header) { deleteTreeItem(header); }
+function editItemTitle(header) {
+  var numSpan = header.querySelector('.step-num');
+  if (!numSpan) return;
+  var tagSpan = header.querySelector('.step-tags');
+  var endEl = tagSpan || numSpan.nextElementSibling;
+  // Collect text between numSpan and endEl or buttons
+  var txt = '';
+  var node = numSpan.nextSibling;
+  while (node && node !== endEl && node.nodeType !== 1) {
+    if (node.nodeType === 3) txt += node.textContent;
+    node = node.nextSibling;
+  }
+  // Also check if endEl exists and has text sibling after it before buttons
+  if (tagSpan && tagSpan.nextSibling && tagSpan.nextSibling.nodeType === 3) {
+    txt += tagSpan.nextSibling.textContent;
+  }
+  txt = txt.trim();
+  if (!txt) { alert('无法识别标题文本'); return; }
+  var newTitle = prompt('编辑检查项名称：', txt);
+  if (!newTitle || !newTitle.trim()) return;
+  // Replace the text in the first text node after numSpan (or after tagSpan)
+  var target = tagSpan ? tagSpan.nextSibling : numSpan.nextSibling;
+  if (target && target.nodeType === 3) {
+    target.textContent = newTitle.trim();
+  } else if (numSpan.nextSibling && numSpan.nextSibling.nodeType === 3) {
+    numSpan.nextSibling.textContent = newTitle.trim();
+  }
+}
+function editCatTitle(header) {
+  var spans = header.querySelectorAll('span');
+  var titleSpan = null;
+  for (var i = 0; i < spans.length; i++) {
+    var st = spans[i].getAttribute('style') || '';
+    if (st.indexOf('font-weight:700') >= 0 || st.indexOf('font-weight: 700') >= 0) {
+      titleSpan = spans[i]; break;
+    }
+  }
+  if (!titleSpan) return;
+  var oldTitle = titleSpan.textContent.trim();
+  var newTitle = prompt('编辑分类名称：', oldTitle);
+  if (!newTitle || !newTitle.trim()) return;
+  titleSpan.textContent = newTitle.trim();
+}
+function deleteTreeItem(header) {
+  var title = header.textContent.replace(/[×+]/g, '').trim().substring(0, 40);
+  if (!confirm('确定删除 \"' + title + '\" 吗？此操作不可撤销。')) return;
+  var item = header.closest('.tree-item');
+  if (item) {
+    item.style.opacity = '0'; item.style.transform = 'translateX(-20px)'; item.style.transition = 'all 0.2s';
+    setTimeout(function() { item.remove(); }, 200);
+  }
+}
+var currentBlockHeader = null;
+var blockMediaFiles = [];
+var selectedBlockType = 'text';
+
+function showAddBlockModal(header) {
+  currentBlockHeader = header;
+  blockMediaFiles = [];
+  document.getElementById('blockText').value = '';
+  document.getElementById('blockUrl').value = '';
+  document.getElementById('blockPastePreview').innerHTML = '';
+  document.querySelectorAll('#blockTypeRow .type-card').forEach(function(t){ t.classList.remove('selected'); });
+  var textOpt = document.querySelector('#blockTypeRow .tag-opt[data-type=\"text\"]');
+  if (textOpt) textOpt.classList.add('selected');
+  selectedBlockType = 'text';
+  updateBlockFields('text');
+  document.getElementById('blockModal').classList.add('show');
+}
+
+function selectBlockType(el) {
+  document.querySelectorAll('#blockTypeRow .type-card').forEach(function(t){ t.classList.remove('selected'); });
+  el.classList.add('selected');
+  selectedBlockType = el.dataset.type;
+  updateBlockFields(selectedBlockType);
+}
+
+function updateBlockFields(type) {
+  var labels = {text: '&#128221; 文字内容', img: '&#128444; 图片链接', video: '&#127910; 视频链接', doc: '&#128196; 文档链接', ok: '&#128227; 口诀内容'};
+  var hints = {img: '粘贴图片链接，或在下方面板直接 Ctrl+V 粘贴截图', video: '输入视频链接（支持 mp4/webm/mov 格式）', doc: '输入文档链接（PDF、飞书文档、腾讯文档等）'};
+  document.getElementById('blockTextField').style.display = (type === 'text' || type === 'ok') ? '' : 'none';
+  document.getElementById('blockUrlField').style.display = (type === 'img' || type === 'video' || type === 'doc') ? '' : 'none';
+  document.getElementById('blockPasteArea').style.display = (type === 'img') ? '' : 'none';
+  var label = document.getElementById('blockUrlLabel');
+  if (label) label.innerHTML = labels[type] || '&#128444; 链接';
+  var hint = document.getElementById('blockUrlHint');
+  if (hint) hint.textContent = hints[type] || '输入链接地址';
+  // Update text field label
+  var textLabel = document.querySelector('#blockTextField label');
+  if (textLabel) textLabel.innerHTML = labels[type] || '&#128221; 内容';
+  var textarea = document.getElementById('blockText');
+  if (textarea) {
+    var placeholders = {text: '输入要展示的文字内容、判定标准、操作步骤…', ok: '输入口诀内容，如：塞规平行放，轻松能入就算脱'};
+    textarea.placeholder = placeholders[type] || '输入内容…';
+  }
+}
+
+function closeBlockModal() {
+  document.getElementById('blockModal').classList.remove('show');
+  currentBlockHeader = null;
+  blockMediaFiles = [];
+}
+
+function saveBlock() {
+  try {
+    var type = selectedBlockType;
+    var text = document.getElementById('blockText').value.trim();
+    var url = document.getElementById('blockUrl').value.trim();
+    if (!currentBlockHeader) { alert('会话已过期，请重新打开'); return; }
+    var body = currentBlockHeader.nextElementSibling;
+    if (!body || !body.classList.contains('tree-body')) { alert('找不到目标位置'); return; }
+
+    var block = document.createElement('div');
+    block.className = 'block';
+
+    if (type === 'text') {
+      if (!text) { alert('请输入文字内容'); return; }
+      var sp = document.createElement('span');
+      sp.className = 'block-title'; sp.innerHTML = '&#128221; 补充说明';
+      block.appendChild(sp);
+      block.appendChild(document.createTextNode(text));
+    } else if (type === 'img') {
+      if (!url && blockMediaFiles.length === 0) { alert('请输入图片链接或粘贴截图'); return; }
+      if (url) {
+        var img = document.createElement('img');
+        img.src = url; img.style.cssText = 'max-width:100%;max-height:400px;border-radius:8px;cursor:pointer';
+        img.onclick = function() { this.style.maxHeight = this.style.maxHeight === 'none' ? '400px' : 'none'; };
+        block.appendChild(img);
+      }
+      blockMediaFiles.forEach(function(b64) {
+        var img2 = document.createElement('img');
+        img2.src = b64; img2.style.cssText = 'max-width:100%;max-height:400px;border-radius:8px;cursor:pointer';
+        img2.onclick = function() { this.style.maxHeight = this.style.maxHeight === 'none' ? '400px' : 'none'; };
+        block.appendChild(img2);
+      });
+    } else if (type === 'video') {
+      if (!url) { alert('请输入视频链接'); return; }
+      var vid = document.createElement('video');
+      vid.src = url; vid.controls = true;
+      vid.style.cssText = 'max-width:100%;max-height:300px;border-radius:8px';
+      block.appendChild(vid);
+    } else if (type === 'doc') {
+      if (!url) { alert('请输入文档链接'); return; }
+      var label = document.createElement('span');
+      label.className = 'block-title'; label.innerHTML = '&#128196; 参考文档';
+      block.appendChild(label);
+      var a = document.createElement('a');
+      a.href = url; a.target = '_blank'; a.textContent = url;
+      a.style.cssText = 'font-size:12px;color:var(--blue);word-break:break-all';
+      block.appendChild(a);
+    } else if (type === 'ok') {
+      if (!text) { alert('请输入口诀内容'); return; }
+      block.className = 'highlight-card';
+      var kv = document.createElement('div');
+      kv.className = 'koujue'; kv.textContent = '"' + text + '"';
+      block.appendChild(kv);
+    } else {
+      alert('未知内容类型: ' + type); return;
+    }
+
+    body.appendChild(block);
+    addBlockEditButtons(block);
+    currentBlockHeader.classList.add('open');
+    closeBlockModal();
+  } catch(e) {
+    alert('保存失败: ' + e.message);
+  }
+}
+
+// Block modal paste support
+document.addEventListener('DOMContentLoaded', function() {
+  var pasteArea = document.getElementById('blockPasteArea');
+  if (pasteArea) {
+    pasteArea.addEventListener('paste', function(e) {
+      var items = e.clipboardData.items;
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+          var blob = items[i].getAsFile();
+          var reader = new FileReader();
+          reader.onload = function(ev) {
+            blockMediaFiles.push(ev.target.result);
+            var wrap = document.createElement('div');
+            wrap.style.cssText = 'position:relative;display:inline-block';
+            var img = document.createElement('img');
+            img.src = ev.target.result;
+            img.style.cssText = 'max-width:100px;max-height:100px;border-radius:6px;border:1px solid #ddd';
+            var rm = document.createElement('span');
+            rm.textContent = '×';
+            rm.style.cssText = 'position:absolute;top:-6px;right:-6px;background:red;color:#fff;width:18px;height:18px;border-radius:50%;text-align:center;line-height:18px;cursor:pointer;font-size:12px';
+            rm.onclick = function() {
+              var idx = blockMediaFiles.indexOf(ev.target.result);
+              if (idx >= 0) blockMediaFiles.splice(idx, 1);
+              wrap.remove();
+            };
+            wrap.appendChild(img); wrap.appendChild(rm);
+            document.getElementById('blockPastePreview').appendChild(wrap);
+          };
+          reader.readAsDataURL(blob);
+        }
+      }
+    });
+  }
+  // Close block modal on overlay click
+  var bm = document.getElementById('blockModal');
+  if (bm) {
+    bm.addEventListener('click', function(e) { if (e.target === bm) closeBlockModal(); });
+    var saveBtn = bm.querySelector('.btn-save');
+    if (saveBtn) saveBtn.addEventListener('click', function(e) { e.preventDefault(); saveBlock(); });
+    bm.querySelectorAll('#blockTypeRow .type-card').forEach(function(opt) {
+      opt.addEventListener('click', function() { selectBlockType(this); });
+    });
+  }
+  // Esc key to close block modal
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('blockModal').classList.contains('show')) {
+      closeBlockModal();
+    }
+  });
+});
+function showAddSubModal(header) {
+  var body = header.nextElementSibling;
+  if (!body || !body.classList.contains('tree-body')) return;
+  var title = prompt('子级名称：');
+  if (!title || !title.trim()) return;
+  createTreeItem(body, title.trim(), (body.querySelectorAll(':scope > .tree-item').length + 1));
+  header.classList.add('open');
+}
+
+function createTreeItem(parent, title, num) {
+  var div = document.createElement('div');
+  div.className = 'tree-item';
+  var numSpan = '<span class=\"step-num\">' + num + '</span>';
+  if (!num) numSpan = '';
+  div.innerHTML = '<div class=\"tree-header\" onclick=\"toggleTreeNode(this)\"><span class=\"tree-arrow\">&#9654;</span>' + numSpan + title + '</div><div class=\"tree-body\"></div>';
+  parent.appendChild(div);
+  if (editBtnInjected) {
+    var hdr = div.querySelector('.tree-header');
+    var plus = document.createElement('span');
+    plus.className = 'edit-btn'; plus.textContent = '+'; plus.title = '添加内容';
+    plus.onclick = function(e) { e.stopPropagation(); showAddBlockModal(hdr); };
+    hdr.appendChild(plus);
+  }
+  div.scrollIntoView({behavior:'smooth',block:'center'});
+  return div;
+}
+
+function showAddTreeItemModal(body) {
+  var title = prompt('新检查项名称：');
+  if (!title || !title.trim()) return;
+  var n = body.querySelectorAll(':scope > .tree-item').length + 1;
+  createTreeItem(body, title.trim(), n);
+}
+
+// ===== Add Step Modal =====
+var currentStepList = null;
+var mediaFiles = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+  var mediaEl = document.getElementById('stepMedia');
+  if (mediaEl) mediaEl.addEventListener('paste', handleMediaPaste);
+});
+
+function handleMediaPaste(e) {
+  var items = e.clipboardData.items;
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].type.indexOf('image') !== -1) {
+      var blob = items[i].getAsFile();
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        mediaFiles.push(ev.target.result);
+        var preview = document.getElementById('mediaPreview');
+        var wrap = document.createElement('div');
+        wrap.style.cssText = 'position:relative;display:inline-block';
+        var img = document.createElement('img');
+        img.src = ev.target.result;
+        img.style.cssText = 'max-width:120px;max-height:120px;border-radius:6px;border:1px solid #ddd';
+        var rm = document.createElement('span');
+        rm.textContent = '×';
+        rm.style.cssText = 'position:absolute;top:-6px;right:-6px;background:red;color:#fff;width:18px;height:18px;border-radius:50%;text-align:center;line-height:18px;cursor:pointer;font-size:12px';
+        rm.onclick = function() {
+          var idx = mediaFiles.indexOf(ev.target.result);
+          if (idx >= 0) mediaFiles.splice(idx, 1);
+          wrap.remove();
+        };
+        wrap.appendChild(img); wrap.appendChild(rm);
+        preview.appendChild(wrap);
+      };
+      reader.readAsDataURL(blob);
+    }
+  }
+}
+
+function showAddStepModal(list) {
+  currentStepList = list;
+  mediaFiles = [];
+  document.getElementById('mediaPreview').innerHTML = '';
+  document.getElementById('stepTitle').value = '';
+  document.getElementById('stepContent').value = '';
+  document.getElementById('stepMedia').value = '';
+  document.querySelectorAll('#stepModal .tag-opt').forEach(function(t) { t.classList.remove('selected'); });
+  document.getElementById('stepModal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('stepModal').classList.remove('show');
+  currentStepList = null;
+}
+
+function saveNewStep() {
+  var title = document.getElementById('stepTitle').value.trim();
+  if (!title) { alert('请输入检查项名称'); return; }
+  var content = document.getElementById('stepContent').value.trim();
+  var tags = [];
+  document.querySelectorAll('#stepModal .tag-opt.selected').forEach(function(t) { tags.push(t.dataset.tag); });
+
+  var mediaHtml = '';
+  var urls = document.getElementById('stepMedia').value.trim().split('\n').filter(Boolean);
+  urls.forEach(function(url) {
+    if (/\.(mp4|webm|mov|avi)(\?|$)/i.test(url)) {
+      mediaHtml += '<div class="block"><video src="' + url + '" controls style="max-width:100%;max-height:300px;border-radius:8px"></video></div>';
+    } else {
+      mediaHtml += '<div class="block"><img src="' + url + '" style="max-width:100%;max-height:400px;border-radius:8px;cursor:pointer" onclick="this.style.maxHeight=this.style.maxHeight==\'none\'?\'400px\':\'none\'"></div>';
+    }
+  });
+  mediaFiles.forEach(function(b64) {
+    mediaHtml += '<div class="block"><img src="' + b64 + '" style="max-width:100%;max-height:400px;border-radius:8px;cursor:pointer" onclick="this.style.maxHeight=this.style.maxHeight==\'none\'?\'400px\':\'none\'"></div>';
+  });
+
+  var num = currentStepList.querySelectorAll('.step').length + 1;
+  var stepDiv = document.createElement('div');
+  stepDiv.className = 'step' + (tags.length > 0 ? ' is-key' : '');
+  var tagHtml = '';
+  if (tags.includes('red')) tagHtml += '<span class="tag tag-red">重点</span>';
+  if (tags.includes('yellow')) tagHtml += '<span class="tag tag-yellow">易漏</span>';
+
+  stepDiv.innerHTML =
+    '<div class="step-header" onclick="toggleStep(this)">' +
+      '<span class="arrow">&#9654;</span>' +
+      '<span class="step-num sub">' + num + '</span>' +
+      '<span class="step-title">' + escapeHtml(title) + '</span>' +
+      (tagHtml ? '<span class="step-tags">' + tagHtml + '</span>' : '') +
+    '</div>' +
+    '<div class="step-body">' +
+      (content ? '<div class="block"><span class="block-title">操作</span>' + escapeHtml(content) + '</div>' : '') +
+      mediaHtml +
+    '</div>';
+
+  if (editBtnInjected) {
+    var hdr = stepDiv.querySelector('.step-header');
+    var delBtn = document.createElement('button');
+    delBtn.className = 'btn-del'; delBtn.textContent = '×';
+    delBtn.title = '删除此检查项';
+    delBtn.onclick = function(e) { e.stopPropagation(); deleteStep(hdr); };
+    hdr.appendChild(delBtn);
+  }
+
+  var addBtn = currentStepList.querySelector('.btn-add-step');
+  currentStepList.insertBefore(stepDiv, addBtn);
+  closeModal();
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('tag-opt')) e.target.classList.toggle('selected');
+  if (e.target.id === 'stepModal') closeModal();
+});
+
+// ===== SOP Steps =====
+function toggleStep(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('show');
+}
+function toggleTreeCat(el) {
+  el.classList.toggle('collapsed');
+  var body = el.nextElementSibling;
+  if (body) body.classList.toggle('hidden');
+}
+function toggleTreeNode(el) {
+  el.classList.toggle('open');
+}
+function expandAll() {
+  document.querySelectorAll('.tree-header').forEach(function(h) { h.classList.add('open'); });
+  document.querySelectorAll('.cat-body').forEach(function(b) { b.classList.remove('hidden'); });
+  document.querySelectorAll('.cat-header').forEach(function(h) { h.classList.remove('collapsed'); });
+}
+function collapseAll() {
+  document.querySelectorAll('.tree-header').forEach(function(h) { h.classList.remove('open'); });
+}
+
+// ===== Search =====
+function doSearch() {
+  // Always clean previous highlights before searching
+  document.querySelectorAll('.highlight').forEach(function(el) { el.outerHTML = el.textContent; });
+  var q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) { return; }
+  document.querySelectorAll('.step-body').forEach(function(body) {
+    if (body.textContent.toLowerCase().indexOf(q) >= 0) {
+      body.classList.add('show');
+      body.previousElementSibling.classList.add('open');
+      body.scrollIntoView({behavior:'smooth',block:'center'});
+      highlightText(body, q);
+    }
+  });
+}
+function highlightText(el, q) {
+  var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+  var nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(function(node) {
+    var text = node.textContent.toLowerCase();
+    var idx = text.indexOf(q);
+    if (idx >= 0) {
+      var span = document.createElement('span');
+      span.innerHTML = node.textContent.substring(0, idx) + '<span class="highlight" style="background:#fde68a;padding:2px 3px;border-radius:3px;font-weight:600">' + node.textContent.substring(idx, idx + q.length) + '</span>' + node.textContent.substring(idx + q.length);
+      node.parentNode.replaceChild(span, node);
+    }
+  });
+}
+
+// ===== Category Filter =====
+function filterByCategory(cat, el) {
+  document.querySelectorAll('#zb-page-sop .cat-tab').forEach(function(t) { t.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.step').forEach(function(s) {
+    if (cat === 'all') { s.style.display = ''; }
+    else if (cat === 'key') { s.style.display = s.classList.contains('is-key') ? '' : 'none'; }
+  });
+}
+
+// ===== Dashboard =====
+var dashboardData = null;
+var trendChart = null;
+var currentTrendView = 'day';
+var currentTrendDimension = 'person';
+var TREND_COLORS = ['#2563eb','#ef4444','#10b981','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316','#6366f1','#14b8a6','#e11d48','#84cc16'];
+function truncName(name, max) {
+  return name.length > max ? name.slice(0, max) + '…' : name;
+}
+
+function getISOWeek(dateStr) {
+  var d = new Date(dateStr);
+  if (isNaN(d.getTime())) return null;
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+  var week1 = new Date(d.getFullYear(), 0, 4);
+  var weekNum = 1 + Math.round(((d - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+  return d.getFullYear() + '-W' + (weekNum < 10 ? '0' : '') + weekNum;
+}
+function getYearMonth(dateStr) {
+  var d = new Date(dateStr);
+  if (isNaN(d.getTime())) return null;
+  return d.getFullYear() + '-' + ((d.getMonth() + 1) < 10 ? '0' : '') + (d.getMonth() + 1);
+}
+
+function switchDashView(view, el) {
+  document.querySelectorAll('#dashTabAll,#dashTabPerson,#dashTabProblem').forEach(function(t) { t.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  var personSection = document.getElementById('topPersonTable').closest('div');
+  var problemSection = document.getElementById('topProblemTable').closest('div');
+  if (view === 'all') {
+    if (personSection) personSection.style.display = '';
+    if (problemSection) problemSection.style.display = '';
+  } else if (view === 'person') {
+    if (personSection) personSection.style.display = '';
+    if (problemSection) problemSection.style.display = 'none';
+  } else {
+    if (personSection) personSection.style.display = 'none';
+    if (problemSection) problemSection.style.display = '';
+  }
+}
+
+function handleExcelUpload(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      var wb = XLSX.read(e.target.result, {type:'array'});
+      var ws = wb.Sheets[wb.SheetNames[0]];
+      var rows = XLSX.utils.sheet_to_json(ws, {header:1});
+      if (rows.length < 2) { alert('Excel文件为空或格式不正确'); return; }
+
+      var header = rows[0];
+      var col = {
+        date: header.findIndex(function(h) { return h && h.indexOf('统计日期') >= 0; }),
+        person: header.findIndex(function(h) { return h && h.indexOf('原质检操作人名称') >= 0; }),
+        problem: header.findIndex(function(h) { return h && h.indexOf('新三级质检项名称') >= 0; }),
+        problemOld: header.findIndex(function(h) { return h && h.indexOf('原三级质检项名称') >= 0; }),
+        isDiff: header.findIndex(function(h) { return h && h.indexOf('是否差异') >= 0; })
+      };
+
+      if (col.date < 0) { alert('未找到"统计日期"列'); return; }
+
+      var personMap = {}, problemMap = {}, dateMap = {}, weekMap = {}, monthMap = {}, personProblemMap = {};
+      var personDateMap = {}, personWeekMap = {}, personMonthMap = {};
+      var problemDateMap = {}, problemWeekMap = {}, problemMonthMap = {};
+      var personRecords = {};
+      var total = 0;
+
+      for (var i = 1; i < rows.length; i++) {
+        var row = rows[i];
+        if (!row[col.date]) continue;
+        var isDiff = col.isDiff >= 0 ? (String(row[col.isDiff]).trim() === '1') : true;
+        if (!isDiff) continue;
+        total++;
+
+        var personName = '';
+        if (col.person >= 0 && row[col.person]) {
+          personName = String(row[col.person]).trim();
+          personMap[personName] = (personMap[personName] || 0) + 1;
+        }
+        var prob = '';
+        if (col.problem >= 0 && row[col.problem]) {
+          prob = String(row[col.problem]).trim();
+          if (prob === '-' && col.problemOld >= 0 && row[col.problemOld]) {
+            prob = String(row[col.problemOld]).trim();
+          }
+          if (prob) {
+            problemMap[prob] = (problemMap[prob] || 0) + 1;
+          }
+        }
+        if (personName && prob) {
+          if (!personProblemMap[personName]) personProblemMap[personName] = {};
+          personProblemMap[personName][prob] = (personProblemMap[personName][prob] || 0) + 1;
+        }
+        // Date trend
+        if (col.date >= 0 && row[col.date]) {
+          var d = String(row[col.date]).trim();
+          dateMap[d] = (dateMap[d] || 0) + 1;
+          var wk = getISOWeek(d);
+          if (wk) weekMap[wk] = (weekMap[wk] || 0) + 1;
+          var mo = getYearMonth(d);
+          if (mo) monthMap[mo] = (monthMap[mo] || 0) + 1;
+        }
+        // Per-person time series
+        if (personName && d) {
+          if (!personDateMap[personName]) personDateMap[personName] = {};
+          if (!personWeekMap[personName]) personWeekMap[personName] = {};
+          if (!personMonthMap[personName]) personMonthMap[personName] = {};
+          if (!personRecords[personName]) personRecords[personName] = [];
+          personDateMap[personName][d] = (personDateMap[personName][d] || 0) + 1;
+          if (wk) personWeekMap[personName][wk] = (personWeekMap[personName][wk] || 0) + 1;
+          if (mo) personMonthMap[personName][mo] = (personMonthMap[personName][mo] || 0) + 1;
+          personRecords[personName].push({date:d, problem:prob});
+        }
+        // Per-problem time series
+        if (prob && d) {
+          if (!problemDateMap[prob]) problemDateMap[prob] = {};
+          if (!problemWeekMap[prob]) problemWeekMap[prob] = {};
+          if (!problemMonthMap[prob]) problemMonthMap[prob] = {};
+          problemDateMap[prob][d] = (problemDateMap[prob][d] || 0) + 1;
+          if (wk) problemWeekMap[prob][wk] = (problemWeekMap[prob][wk] || 0) + 1;
+          if (mo) problemMonthMap[prob][mo] = (problemMonthMap[prob][mo] || 0) + 1;
+        }
+      }
+
+      var personList = Object.entries(personMap).map(function(p) {
+        var name = p[0];
+        var probs = personProblemMap[name] || {};
+        var probList = Object.entries(probs).sort(function(a,b) { return b[1] - a[1]; });
+        return {name:name, cnt:p[1], problems:probList};
+      }).sort(function(a,b) { return b.cnt - a.cnt; });
+      var problemList = Object.entries(problemMap).map(function(p) { return {name:p[0],cnt:p[1]}; }).sort(function(a,b) { return b.cnt - a.cnt; });
+      var dateList = Object.entries(dateMap).sort(function(a,b) { return a[0].localeCompare(b[0]); });
+      var weekList = Object.entries(weekMap).sort(function(a,b) { return a[0].localeCompare(b[0]); });
+      var monthList = Object.entries(monthMap).sort(function(a,b) { return a[0].localeCompare(b[0]); });
+
+      dashboardData = {total:total, personList:personList, problemList:problemList, dateList:dateList, weekList:weekList, monthList:monthList, personProblemMap:personProblemMap, personRecords:personRecords, personDateMap:personDateMap, personWeekMap:personWeekMap, personMonthMap:personMonthMap, problemDateMap:problemDateMap, problemWeekMap:problemWeekMap, problemMonthMap:problemMonthMap};
+
+      renderTopPersonTable(personList, total);
+      renderTopProblemTable(problemList, total);
+      renderFocusStats(problemList, total);
+      document.getElementById('totalProblems').textContent = total;
+      document.getElementById('totalPeople').textContent = Object.keys(personMap).length;
+      document.getElementById('topDefect').textContent = problemList.length > 0 ? problemList[0].name : '--';
+      document.getElementById('topPerson').textContent = personList.length > 0 ? personList[0].name : '--';
+      document.getElementById('btnExport').disabled = false;
+      document.getElementById('btnJson').disabled = false;
+
+      var msgEl = document.getElementById('uploadMsg');
+      if (msgEl) msgEl.textContent = '已导入 ' + total + ' 条差异记录，' + Object.keys(personMap).length + ' 名质检员';
+
+      // Render trend chart if date data available
+      if (dateList.length > 1 && typeof echarts !== 'undefined') {
+        currentTrendView = 'day';
+        currentTrendDimension = 'person';
+        document.querySelectorAll('#trendTabs .trend-tab').forEach(function(b,i){ b.classList.toggle('active', i===0); });
+        document.querySelectorAll('#dimensionTabs .trend-tab').forEach(function(b,i){ b.classList.toggle('active', i===0); });
+        document.getElementById('trendCard').style.display = '';
+        renderPersonTrendChart(dashboardData, 'day');
+      }
+
+    } catch(err) { alert('解析Excel出错：' + err.message); console.error(err); }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function renderFocusStats(problemList, total) {
+  var camKeywords = ['后摄','前摄','拍照','相机','摄像','镜头','白底拍照','坏点','有斑'];
+  var camProblems = problemList.filter(function(p) {
+    return camKeywords.some(function(k) { return p.name.indexOf(k) >= 0; });
+  });
+  var camTotal = camProblems.reduce(function(s,p) { return s + p.cnt; }, 0);
+  var camPct = total > 0 ? (camTotal / total * 100).toFixed(1) : 0;
+  document.getElementById('camCount').textContent = camTotal;
+  document.getElementById('camPercent').textContent = camPct + '%';
+  var detail = camProblems.length > 0
+    ? camProblems.slice(0, 6).map(function(p) { return '<span style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;border-radius:10px;background:rgba(239,68,68,0.08);font-size:11px">' + p.name + ' <b style="color:#ef4444">' + p.cnt + '</b></span>'; }).join('')
+    : '<span style="color:var(--text-muted)">暂未发现相机相关问题 &#9989;</span>';
+  document.getElementById('camDetail').innerHTML = detail;
+}
+
+function renderTopPersonTable(personList, total) {
+  var tbody = document.querySelector('#topPersonTable tbody');
+  if (personList.length === 0) { tbody.innerHTML = '<tr><td colspan="5" class="empty-hint">暂无数据</td></tr>'; return; }
+  var maxCnt = personList[0].cnt;
+  tbody.innerHTML = personList.map(function(p, i) {
+    var rank = i + 1;
+    var rankCls = rank <= 3 ? 'rank-' + rank : '';
+    var pct = total > 0 ? (p.cnt / total * 100).toFixed(1) : 0;
+    var probTags = p.problems && p.problems.length > 0
+      ? p.problems.map(function(pp) { return '<span class="prob-tag">' + pp[0] + (pp[1] > 1 ? ' x' + pp[1] : '') + '</span>'; }).join('')
+      : '<span style="color:var(--text-muted);font-size:10px">-</span>';
+    return '<tr class="' + rankCls + '"><td><b>' + rank + '</b></td><td>' + p.name + '</td><td><b>' + p.cnt + '</b></td><td>' + pct + '%</td><td style="max-width:280px">' + probTags + '</td></tr>';
+  }).join('');
+}
+
+function renderTopProblemTable(problemList, total) {
+  var tbody = document.querySelector('#topProblemTable tbody');
+  if (problemList.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="empty-hint">暂无数据</td></tr>'; return; }
+  tbody.innerHTML = problemList.map(function(p, i) {
+    var rank = i + 1;
+    var rankCls = rank <= 3 ? 'rank-' + rank : '';
+    var pct = total > 0 ? (p.cnt / total * 100).toFixed(1) : 0;
+    var barW = Math.max(p.cnt / problemList[0].cnt * 80, 8);
+    return '<tr class="' + rankCls + '"><td><b>' + rank + '</b></td><td>' + p.name + '</td><td>' + p.cnt + '</td><td><span class="rank-pct-bar" style="width:' + barW + 'px"></span>' + pct + '%</td></tr>';
+  }).join('');
+}
+
+function renderTrendChart() {
+  var card = document.getElementById('trendCard');
+  if (card) card.style.display = '';
+  renderTrendChartForDimension(currentTrendDimension, currentTrendView);
+}
+
+function switchTrendView(view, el) {
+  if (!dashboardData) return;
+  currentTrendView = view;
+  document.querySelectorAll('#trendTabs .trend-tab').forEach(function(b){ b.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  var card = document.getElementById('trendCard');
+  if (card) card.style.display = '';
+  renderTrendChartForDimension(currentTrendDimension, view);
+}
+
+function switchTrendDimension(dim, el) {
+  if (!dashboardData) return;
+  currentTrendDimension = dim;
+  document.querySelectorAll('#dimensionTabs .trend-tab').forEach(function(b){ b.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  document.getElementById('personTrendChart').style.display = (dim === 'person') ? '' : 'none';
+  document.getElementById('problemTrendChart').style.display = (dim === 'problem') ? '' : 'none';
+  renderTrendChartForDimension(dim, currentTrendView);
+}
+
+function renderTrendChartForDimension(dim, view) {
+  if (dim === 'person') {
+    renderPersonTrendChart(dashboardData, view);
+  } else {
+    renderProblemTrendChart(dashboardData, view);
+  }
+}
+
+function renderPersonTrendChart(data, view) {
+  var dom = document.getElementById('personTrendChart');
+  if (!dom || !echarts || !data) return;
+  var periodMap = data.personDateMap || {};
+  var allKeys = data.dateList ? data.dateList.map(function(d){return d[0];}) : [];
+  var label = '日';
+  if (view === 'week') { periodMap = data.personWeekMap || {}; allKeys = data.weekList ? data.weekList.map(function(d){return d[0];}) : []; label = '周'; }
+  else if (view === 'month') { periodMap = data.personMonthMap || {}; allKeys = data.monthList ? data.monthList.map(function(d){return d[0];}) : []; label = '月'; }
+  if (Object.keys(periodMap).length === 0) {
+    dom.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);font-size:12px">上传Excel以查看人维度趋势</div>';
+    return;
+  }
+  var isDark = document.body.classList.contains('dark');
+  var textColor = isDark ? '#94a3b8' : '#64748b';
+  var chart = echarts.getInstanceByDom(dom);
+  if (chart) chart.clear(); else chart = echarts.init(dom);
+  var personNames = (data.personList || []).slice(0, 10).map(function(p){ return p.name; });
+  var legendNames = personNames.map(function(n){ return truncName(n, 6); });
+  var series = personNames.map(function(name, i) {
+    var nameMap = periodMap[name] || {};
+    var vals = allKeys.map(function(k) { return nameMap[k] || 0; });
+    return {
+      name: truncName(name, 6), type: 'line', smooth: true, data: vals,
+      lineStyle: { color: TREND_COLORS[i % TREND_COLORS.length], width: 1.5 },
+      itemStyle: { color: TREND_COLORS[i % TREND_COLORS.length] },
+      symbol: 'circle', symbolSize: 3
+    };
+  });
+  var legendTop = personNames.length > 5 ? 44 : 30;
+  chart.setOption({
+    tooltip: {
+      trigger: 'axis',
+      formatter: function(params) {
+        var html = params[0].axisValue + '<br/>';
+        params.forEach(function(p) {
+          var origName = personNames[p.seriesIndex] || p.seriesName;
+          html += '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + p.color + ';margin-right:4px;"></span>' + origName + ': <b>' + p.value + '</b><br/>';
+        });
+        return html;
+      }
+    },
+    legend: { data: legendNames, type: 'scroll', top: 0, textStyle: { fontSize: 10, color: textColor } },
+    grid: { top: legendTop, bottom: 30, left: 50, right: 15 },
+    xAxis: { type: 'category', data: allKeys, axisLabel: { rotate: 30, fontSize: 10, color: textColor } },
+    yAxis: { type: 'value', name: label + '差异数', nameTextStyle: { color: textColor }, axisLabel: { fontSize: 10, color: textColor } },
+    series: series
+  }, true);
+  chart.resize();
+}
+
+function renderProblemTrendChart(data, view) {
+  var dom = document.getElementById('problemTrendChart');
+  if (!dom || !echarts || !data) return;
+  var periodMap = data.problemDateMap || {};
+  var allKeys = data.dateList ? data.dateList.map(function(d){return d[0];}) : [];
+  var label = '日';
+  if (view === 'week') { periodMap = data.problemWeekMap || {}; allKeys = data.weekList ? data.weekList.map(function(d){return d[0];}) : []; label = '周'; }
+  else if (view === 'month') { periodMap = data.problemMonthMap || {}; allKeys = data.monthList ? data.monthList.map(function(d){return d[0];}) : []; label = '月'; }
+  if (Object.keys(periodMap).length === 0) {
+    dom.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);font-size:12px">上传Excel以查看项维度趋势</div>';
+    return;
+  }
+  var isDark = document.body.classList.contains('dark');
+  var textColor = isDark ? '#94a3b8' : '#64748b';
+  var chart = echarts.getInstanceByDom(dom);
+  if (chart) chart.clear(); else chart = echarts.init(dom);
+  var topProblems = (data.problemList || []).slice(0, 8).map(function(p){ return p.name; });
+  var otherProblems = (data.problemList || []).slice(8);
+  var truncatedProblems = topProblems.map(function(n){ return truncName(n, 8); });
+  var series = topProblems.map(function(pname, i) {
+    var nameMap = periodMap[pname] || {};
+    var vals = allKeys.map(function(k) { return nameMap[k] || 0; });
+    return {
+      name: truncatedProblems[i], type: 'line', smooth: true, data: vals,
+      lineStyle: { color: TREND_COLORS[i % TREND_COLORS.length], width: 1.5 },
+      itemStyle: { color: TREND_COLORS[i % TREND_COLORS.length] },
+      symbol: 'circle', symbolSize: 3
+    };
+  });
+  if (otherProblems.length > 0) {
+    var otherVals = allKeys.map(function(k) {
+      var sum = 0;
+      otherProblems.forEach(function(p) {
+        var m = periodMap[p.name] || {};
+        sum += m[k] || 0;
+      });
+      return sum;
+    });
+    series.push({
+      name: '其他(' + otherProblems.length + '项)', type: 'line', smooth: true, data: otherVals,
+      lineStyle: { color: '#94a3b8', width: 1, type: 'dashed' },
+      itemStyle: { color: '#94a3b8' },
+      symbol: 'diamond', symbolSize: 3
+    });
+  }
+  var allNames = truncatedProblems.concat(otherProblems.length > 0 ? ['其他(' + otherProblems.length + '项)'] : []);
+  var legendTop = allNames.length > 5 ? 48 : 32;
+  chart.setOption({
+    tooltip: {
+      trigger: 'axis',
+      formatter: function(params) {
+        var html = params[0].axisValue + '<br/>';
+        params.forEach(function(p) {
+          var idx = p.seriesIndex;
+          var fullName = idx < topProblems.length ? topProblems[idx] : '其他(' + otherProblems.length + '项)';
+          html += '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' + p.color + ';margin-right:4px;"></span>' + fullName + ': <b>' + p.value + '</b><br/>';
+        });
+        return html;
+      }
+    },
+    legend: { data: allNames, type: 'scroll', top: 0, textStyle: { fontSize: 10, color: textColor } },
+    grid: { top: legendTop, bottom: 30, left: 50, right: 15 },
+    xAxis: { type: 'category', data: allKeys, axisLabel: { rotate: 30, fontSize: 10, color: textColor } },
+    yAxis: { type: 'value', name: label + '差异数', nameTextStyle: { color: textColor }, axisLabel: { fontSize: 10, color: textColor } },
+    series: series
+  }, true);
+  chart.resize();
+}
+
+function showPersonDetailModal(personName) {
+  if (!dashboardData || !dashboardData.personRecords) return;
+  var records = dashboardData.personRecords[personName] || [];
+  if (records.length === 0) return;
+  document.getElementById('personModalTitle').textContent = '👤 ' + personName + ' · 差异明细';
+  document.getElementById('personModalTotal').textContent = '共 ' + records.length + ' 条';
+  var tbody = document.getElementById('personDetailBody');
+  tbody.innerHTML = records.map(function(r, i) {
+    return '<tr><td>' + (i + 1) + '</td><td>' + r.date + '</td><td style="text-align:left">' + r.problem + '</td></tr>';
+  }).join('');
+  document.getElementById('personDetailModal').classList.add('show');
+}
+
+function closePersonDetailModal() {
+  document.getElementById('personDetailModal').classList.remove('show');
+}
+
+function loadSharedData() {
+  fetch('xian_data.json?' + Date.now())
+    .then(function(r) { return r.json(); })
+    .then(function(data) { if (data && data.total) renderWithData(data); })
+    .catch(function() { loadEmbeddedData(); });
+}
+function loadEmbeddedData() {
+  // EMBEDDED_DATA_START
+  var defaultData = {"total":37,"updatedAt":"2026-06-05","personList":[{"name":"郑豪","cnt":5,"problems":[["1.5mm-5mm且数量=1",1],["电池健康值不符",1],["外屏-感应孔样式与示例不符",1],["后壳-后盖与镜头保护罩连接处有胶水溢出",1],["2mm-10mm",1]]},{"name":"徐庆林","cnt":5,"problems":[["部分零件维修更换",1],["无保护膜",1],["外屏-感应孔样式与示例不符",1],["外屏-屏幕支架更换-Xray",1],["外屏-APP黑边红线有缺失",1]]},{"name":"蒋金才","cnt":4,"problems":[["后摄白底拍照有斑",2],["拍照坏点",1],["状态栏以外透图（不可拍）",1]]},{"name":"文强","cnt":3,"problems":[["屏幕边缘脱胶",1],["脱胶缝隙 ≥0.3mm",1],["后壳-壳内漆面受损",1]]},{"name":"钟成","cnt":3,"problems":[["后壳-与中框有溢胶/撬痕",1],["刻字小于50%",1],["状态栏以外透图（可拍）",1]]},{"name":"杨彪","cnt":3,"problems":[["后壳-壳内漆面受损",1],["部分零件维修更换",1],["1.5mm-5mm且数量=1",1]]},{"name":"蒋俊辉","cnt":2,"problems":[["后壳-与中框有溢胶/撬痕",1],["拍照坏点",1]]},{"name":"李代富","cnt":2,"problems":[["显示异常/无法正常显示",2]]},{"name":"陈珍珍","cnt":2,"problems":[["漏液（坏点＞0.5mm）",1],["外壳开孔切割弧度与原装不符",1]]},{"name":"余宗琳","cnt":2,"problems":[["后壳-样式不匹配",1],["异常",1]]},{"name":"杨辉","cnt":2,"problems":[["画面异常",1],["后壳-卡槽小型号与本机不一致/缺失",1]]},{"name":"张亚锋","cnt":1,"problems":[["脱胶缝隙 ≥0.3mm",1]]},{"name":"System","cnt":1,"problems":[["异常",1]]},{"name":"朱震皓","cnt":1,"problems":[["状态栏以外透图（可拍）",1]]},{"name":"李攀","cnt":1,"problems":[["后摄白底拍照有斑",1]]}],"problemList":[{"name":"后摄白底拍照有斑","cnt":3},{"name":"后壳-与中框有溢胶/撬痕","cnt":2},{"name":"1.5mm-5mm且数量=1","cnt":2},{"name":"显示异常/无法正常显示","cnt":2},{"name":"后壳-壳内漆面受损","cnt":2},{"name":"部分零件维修更换","cnt":2},{"name":"拍照坏点","cnt":2},{"name":"脱胶缝隙 ≥0.3mm","cnt":2},{"name":"异常","cnt":2},{"name":"外屏-感应孔样式与示例不符","cnt":2},{"name":"状态栏以外透图（可拍）","cnt":2},{"name":"屏幕边缘脱胶","cnt":1},{"name":"漏液（坏点＞0.5mm）","cnt":1},{"name":"后壳-样式不匹配","cnt":1},{"name":"画面异常","cnt":1},{"name":"电池健康值不符","cnt":1},{"name":"状态栏以外透图（不可拍）","cnt":1},{"name":"外壳开孔切割弧度与原装不符","cnt":1},{"name":"刻字小于50%","cnt":1},{"name":"无保护膜","cnt":1},{"name":"外屏-屏幕支架更换-Xray","cnt":1},{"name":"外屏-APP黑边红线有缺失","cnt":1},{"name":"后壳-后盖与镜头保护罩连接处有胶水溢出","cnt":1},{"name":"后壳-卡槽小型号与本机不一致/缺失","cnt":1},{"name":"2mm-10mm","cnt":1}],"dateList":[["2026-05-04",3],["2026-05-05",1],["2026-05-06",3],["2026-05-07",1],["2026-05-10",3],["2026-05-11",1],["2026-05-13",2],["2026-05-14",1],["2026-05-15",3],["2026-05-16",2],["2026-05-17",2],["2026-05-18",1],["2026-05-19",1],["2026-05-20",2],["2026-05-21",6],["2026-05-22",2],["2026-05-24",1],["2026-05-26",1],["2026-05-27",1]],"weekList":[["2026-W19",11],["2026-W20",11],["2026-W21",13],["2026-W22",2]],"monthList":[["2026-05",37]],"personProblemMap":{"文强":{"屏幕边缘脱胶":1,"脱胶缝隙 ≥0.3mm":1,"后壳-壳内漆面受损":1},"蒋俊辉":{"后壳-与中框有溢胶/撬痕":1,"拍照坏点":1},"郑豪":{"1.5mm-5mm且数量=1":1,"电池健康值不符":1,"外屏-感应孔样式与示例不符":1,"后壳-后盖与镜头保护罩连接处有胶水溢出":1,"2mm-10mm":1},"钟成":{"后壳-与中框有溢胶/撬痕":1,"刻字小于50%":1,"状态栏以外透图（可拍）":1},"李代富":{"显示异常/无法正常显示":2},"杨彪":{"后壳-壳内漆面受损":1,"部分零件维修更换":1,"1.5mm-5mm且数量=1":1},"陈珍珍":{"漏液（坏点＞0.5mm）":1,"外壳开孔切割弧度与原装不符":1},"蒋金才":{"后摄白底拍照有斑":2,"拍照坏点":1,"状态栏以外透图（不可拍）":1},"余宗琳":{"后壳-样式不匹配":1,"异常":1},"杨辉":{"画面异常":1,"后壳-卡槽小型号与本机不一致/缺失":1},"张亚锋":{"脱胶缝隙 ≥0.3mm":1},"徐庆林":{"部分零件维修更换":1,"无保护膜":1,"外屏-感应孔样式与示例不符":1,"外屏-屏幕支架更换-Xray":1,"外屏-APP黑边红线有缺失":1},"System":{"异常":1},"朱震皓":{"状态栏以外透图（可拍）":1},"李攀":{"后摄白底拍照有斑":1}}};
+  // EMBEDDED_DATA_END
+  renderWithData(defaultData);
+}
+function renderWithData(data) {
+  dashboardData = data;
+  renderTopPersonTable(data.personList, data.total);
+  renderTopProblemTable(data.problemList, data.total);
+  renderFocusStats(data.problemList, data.total);
+  document.getElementById('totalProblems').textContent = data.total;
+  document.getElementById('totalPeople').textContent = data.personList.length;
+  document.getElementById('topDefect').textContent = data.problemList.length > 0 ? data.problemList[0].name : '--';
+  document.getElementById('topPerson').textContent = data.personList.length > 0 ? data.personList[0].name : '--';
+  document.getElementById('btnExport').disabled = false;
+  document.getElementById('btnJson').disabled = false;
+  var msgEl = document.getElementById('uploadMsg');
+  if (msgEl) msgEl.textContent = '数据更新时间：' + (data.updatedAt || '未知');
+  // Render trend chart if date data available
+  if (data.dateList && data.dateList.length > 1 && typeof echarts !== 'undefined') {
+    currentTrendView = 'day';
+    document.querySelectorAll('#trendTabs .trend-tab').forEach(function(b,i){ b.classList.toggle('active', i===0); });
+    renderTrendChart(data.dateList, '日');
+  }
+}
+
+// ===== Export =====
+function exportShareVersion() {
+  var html = document.documentElement.outerHTML;
+  if (dashboardData) {
+    var newData = JSON.stringify({total:dashboardData.total,updatedAt:new Date().toISOString().slice(0,10),personList:dashboardData.personList,problemList:dashboardData.problemList,dateList:dashboardData.dateList,weekList:dashboardData.weekList,monthList:dashboardData.monthList,personProblemMap:dashboardData.personProblemMap});
+    html = html.replace(/var defaultData = \{[\s\S]*?\};/, 'var defaultData = ' + newData + ';');
+    html = html.replace(/id="uploadMsg">数据更新时间：2026-06-05<]*</, 'id="uploadMsg">数据更新时间：' + new Date().toISOString().slice(0,10) + '<');
+  }
+  var blob = new Blob(['<!DOCTYPE html>\n' + html], {type:'text/html;charset=utf-8'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = '质检宝典_分享版_' + new Date().toISOString().slice(0,10) + '.html';
+  a.click();
+  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+  alert('已下载到「下载」文件夹。上传页面即将打开，拖文件提交即可。');
+}
+function exportDataJson() {
+  if (!dashboardData) { alert('请先上传 Excel 数据'); return; }
+  var data = {total:dashboardData.total,updatedAt:new Date().toISOString().slice(0,10),personList:dashboardData.personList,problemList:dashboardData.problemList};
+  var blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'data.json';
+  a.click();
+  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+}
+function exportDataJson() {
+  if (!dashboardData) return;
+  var data = {total:dashboardData.total,updatedAt:new Date().toISOString().slice(0,10),personList:dashboardData.personList,problemList:dashboardData.problemList};
+  var blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'data.json';
+  a.click(); URL.revokeObjectURL(url);
+}
+
+
+// ===== Global Click Delegation (handles tree toggle + edit buttons) =====
+document.addEventListener('click', function(e) {
+  // Edit button clicked?
+  var editBtn = e.target.closest('.edit-btn');
+  if (editBtn) {
+    e.preventDefault(); e.stopPropagation();
+    var hdr = editBtn.closest('.tree-item').querySelector('.tree-header');
+    if (!hdr) return;
+    if (editBtn.classList.contains('edit-add')) showAddBlockModal(hdr);
+    else if (editBtn.classList.contains('edit-sub')) showAddSubModal(hdr);
+    return;
+  }
+  // Tree header clicked? (but not a button)
+  var header = e.target.closest('.tree-header');
+  if (header && e.target.tagName !== 'BUTTON' && !e.target.closest('button')) {
+    header.classList.toggle('open');
+  }
+}, true);
+// ===== Scroll / Keyboard =====
+document.getElementById('zb-main').addEventListener('scroll', function() {
+  document.getElementById('backTop').classList.toggle('show', this.scrollTop > 400);
+});
+document.addEventListener('keydown', function(e) {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'f') {
+    e.preventDefault();
+    zbNav('sop', document.querySelectorAll('.zb-nav-item')[0]);
+    setTimeout(function() { document.getElementById('searchInput').focus(); }, 200);
+  }
+  if ((e.metaKey || e.ctrlKey) && e.key === 'e') { e.preventDefault(); expandAll(); }
+  if ((e.metaKey || e.ctrlKey) && e.key === 'w') { e.preventDefault(); collapseAll(); }
+});
+
+// ===== Init =====
+document.addEventListener('DOMContentLoaded', function() {
+  markKeySteps();
+  loadSharedData();
+  initMarquees();
+
+  // Person table click → detail modal
+  document.getElementById('topPersonTable').addEventListener('click', function(e) {
+    var tr = e.target.closest('tr');
+    if (!tr) return;
+    var cells = tr.querySelectorAll('td');
+    if (cells.length < 2) return;
+    var personName = cells[1].textContent.trim();
+    if (personName) showPersonDetailModal(personName);
+  });
+  // Detail modal close on overlay click
+  document.getElementById('personDetailModal').addEventListener('click', function(e) {
+    if (e.target === this) closePersonDetailModal();
+  });
+  // Restore admin button icon
+  if (sessionStorage.getItem('qc_admin') === '1') {
+    document.body.classList.add('is-admin');
+    var ab = document.getElementById('adminModeBtn');
+    if (ab) ab.innerHTML = '&#128275;';
+  }
+  // Fix dark mode button
+  if (document.body.classList.contains('dark')) {
+    var db = document.getElementById('darkModeBtn');
+    if (db) db.innerHTML = '&#9788;';
+  }
+});
+</script>
+
+</body></html>
