@@ -19,7 +19,7 @@ DATA_FOLDER = "QGZLdata"
 RAW_BASE = f"https://raw.githubusercontent.com/{DATA_REPO}/{DATA_BRANCH}/{DATA_FOLDER}"
 
 # 播报覆盖的分站
-MY_SITES = ["重庆库", "西安库"]
+MY_SITES = ["重庆库"]
 
 
 def fetch_json(filename):
@@ -135,7 +135,7 @@ def build_card(detail, summary, top_n=5):
                 {
                     "tag": "note",
                     "elements": [
-                        {"tag": "plain_text", "content": f"📊 客观执行差异共 {detail['total']} 条　|　重庆库+西安库　|　自动播报"}
+                        {"tag": "plain_text", "content": f"📊 客观执行差异共 {detail['total']} 条　|　重庆库　|　自动播报"}
                     ],
                 },
             ],
