@@ -1,58 +1,46 @@
 #!/usr/bin/env python3
 """
 飞书群每日 QA 客观执行差异播报 (GitHub Actions 版)
-读取仓库中的 Excel，计算 TOP 差异人员和问题项，推送到飞书群
+数据来源: 培训部数据看板 GitHub (d2112ds12d12d/Qgkb)
 """
 
 import json
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from collections import defaultdict
 
-import openpyxl
 import requests
 
-# ── 仓库内路径 ──────────────────────────────────────────────
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-EXCEL_PATH = os.path.join(REPO_ROOT, "data", "客观执行问题.xlsx")
+# ── 数据源配置 ──────────────────────────────────────────────
+DATA_REPO = "d2112ds12d12d/Qgkb"
+DATA_BRANCH = "main"
+DATA_FOLDER = "QGZLdata"
+RAW_BASE = f"https://raw.githubusercontent.com/{DATA_REPO}/{DATA_BRANCH}/{DATA_FOLDER}"
+
+# 播报覆盖的分站
+MY_SITES = ["重庆库", "西安库"]
 
 
-def read_excel(file_path):
-    """读取 Excel，返回数据行列表"""
-    if not os.path.exists(file_path):
-        print(f"[ERROR] Excel 文件不存在: {file_path}")
-        sys.exit(1)
-
-    wb = openpyxl.load_workbook(file_path)
-    ws = wb.active
-    print(f"[INFO] Sheet: {ws.title}, {ws.max_row} 行")
-
-    rows = []
-    for row in ws.iter_rows(min_row=3, values_only=True):
-        if row[0] is None:
-            continue
-        rows.append({
-            "date": str(row[0])[:10] if row[0] else "",
-            "site": row[1] or "",
-            "person": row[3] or "",
-            "main_cat": row[6] or "",
-            "prob_cat": row[8] or "",
-            "l1_item": row[9] or "",
-            "new_l3": row[14] or "",
-            "is_diff": row[21],
-            "diff_count": row[22] or 0,
-        })
-    print(f"[INFO] 有效数据行: {len(rows)}")
-    return rows
+def fetch_json(filename):
+    """从 GitHub 获取 JSON 文件"""
+    url = f"{RAW_BASE}/{filename}"
+    print(f"[INFO] 获取: {url}")
+    resp = requests.get(url, timeout=30)
+    resp.raise_for_status()
+    return resp.json()
 
 
-def compute_stats(rows):
-    """计算差异统计"""
-    exec_rows = [r for r in rows if r["main_cat"] == "客观问题" and r["prob_cat"] == "执行问题"]
+def compute_detailed_stats(rows, sites):
+    """从 phone_diff 明细计算 TOP 人员和问题项"""
+    filtered = [
+        r for r in rows
+        if r.get("site") in sites
+        and "客观" in r.get("subjobj", "")
+        and r.get("judgedType") == "执行问题"
+    ]
 
-    if not exec_rows:
-        print("[WARN] 没有客观+执行问题数据")
+    if not filtered:
         return None
 
     person_diff = defaultdict(int)
@@ -60,44 +48,78 @@ def compute_stats(rows):
     site_diff = defaultdict(int)
     dates = set()
 
-    for r in exec_rows:
-        person_diff[r["person"]] += r["diff_count"]
-        label = f"{r['l1_item']} — {r['new_l3']}" if r["new_l3"] and r["new_l3"] != "-" else r["l1_item"]
-        issue_diff[label] += r["diff_count"]
-        site_diff[r["site"]] += r["diff_count"]
-        if r["date"]:
-            dates.add(r["date"])
+    for r in filtered:
+        person = r.get("inspector") or ""
+        if not person or person.lower() == "null" or person.strip() == "":
+            person = "(未署名)"
+        person_diff[person] += 1
+
+        l1 = r.get("level1", "") or ""
+        l3 = r.get("level3_new", "") or ""
+        label = f"{l1} — {l3}" if l1 and l3 else (l1 or l3 or "未知")
+        issue_diff[label] += 1
+
+        site_diff[r.get("site", "")] += 1
+
+        d = r.get("date", "")
+        if d:
+            dates.add(d)
 
     return {
-        "total": sum(person_diff.values()),
+        "total": len(filtered),
         "date_range": f"{min(dates)} ~ {max(dates)}" if dates else "无数据",
+        "days": len(dates),
         "sites": dict(site_diff),
         "top_persons": sorted(person_diff.items(), key=lambda x: -x[1]),
         "top_issues": sorted(issue_diff.items(), key=lambda x: -x[1]),
     }
 
 
-def build_card(stats, top_n=5):
+def compute_summary_stats(rows, sites):
+    """从 qa_diff 汇总数据计算各站点差异率"""
+    site_data = defaultdict(lambda: {"checks": 0, "totalChecks": 0, "objDiff": 0})
+
+    for r in rows:
+        if r.get("site") in sites and r.get("cat") == "手机":
+            s = r["site"]
+            site_data[s]["checks"] += r.get("checks", 0)
+            site_data[s]["totalChecks"] += r.get("totalChecks", 0)
+            site_data[s]["objDiff"] += r.get("objDiff", 0)
+
+    return dict(site_data)
+
+
+def build_card(detail, summary, top_n=5):
     """构造飞书交互卡片"""
     today = datetime.now().strftime("%Y-%m-%d")
 
-    site_list = "、".join([f"{k}: {v}条" for k, v in stats["sites"].items()])
+    site_lines = []
+    for site_name, sd in summary.items():
+        rate = f"{sd['objDiff'] / sd['totalChecks'] * 100:.1f}%" if sd["totalChecks"] > 0 else "N/A"
+        site_lines.append(
+            f"**{site_name}**：抽检 {sd['checks']}/{sd['totalChecks']}　"
+            f"客观差异 {sd['objDiff']}　差异率 {rate}"
+        )
 
     person_lines = []
-    for i, (name, count) in enumerate(stats["top_persons"][:top_n], 1):
+    for i, (name, count) in enumerate(detail["top_persons"][:top_n], 1):
         medal = ["🥇", "🥈", "🥉"][i - 1] if i <= 3 else f"{i}."
         person_lines.append(f"{medal} **{name}**　　{count} 条差异")
 
     issue_lines = []
-    for i, (name, count) in enumerate(stats["top_issues"][:top_n], 1):
+    for i, (name, count) in enumerate(detail["top_issues"][:top_n], 1):
         medal = ["🏆", "⚠️", "⚠️"][i - 1] if i <= 3 else "▸"
         issue_lines.append(f"{medal} **{name}**　　{count} 条差异")
 
     card_md = (
-        f"**📅 统计周期：{stats['date_range']}**\n"
-        f"**📍 覆盖站点：{site_list}**\n\n---\n\n"
-        f"**👤 TOP{top_n} 差异人员**\n{chr(10).join(person_lines)}\n\n---\n\n"
-        f"**⚠️ TOP{top_n} 差异问题项**\n{chr(10).join(issue_lines)}"
+        f"**📅 统计周期：{detail['date_range']}（{detail['days']}天）**\n\n"
+        + "\n".join(site_lines)
+        + f"\n\n---\n\n"
+        f"**👤 TOP{top_n} 差异人员**\n"
+        + "\n".join(person_lines)
+        + f"\n\n---\n\n"
+        f"**⚠️ TOP{top_n} 差异问题项**\n"
+        + "\n".join(issue_lines)
     )
 
     return {
@@ -113,7 +135,7 @@ def build_card(stats, top_n=5):
                 {
                     "tag": "note",
                     "elements": [
-                        {"tag": "plain_text", "content": f"📊 客观执行差异共 {stats['total']} 条　|　自动播报 @ {today}"}
+                        {"tag": "plain_text", "content": f"📊 客观执行差异共 {detail['total']} 条　|　重庆库+西安库　|　自动播报"}
                     ],
                 },
             ],
@@ -149,18 +171,36 @@ def main():
         print("[ERROR] 未设置 FEISHU_WEBHOOK_URL 环境变量")
         sys.exit(1)
 
-    rows = read_excel(EXCEL_PATH)
-    stats = compute_stats(rows)
+    # 当前月份
+    now = datetime.now()
+    ym = now.strftime("%Y-%m")
 
-    if stats is None:
-        print("[WARN] 无差异数据，跳过")
-        return
+    # 获取明细数据
+    detail_rows = fetch_json(f"phone_diff_{ym}.json").get("rows", [])
+    print(f"[INFO] 明细行数: {len(detail_rows)}")
 
-    print(f"[INFO] 执行差异: {stats['total']} 条")
-    print(f"[INFO] TOP人员: {[p[0] for p in stats['top_persons'][:5]]}")
-    print(f"[INFO] TOP问题: {[p[0] for p in stats['top_issues'][:5]]}")
+    # 获取汇总数据
+    qa_rows = fetch_json(f"qa_diff_{ym}.json").get("rows", [])
+    print(f"[INFO] 汇总行数: {len(qa_rows)}")
 
-    card = build_card(stats)
+    # 计算
+    detail = compute_detailed_stats(detail_rows, MY_SITES)
+    summary = compute_summary_stats(qa_rows, MY_SITES)
+
+    if detail is None or detail["total"] == 0:
+        print("[WARN] 本月无数据，查询上月...")
+        last_month = (now.replace(day=1) - timedelta(days=1)).strftime("%Y-%m")
+        detail_rows = fetch_json(f"phone_diff_{last_month}.json").get("rows", [])
+        detail = compute_detailed_stats(detail_rows, MY_SITES)
+        if detail is None or detail["total"] == 0:
+            print("[WARN] 无数据，退出")
+            return
+
+    print(f"[INFO] 差异: {detail['total']} 条")
+    print(f"[INFO] TOP人员: {[p[0] for p in detail['top_persons'][:5]]}")
+    print(f"[INFO] TOP问题: {[p[0] for p in detail['top_issues'][:5]]}")
+
+    card = build_card(detail, summary)
     success = send_to_feishu(webhook_url, card)
     if not success:
         sys.exit(1)
