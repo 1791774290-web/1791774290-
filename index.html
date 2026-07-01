@@ -56,7 +56,7 @@ body.dark #zb-sidebar{background:rgba(30,41,59,0.75);border-right-color:rgba(100
 #zbSidebarActionRow button{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;border:none;background:transparent;color:var(--text-secondary);cursor:pointer;transition:all .15s;flex-shrink:0;font-size:14px}
 #zbSidebarActionRow button:hover{background:rgba(37,99,235,0.08);color:#2563eb}
 
-#zb-main{flex:1;overflow-y:auto;min-width:0;padding:20px 24px;padding-bottom:80px;background:transparent}
+#zb-main{flex:1;overflow-y:auto;min-width:0;padding:20px 24px;background:transparent}
 .zb-page{display:none}
 .zb-page.active{display:block;animation:pageSlideIn 0.35s cubic-bezier(0.25,0.46,0.45,0.94) both}
 @keyframes pageSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -86,7 +86,7 @@ body.dark .sticky-filter-inner{background:rgba(30,41,59,0.80)}
 .trend-tab.active{background:var(--bg-card-solid);color:var(--blue);box-shadow:0 1px 3px rgba(0,0,0,0.1)}
 body.dark .trend-tab.active{background:#475569;color:#93c5fd}
 body.dark .trend-tab:hover{background:rgba(96,165,250,0.12);color:#93c5fd}
-.prob-tag{display:inline-block;margin:1px 3px 1px 0;padding:1px 7px;border-radius:10px;background:rgba(37,99,235,0.07);font-size:10px;color:var(--text-secondary);white-space:nowrap;line-height:1.6}.edit-btn{display:none!important;margin-left:3px;width:26px;height:26px;border-radius:50%;font-size:13px;font-weight:700;cursor:pointer;text-align:center;line-height:26px;flex-shrink:0;transition:all 0.12s}body.is-admin.edit-mode .tree-header .edit-btn{display:inline-flex!important;align-items:center;justify-content:center}.edit-add{background:rgba(37,99,235,0.12);color:#2563eb}.edit-add:hover{background:#2563eb;color:#fff;transform:scale(1.15)}.edit-sub{background:rgba(16,185,129,0.12);color:#059669}.edit-sub:hover{background:#10b981;color:#fff;transform:scale(1.15)}.edit-del{background:rgba(239,68,68,0.12);color:#ef4444}.edit-del:hover{background:#ef4444;color:#fff;transform:scale(1.15)}.edit-rename{background:rgba(245,158,11,0.12);color:#d97706}.edit-rename:hover{background:#f59e0b;color:#fff;transform:scale(1.15)}
+.prob-tag{display:inline-block;margin:1px 3px 1px 0;padding:1px 7px;border-radius:10px;background:rgba(37,99,235,0.07);font-size:10px;color:var(--text-secondary);white-space:nowrap;line-height:1.6}
 #topPersonTable tbody tr{cursor:pointer}
 #topPersonTable tbody tr:hover{background:rgba(37,99,235,0.04)}
 .admin-only{display:none!important}
@@ -99,7 +99,7 @@ body.is-admin .admin-only{display:revert!important}
 body.dark .flow-step.active{background:linear-gradient(135deg,rgba(96,165,250,0.2),rgba(147,197,253,0.1))!important;color:#93c5fd!important}
 body.dark .flow-step:hover{background:rgba(96,165,250,0.1)!important;color:#93c5fd!important}
 /* Tree SOP */
-.cat-header{cursor:pointer;user-select:none;transition:all 0.2s;position:relative;padding:16px 20px}
+.cat-header{cursor:pointer;user-select:none;transition:all 0.2s;position:relative}
 .cat-header:hover{background:rgba(37,99,235,0.03);transform:translateY(-1px)}
 .cat-header::after{content:'';position:absolute;bottom:0;left:16px;right:16px;height:2px;background:linear-gradient(90deg,var(--blue),#10b981,#f59e0b,var(--red));border-radius:1px;opacity:0;transition:opacity 0.3s}
 .cat-header:hover::after{opacity:1}
@@ -109,19 +109,19 @@ body.dark .flow-step:hover{background:rgba(96,165,250,0.1)!important;color:#93c5
 .cat-header.collapsed .cat-arrow{transform:rotate(-90deg)}
 .cat-body{overflow:hidden;transition:max-height 0.3s}
 .cat-body.hidden{display:none}
-.tree-item{border-top:1px solid var(--border);margin:6px 0;border-radius:8px;overflow:hidden;transition:all 0.2s;border-left:3px solid transparent}
+.tree-item{border-top:1px solid var(--border);margin:3px 0;border-radius:8px;overflow:hidden;transition:all 0.2s;border-left:3px solid transparent}
 .tree-item:first-child{border-top:none}
 .tree-item:hover{box-shadow:0 3px 12px rgba(0,0,0,0.06);border-left-color:var(--blue)}
 .tree-item.is-key{border-left-color:var(--red)}
 .tree-item.is-key:hover{border-left-color:var(--red);box-shadow:0 3px 12px rgba(231,76,60,0.1)}
 @keyframes pulse-key{0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,0.3)}50%{box-shadow:0 0 0 4px rgba(231,76,60,0)}}
 .tree-item.is-key .step-num{animation:pulse-key 2s infinite}
-.tree-header{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;user-select:none;font-size:14px;font-weight:600;color:var(--text);transition:all 0.15s;border-radius:8px}
+.tree-header{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;user-select:none;font-size:14px;font-weight:500;color:var(--text);transition:all 0.15s;border-radius:8px}
 .tree-header:hover{background:rgba(37,99,235,0.04)}
 .tree-header .step-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff;font-size:11px;font-weight:700;flex-shrink:0;box-shadow:0 2px 6px rgba(37,99,235,0.3)}
 .tree-arrow{font-size:10px;color:var(--text-muted);transition:transform 0.15s;flex-shrink:0;width:14px;text-align:center}
 .tree-header.open .tree-arrow{transform:rotate(90deg);color:var(--blue)}
-.tree-body{display:none;padding:10px 16px 18px 44px;font-size:13px;line-height:1.8;position:relative}
+.tree-body{display:none;padding:8px 14px 16px 40px;font-size:13px;line-height:1.7;position:relative}
 .tree-body::before{content:'';position:absolute;left:18px;top:0;bottom:16px;width:2px;background:var(--border);border-radius:1px}
 /* Nesting levels */
 .tree-body .tree-body{padding-left:32px}
@@ -151,10 +151,10 @@ body.dark .type-card.selected{background:rgba(37,99,235,0.15);border-color:#60a5
 .mode-switch input[type=checkbox]{width:14px;height:14px;cursor:pointer;accent-color:var(--red)}
 .mode-switch.edit-swt input[type=checkbox]{accent-color:var(--blue)}
 
-body.key-mode .tree-item:not(.is-key){display:none}
-body.key-mode .tree-item.is-key .tree-body{display:block}
-body.key-mode .tree-item.is-key .tree-header{cursor:default}
-body.key-mode .tree-item.is-key .tree-header .tree-arrow{display:none}
+body.key-mode .step:not(.is-key){display:none}
+body.key-mode .step.is-key .step-body{display:block}
+body.key-mode .step.is-key .step-header{cursor:default}
+body.key-mode .step.is-key .step-header .arrow{display:none}
 
 /* Cards */
 .card{background:var(--bg-card);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:var(--radius);border:1px solid var(--border);box-shadow:0 2px 10px rgba(100,120,180,0.08);padding:20px 24px;margin-bottom:18px;transition:transform 0.18s,box-shadow 0.18s;animation:cardFadeIn 0.4s cubic-bezier(0.25,0.46,0.45,0.94) both}
@@ -199,7 +199,7 @@ body.dark .card-title{color:var(--text)}
 .step-body{display:none;padding:0 18px 16px 54px;animation:fadeSlide 0.2s ease}
 @keyframes fadeSlide{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 .step-body.show{display:block}
-.step-body .block{margin-bottom:12px;font-size:13px;padding:14px 16px;background:rgba(248,250,252,0.8);border-radius:10px;border:1px solid var(--border);transition:all 0.2s;position:relative}
+.step-body .block{margin-bottom:10px;font-size:13px;padding:12px 14px;background:rgba(248,250,252,0.8);border-radius:10px;border:1px solid var(--border);transition:all 0.2s;position:relative}
 .block:hover{box-shadow:0 2px 8px rgba(0,0,0,0.04);transform:translateY(-1px)}
 .block-title{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:4px;display:inline-flex;align-items:center;gap:4px}
 .block .highlight-card{background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(239,68,68,0.04));border-radius:8px;padding:10px 14px;border:1px solid rgba(245,158,11,0.2);margin:6px 0}
@@ -215,7 +215,17 @@ body.dark .card-title{color:var(--text)}
 /* Edit mode */
 body.edit-mode .tree-header{padding-right:124px;position:relative}
 .tree-item .btn-del{display:none;position:absolute;right:84px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:none;background:rgba(239,68,68,0.12);color:#ef4444;font-size:12px;cursor:pointer;line-height:20px;text-align:center}
+.tree-item .btn-del:hover{background:#ef4444;color:#fff}
+body.edit-mode .tree-item .btn-del{display:block}
+.tree-item .btn-add-blk{display:none;position:absolute;right:10px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:none;background:rgba(37,99,235,0.12);color:#2563eb;font-size:13px;cursor:pointer;line-height:20px;text-align:center}
+.tree-item .btn-add-blk:hover{background:#2563eb;color:#fff}
+body.edit-mode .tree-item .btn-add-blk{display:block}
 .tree-item .btn-edit-item{display:none;position:absolute;right:60px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:none;background:rgba(245,158,11,0.12);color:#f59e0b;font-size:11px;cursor:pointer;line-height:20px;text-align:center}
+.tree-item .btn-edit-item:hover{background:#f59e0b;color:#fff}
+body.edit-mode .tree-item .btn-edit-item{display:block}
+.tree-item .btn-add-sub{display:none;position:absolute;right:36px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:none;background:rgba(16,185,129,0.12);color:#10b981;font-size:12px;cursor:pointer;line-height:20px;text-align:center}
+.tree-item .btn-add-sub:hover{background:#10b981;color:#fff}
+body.edit-mode .tree-item .btn-add-sub{display:block}
 .btn-add-tree-item{display:none;margin:0;padding:10px 0;width:100%;border:2px dashed rgba(100,120,180,0.3);border-radius:0 0 8px 8px;background:rgba(37,99,235,0.03);color:var(--blue);font-size:12px;cursor:pointer;transition:all 0.15s;text-align:center}
 .btn-add-tree-item:hover{background:rgba(37,99,235,0.08);border-color:var(--blue)}
 body.edit-mode .btn-add-tree-item{display:block}
@@ -223,6 +233,14 @@ body.edit-mode .tree-body .block{position:relative;padding-right:32px}
 .block .btn-blk-del{display:none;position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;border:none;background:rgba(239,68,68,0.1);color:#ef4444;font-size:10px;cursor:pointer;line-height:16px;text-align:center}
 .block .btn-blk-del:hover{background:#ef4444;color:#fff}
 body.edit-mode .block .btn-blk-del{display:block}
+.edit-btn{display:none;margin-left:auto;width:24px;height:24px;border-radius:50%;background:rgba(37,99,235,0.1);color:var(--blue);font-size:16px;font-weight:700;cursor:pointer;text-align:center;line-height:24px;flex-shrink:0;transition:all 0.12s}
+.edit-btn:hover{transform:scale(1.15)} .edit-add{background:rgba(37,99,235,0.1);color:#2563eb} .edit-add:hover{background:#2563eb;color:#fff} .edit-sub{background:rgba(16,185,129,0.1);color:#059669} .edit-sub:hover{background:#10b981;color:#fff}
+body.edit-mode .edit-btn{display:inline-flex;align-items:center;justify-content:center}
+.btn-edit-cat{display:none;position:absolute;right:42px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:none;background:rgba(245,158,11,0.12);color:#f59e0b;font-size:11px;cursor:pointer;line-height:20px;text-align:center}
+.btn-edit-cat:hover{background:#f59e0b;color:#fff}
+body.edit-mode .btn-edit-cat{display:block}
+body.edit-mode .cat-header{padding-right:76px;position:relative}
+
 /* Tables */
 .rank-table{width:100%;border-collapse:collapse;font-size:12px}
 .rank-table th,.rank-table td{border:1px solid var(--border);padding:9px 10px;text-align:center;white-space:nowrap}
@@ -277,26 +295,14 @@ body.dark .rank-1{background:rgba(220,38,38,0.2)}body.dark .rank-2{background:rg
 .back-top.show{display:flex;align-items:center;justify-content:center}
 
 /* Responsive */
-/* Hamburger Menu */
-.hamburger-btn{display:none;position:fixed;top:10px;left:10px;z-index:300;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border:1px solid var(--border);cursor:pointer;font-size:18px;box-shadow:var(--shadow);align-items:center;justify-content:center}
-body.dark .hamburger-btn{background:rgba(30,41,59,0.85)}
-#mobile-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.4);z-index:249}
-#mobile-overlay.show{display:block}
-
 @media(max-width:768px){
-  .hamburger-btn{display:flex}
-  #zb-sidebar{position:fixed;top:0;left:-240px;width:240px;height:100vh;z-index:250;transition:left 0.3s ease}
-  #zb-sidebar.mobile-open{left:0}
-  #zb-main{padding:12px;padding-top:52px}
+  #zb-sidebar{display:none}
+  #zb-main{padding:12px}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .stats-number{font-size:22px}
   .top-bar{flex-direction:column;gap:6px}
   .card{padding:14px 16px}
-  .tree-body{padding:0 10px 12px 28px}
-  .sticky-filter-bar{top:46px}
-  /* Training bar on mobile */
-  #trainBar{padding:8px 12px;gap:8px}
-  #trainBar button{width:32px;height:32px;font-size:14px}
+  .step-body{padding:0 10px 12px 16px}
 }
 
 @media print{
@@ -304,395 +310,248 @@ body.dark .hamburger-btn{background:rgba(30,41,59,0.85)}
   .step-body{display:block!important}
   .card{break-inside:avoid;box-shadow:none}
 }
+/* ═══════════ 执行手法手册样式 ═══════════ */
+.handbook-sections { padding: 0; }
+.hb-section {
+  background: var(--bg-card-solid); border-radius: var(--radius);
+  border: 1px solid var(--border); margin-bottom: 16px;
+  overflow: hidden; box-shadow: var(--shadow); transition: box-shadow .2s;
+}
+body.dark .hb-section { background: var(--bg-card-solid); }
+.hb-section:hover { box-shadow: var(--shadow-hover); }
+.hb-section-header {
+  padding: 14px 18px; display: flex; align-items: center; gap: 10px;
+  cursor: pointer; user-select: none; transition: background .15s;
+  border-left: 4px solid transparent;
+}
+.hb-section-header:hover { background: rgba(37,99,235,.03); }
+.hb-section-icon {
+  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.hb-sec1 .hb-section-icon { background: #eff4ff; } body.dark .hb-sec1 .hb-section-icon { background: rgba(37,99,235,.12); }
+.hb-sec2 .hb-section-icon { background: #fff7ed; } body.dark .hb-sec2 .hb-section-icon { background: rgba(234,88,12,.1); }
+.hb-sec3 .hb-section-icon { background: #f5f3ff; } body.dark .hb-sec3 .hb-section-icon { background: rgba(124,58,237,.1); }
+.hb-sec4 .hb-section-icon { background: #ecfdf5; } body.dark .hb-sec4 .hb-section-icon { background: rgba(5,150,105,.1); }
+.hb-sec5 .hb-section-icon { background: #fef5f5; } body.dark .hb-sec5 .hb-section-icon { background: rgba(220,38,38,.1); }
+.hb-sec6 .hb-section-icon { background: #f0fdfa; } body.dark .hb-sec6 .hb-section-icon { background: rgba(13,148,136,.1); }
+.hb-sec7 .hb-section-icon { background: #f5f3ff; } body.dark .hb-sec7 .hb-section-icon { background: rgba(124,58,237,.12); }
+.hb-sec1 .hb-section-header { border-left-color: #2563eb; }
+.hb-sec2 .hb-section-header { border-left-color: #ea580c; }
+.hb-sec3 .hb-section-header { border-left-color: #7c3aed; }
+.hb-sec4 .hb-section-header { border-left-color: #059669; }
+.hb-sec5 .hb-section-header { border-left-color: #dc2626; }
+.hb-sec6 .hb-section-header { border-left-color: #0d9488; }
+.hb-sec7 .hb-section-header { border-left-color: #7c3aed; }
+.hb-section-title { font-size: 15px; font-weight: 700; }
+.hb-section-num { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.hb-sec1 .hb-section-num { color: #2563eb; } .hb-sec2 .hb-section-num { color: #ea580c; }
+.hb-sec3 .hb-section-num { color: #7c3aed; } .hb-sec4 .hb-section-num { color: #059669; }
+.hb-sec5 .hb-section-num { color: #dc2626; } .hb-sec6 .hb-section-num { color: #0d9488; }
+.hb-sec7 .hb-section-num { color: #7c3aed; }
+.hb-section-toggle { font-size: 13px; color: var(--text-muted); transition: transform .25s; flex-shrink: 0; }
+.hb-section.collapsed .hb-section-body { display: none; }
+.hb-section.collapsed .hb-section-toggle { transform: rotate(-90deg); }
+.hb-section-body { padding: 12px 18px 16px; }
 
-/* ===== Big Screen Styles ===== */
-#zb-page-bigscreen {
-  background: linear-gradient(135deg, #0a0e1a 0%, #0f1629 30%, #0d1525 60%, #0a1020 100%);
-  min-height: 100vh;
-  color: #e2e8f0;
-  padding: 0 !important;
-  position: relative;
-  overflow: hidden;
+/* Check items */
+.hb-check {
+  display: flex; gap: 10px; padding: 12px 14px; border-radius: var(--radius-sm);
+  margin-bottom: 10px; border: 1px solid var(--border); background: var(--kpi-bg);
+  transition: all .15s; position: relative;
 }
-#zb-page-bigscreen::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: radial-gradient(rgba(59,130,246,0.08) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
-}
-#zb-page-bigscreen > * { position: relative; z-index: 1; }
-
-.bs-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 28px;
-  background: rgba(15,23,42,0.8);
-  border-bottom: 1px solid rgba(59,130,246,0.15);
-  backdrop-filter: blur(12px);
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.bs-header-left { display: flex; align-items: center; gap: 12px; }
-.bs-title {
-  font-size: 26px;
-  font-weight: 900;
-  background: linear-gradient(135deg, #60a5fa, #a78bfa, #34d399);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 2px;
-}
-.bs-title-sub {
-  font-size: 11px;
-  color: #64748b;
-  letter-spacing: 1px;
-  margin-top: -2px;
-}
-.bs-clock {
-  font-size: 28px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: #e2e8f0;
-  letter-spacing: 1px;
-}
-.bs-clock-date {
-  font-size: 11px;
-  color: #64748b;
-  text-align: right;
-}
-.bs-header-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.bs-update-badge {
-  padding: 4px 14px;
-  border-radius: 14px;
-  background: rgba(16,185,129,0.12);
-  border: 1px solid rgba(16,185,129,0.25);
-  font-size: 11px;
-  color: #34d399;
-}
-
-.bs-content { padding: 20px 24px; }
-
-/* Big KPI Cards */
-.bs-kpi-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 20px;
-}
-.bs-kpi-card {
-  background: linear-gradient(135deg, rgba(30,41,59,0.7), rgba(15,23,42,0.8));
-  border: 1px solid rgba(100,120,180,0.15);
-  border-radius: 12px;
-  padding: 20px 24px;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.bs-kpi-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
-.bs-kpi-card::after {
-  content: '';
-  position: absolute;
-  top: -30px; right: -30px;
-  width: 80px; height: 80px;
-  border-radius: 50%;
-  opacity: 0.1;
-}
-.bs-kpi-card.red::after { background: #ef4444; }
-.bs-kpi-card.blue::after { background: #3b82f6; }
-.bs-kpi-card.yellow::after { background: #f59e0b; }
-.bs-kpi-card.green::after { background: #10b981; }
-.bs-kpi-card .bs-kpi-icon { font-size: 32px; margin-bottom: 6px; }
-.bs-kpi-card .bs-kpi-value { font-size: 42px; font-weight: 900; line-height: 1; }
-.bs-kpi-card .bs-kpi-label { font-size: 12px; color: #94a3b8; margin-top: 4px; }
-.bs-kpi-card .bs-kpi-sub { font-size: 10px; color: #64748b; margin-top: 2px; }
-.bs-kpi-card.red .bs-kpi-value { color: #f87171; }
-.bs-kpi-card.blue .bs-kpi-value { color: #60a5fa; }
-.bs-kpi-card.yellow .bs-kpi-value { color: #fbbf24; }
-.bs-kpi-card.green .bs-kpi-value { color: #34d399; }
-
-/* Chart Row */
-.bs-chart-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-.bs-chart-card {
-  background: linear-gradient(135deg, rgba(30,41,59,0.7), rgba(15,23,42,0.8));
-  border: 1px solid rgba(100,120,180,0.15);
-  border-radius: 12px;
-  padding: 16px 20px;
-}
-.bs-chart-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: #cbd5e1;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.bs-chart-title::before {
-  content: '';
-  width: 3px; height: 14px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, #3b82f6, #a78bfa);
-}
-.bs-chart-box { width: 100%; height: 320px; }
-
-/* Full width row */
-.bs-full-row {
-  margin-bottom: 20px;
-}
-
-/* Bottom ticker */
-.bs-ticker {
-  background: rgba(239,68,68,0.06);
-  border: 1px solid rgba(239,68,68,0.15);
-  border-radius: 20px;
-  padding: 8px 20px;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.bs-ticker-label {
-  display: inline-block;
-  background: #ef4444;
-  color: #fff;
-  padding: 3px 12px;
-  border-radius: 10px;
-  font-size: 10px;
-  font-weight: 700;
-  margin-right: 12px;
-}
-.bs-ticker-text {
-  display: inline-block;
-  font-size: 12px;
-  color: #fca5a5;
-  animation: bsTicker 30s linear infinite;
-}
-@keyframes bsTicker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* Responsive big screen */
-@media(max-width:1024px) {
-  .bs-kpi-row { grid-template-columns: repeat(2, 1fr); }
-  .bs-chart-row { grid-template-columns: 1fr; }
-  .bs-kpi-card .bs-kpi-value { font-size: 32px; }
-  .bs-title { font-size: 20px; }
-}
-@media(max-width:640px) {
-  .bs-kpi-row { grid-template-columns: 1fr; gap: 10px; }
-  .bs-content { padding: 12px; }
-}
-
-/* Big screen mode - hide sidebar */
-body.bs-fullscreen #zb-sidebar { display: none; }
-body.bs-fullscreen #zb-main { padding: 0; }
-.bs-fs-btn {
-  padding: 4px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(100,120,180,0.3);
-  background: rgba(30,41,59,0.5);
-  color: #94a3b8;
-  cursor: pointer;
-  font-size: 11px;
-  transition: all 0.2s;
-}
-.bs-fs-btn:hover { background: rgba(59,130,246,0.15); color: #60a5fa; border-color: rgba(59,130,246,0.4); }
-
-
-/* ===== Newbie Onboarding ===== */
-.onboard-overlay {
-  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
-  z-index: 500; justify-content: center; align-items: center;
-}
-.onboard-overlay.show { display: flex; }
-.onboard-box {
-  background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
-  border-radius: 20px; padding: 0; max-width: 520px; width: 92%;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden;
-  animation: onboardSlideIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
-}
-body.dark .onboard-box { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
-@keyframes onboardSlideIn {
-  from { opacity: 0; transform: translateY(30px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-.onboard-header {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  padding: 28px 24px; text-align: center; color: #fff;
-}
-.onboard-header h2 { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
-.onboard-header p { font-size: 12px; opacity: 0.85; }
-.onboard-steps { padding: 20px 24px; }
-.onboard-step {
-  display: flex; align-items: flex-start; gap: 14px;
-  padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.06);
-  animation: onboardFadeIn 0.3s ease both;
-}
-body.dark .onboard-step { border-bottom-color: rgba(255,255,255,0.06); }
-.onboard-step:nth-child(1) { animation-delay: 0.1s; }
-.onboard-step:nth-child(2) { animation-delay: 0.2s; }
-.onboard-step:nth-child(3) { animation-delay: 0.3s; }
-.onboard-step:nth-child(4) { animation-delay: 0.4s; }
-.onboard-step:nth-child(5) { animation-delay: 0.5s; }
-.onboard-step:last-child { border-bottom: none; }
-@keyframes onboardFadeIn { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: translateX(0); } }
-.onboard-step-icon {
-  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+body.dark .hb-check { background: rgba(30,41,59,0.5); }
+.hb-check:last-child { margin-bottom: 0; }
+.hb-check:hover { border-color: #93c5fd; box-shadow: var(--shadow); }
+.hb-check.checked { opacity: .65; }
+.hb-check.checked .hb-check-title { text-decoration: line-through; text-decoration-color: var(--text-muted); text-decoration-thickness: 2px; }
+.hb-check-box {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid #cbd5e1; cursor: pointer; margin-top: 1px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px; font-weight: 800; color: #fff;
+  transition: all .2s; background: #fff;
 }
-.onboard-step-icon.c1 { background: #8b5cf6; }
-.onboard-step-icon.c2 { background: #f59e0b; }
-.onboard-step-icon.c3 { background: #ef4444; }
-.onboard-step-icon.c4 { background: #10b981; }
-.onboard-step-icon.c5 { background: #3b82f6; }
-.onboard-step-info h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-.onboard-step-info p { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
-.onboard-footer { padding: 16px 24px; text-align: center; border-top: 1px solid rgba(0,0,0,0.06); }
-body.dark .onboard-footer { border-top-color: rgba(255,255,255,0.06); }
-.onboard-btn {
-  padding: 12px 40px; border-radius: 24px; border: none;
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  color: #fff; font-size: 15px; font-weight: 700; cursor: pointer;
-  transition: all 0.2s; box-shadow: 0 4px 16px rgba(37,99,235,0.3);
+body.dark .hb-check-box { background: #1e2d45; border-color: #334155; }
+.hb-check-box:hover { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.1); }
+.hb-check.checked .hb-check-box { background: #27ae60; border-color: #27ae60; }
+.hb-check-box::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 800; opacity: 0; transform: scale(0); transition: all .15s; }
+.hb-check.checked .hb-check-box::after { opacity: 1; transform: scale(1); }
+.hb-check-body { flex: 1; min-width: 0; }
+.hb-check-header { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+.hb-check-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: .5px; padding: 2px 6px; border-radius: 4px; background: #eff4ff; flex-shrink: 0; }
+body.dark .hb-check-num { background: rgba(37,99,235,.15); }
+.hb-check-title { font-size: 13px; font-weight: 700; line-height: 1.5; flex: 1; }
+.hb-warn-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+  background: #fef5f5; color: #dc2626; white-space: nowrap; flex-shrink: 0;
 }
-.onboard-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(37,99,235,0.4); }
-.onboard-skip { display: block; margin-top: 10px; font-size: 11px; color: var(--text-muted); cursor: pointer; background: none; border: none; }
+body.dark .hb-warn-badge { background: rgba(220,38,38,.12); }
 
-/* ===== SOP Category Cards ===== */
-.sop-cards-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px; margin-bottom: 16px;
-}
-.sop-cat-card {
-  background: var(--bg-card); backdrop-filter: blur(12px);
-  border: 2px solid var(--border); border-radius: 14px;
-  padding: 16px 12px; text-align: center; cursor: pointer;
-  transition: all 0.25s; position: relative; overflow: hidden;
-}
-.sop-cat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-}
-.sop-cat-card:active { transform: scale(0.97); }
-.sop-cat-card .scc-icon { font-size: 36px; margin-bottom: 8px; transition: transform 0.3s; }
-.sop-cat-card:hover .scc-icon { transform: scale(1.15); }
-.sop-cat-card .scc-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-.sop-cat-card .scc-count { font-size: 11px; color: var(--text-muted); }
-.sop-cat-card .scc-bar {
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  border-radius: 0 0 3px 3px;
-}
-.sop-cat-card.c1 { border-color: rgba(139,92,246,0.3); }
-.sop-cat-card.c1 .scc-bar { background: #8b5cf6; }
-.sop-cat-card.c2 { border-color: rgba(245,158,11,0.3); }
-.sop-cat-card.c2 .scc-bar { background: #f59e0b; }
-.sop-cat-card.c3 { border-color: rgba(239,68,68,0.3); }
-.sop-cat-card.c3 .scc-bar { background: #ef4444; }
-.sop-cat-card.c4 { border-color: rgba(16,185,129,0.3); }
-.sop-cat-card.c4 .scc-bar { background: #10b981; }
-.sop-cat-card.c5 { border-color: rgba(37,99,235,0.3); }
-.sop-cat-card.c5 .scc-bar { background: #3b82f6; }
-.sop-cat-card .scc-badge {
-  display: inline-block; padding: 2px 8px; border-radius: 10px;
-  font-size: 10px; font-weight: 600; margin-top: 6px;
-}
-.scc-badge.key { background: rgba(239,68,68,0.1); color: #ef4444; }
+/* Tech tags */
+.hb-tech-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.hb-tech-tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+.hb-tech-tag.zhicha { background: #f5f3ff; color: #6d28d9; }
+.hb-tech-tag.mushi { background: #fff7ed; color: #c2410c; }
+.hb-tech-tag.celiang { background: #eff6ff; color: #1d4ed8; }
+body.dark .hb-tech-tag.zhicha { background: rgba(124,58,237,.15); color: #a78bfa; }
+body.dark .hb-tech-tag.mushi { background: rgba(234,88,12,.15); color: #fb923c; }
+body.dark .hb-tech-tag.celiang { background: rgba(37,99,235,.15); color: #60a5fa; }
+.hb-tech-tag .tag-dot { width: 6px; height: 6px; border-radius: 50%; }
+.hb-tech-tag.zhicha .tag-dot { background: #7c3aed; }
+.hb-tech-tag.mushi .tag-dot { background: #ea580c; }
+.hb-tech-tag.celiang .tag-dot { background: #2563eb; }
 
-/* ===== Training Mode Upgrade ===== */
-.train-progress-bar {
-  width: 100%; height: 6px; background: rgba(0,0,0,0.08);
-  border-radius: 3px; overflow: hidden; margin: 6px 0;
-}
-.train-progress-fill {
-  height: 100%; background: linear-gradient(90deg, #10b981, #34d399);
-  border-radius: 3px; transition: width 0.4s ease;
-}
-.train-check {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 22px; height: 22px; border-radius: 50%;
-  border: 2px solid #d1d5db; cursor: pointer;
-  font-size: 11px; transition: all 0.2s; flex-shrink: 0;
-}
-.train-check.done {
-  background: #10b981; border-color: #10b981; color: #fff;
-  animation: checkPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
-}
-@keyframes checkPop {
-  from { transform: scale(0); } to { transform: scale(1); }
-}
-.train-check:hover { border-color: #10b981; }
-#trainBar .train-stats {
-  display: flex; align-items: center; gap: 8px;
-}
-.train-stats .train-badge {
-  padding: 3px 10px; border-radius: 10px; font-size: 10px; font-weight: 700;
-}
-.train-badge.learning { background: rgba(245,158,11,0.15); color: #d97706; }
-.train-badge.done-all { background: rgba(16,185,129,0.15); color: #059669; animation: badgeGlow 1.5s ease infinite; }
-@keyframes badgeGlow {
-  0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.3); }
-  50% { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
-}
-.tree-header.training-done {
-  position: relative;
-}
-.tree-header.training-done::after {
-  content: '✓'; position: absolute; right: 12px; top: 50%;
-  transform: translateY(-50%); color: #10b981; font-weight: 900; font-size: 14px;
-}
+/* Step list */
+.hb-step-list { padding-left: 0; list-style: none; }
+.hb-step-list li { position: relative; padding: 4px 0 4px 18px; font-size: 12px; color: var(--text); line-height: 1.7; }
+.hb-step-list li::before { content: ''; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: #2563eb; opacity: .4; }
 
-/* ===== Koujue Page ===== */
-.koujue-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
-}
-.koujue-card {
-  background: var(--bg-card); backdrop-filter: blur(12px);
-  border: 1px solid var(--border); border-radius: 12px;
-  padding: 16px 18px; transition: all 0.2s;
-}
-.koujue-card:hover {
-  transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-}
-.koujue-card .kj-cat {
-  font-size: 10px; font-weight: 700; color: var(--blue); margin-bottom: 6px;
-  text-transform: uppercase; letter-spacing: 0.5px;
-}
-.koujue-card .kj-text {
-  font-size: 16px; font-weight: 800; color: #d97706;
-  background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(239,68,68,0.05));
-  padding: 12px 16px; border-radius: 10px; text-align: center;
-  letter-spacing: 0.5px; line-height: 1.6;
-}
-.koujue-card .kj-from {
-  font-size: 10px; color: var(--text-muted); margin-top: 8px;
+/* Highlight boxes */
+.hb-highlight { margin: 10px 0 0 0; padding: 10px 14px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; line-height: 1.6; border-left: 4px solid; }
+.hb-highlight.warn { background: #fef5f5; color: #991b1b; border-left-color: #dc2626; }
+body.dark .hb-highlight.warn { color: #fca5a5; background: rgba(220,38,38,.08); }
+.hb-highlight.info { background: #eff4ff; color: #1e3a8a; border-left-color: #2563eb; }
+body.dark .hb-highlight.info { color: #93c5fd; background: rgba(37,99,235,.08); }
+.hb-highlight.tip { background: #ecfdf5; color: #064e3b; border-left-color: #059669; }
+body.dark .hb-highlight.tip { color: #86efac; background: rgba(5,150,105,.08); }
+
+/* Inline threshold */
+.hb-threshold { display: inline-block; padding: 1px 7px; border-radius: 4px; font-family: 'SF Mono','Consolas','Menlo',monospace; font-size: 12px; font-weight: 700; color: #dc2626; background: #fef5f5; }
+body.dark .hb-threshold { background: rgba(220,38,38,.12); }
+
+/* Media thumbnails */
+.hb-media-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.hb-media-thumb { width: 120px; height: 90px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); cursor: pointer; position: relative; background: #f1f5f9; display: flex; align-items: center; justify-content: center; transition: transform .15s, box-shadow .15s; }
+.hb-media-thumb:hover { transform: scale(1.05); box-shadow: var(--shadow-md); }
+.hb-media-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.hb-media-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 4px 6px; background: rgba(0,0,0,.55); color: #fff; font-size: 10px; text-align: center; font-weight: 600; }
+
+/* Handbook flow bar */
+.hb-flow-bar-wrap { background: var(--bg-card-solid); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; margin-bottom: 10px; overflow-x: auto; }
+body.dark .hb-flow-bar-wrap { background: var(--bg-card-solid); }
+.hb-flow-bar { display: flex; align-items: center; gap: 0; min-width: max-content; }
+.hb-flow-step { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; color: var(--text-secondary); transition: all .2s; }
+.hb-flow-step .step-num { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; background: #f1f5f9; color: var(--text-secondary); flex-shrink: 0; }
+body.dark .hb-flow-step .step-num { background: #1e2d45; }
+.hb-flow-step.active { background: rgba(37,99,235,.08); color: #2563eb; }
+.hb-flow-step.active .step-num { background: #2563eb; color: #fff; }
+.hb-flow-arrow { color: #cbd5d1; font-size: 13px; margin: 0 2px; flex-shrink: 0; }
+.hb-flow-label { font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 10px; background: #fef3c7; color: #b45309; margin-left: 2px; white-space: nowrap; }
+body.dark .hb-flow-label { background: rgba(217,119,6,.15); }
+
+/* Legend bar */
+.hb-legend-bar { display: flex; gap: 14px; padding: 6px 0 0; flex-wrap: wrap; font-size: 11px; color: var(--text-secondary); align-items: center; }
+.hb-legend-title { font-weight: 700; font-size: 10px; letter-spacing: .5px; text-transform: uppercase; }
+.hb-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
+.hb-legend-dot.zhicha { background: #7c3aed; } .hb-legend-dot.mushi { background: #d97706; } .hb-legend-dot.celiang { background: #2563eb; }
+
+/* Handbook stats */
+.hb-stats-row { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.hb-stat-card { flex: 1; min-width: 110px; background: var(--bg-card-solid); border-radius: var(--radius); padding: 12px 14px; border: 1px solid var(--border); text-align: center; box-shadow: var(--shadow); }
+body.dark .hb-stat-card { background: var(--bg-card-solid); }
+.hb-stat-num { font-size: 26px; font-weight: 900; letter-spacing: -1px; }
+.hb-stat-label { font-size: 10px; color: var(--text-secondary); margin-top: 2px; font-weight: 600; }
+
+/* Threshold sidebar card */
+.hb-threshold-card { background: var(--bg-card-solid); border-radius: var(--radius); border: 1px solid var(--border); padding: 16px; margin-top: 14px; box-shadow: var(--shadow); }
+.hb-threshold-card h4 { font-size: 12px; font-weight: 800; color: #2563eb; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.hb-threshold-card h4::before { content: ''; width: 3px; height: 14px; border-radius: 2px; background: #2563eb; }
+.hb-threshold-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 11px; }
+.hb-threshold-row:last-child { border-bottom: none; }
+.hb-threshold-val { font-family: 'SF Mono','Consolas',monospace; font-weight: 700; font-size: 11px; padding: 2px 7px; border-radius: 4px; background: var(--kpi-bg); }
+.hb-threshold-val.hi { color: #dc2626; }
+
+/* Lightbox */
+.hb-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 99999; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.hb-lightbox img, .hb-lightbox video { max-width: 92vw; max-height: 92vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.hb-lightbox-close { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s; }
+.hb-lightbox-close:hover { background: rgba(255,255,255,.3); }
+
+@media (max-width: 640px) {
+  .hb-stats-row { gap: 6px; } .hb-stat-card { padding: 8px 10px; } .hb-stat-num { font-size: 20px; }
+  .hb-check { padding: 10px 12px; } .hb-check-title { font-size: 12px; }
+  .hb-section-body { padding: 10px 12px; }
 }
 
-/* Responsive */
-@media(max-width:1024px) { .sop-cards-row { grid-template-columns: repeat(3, 1fr); } .koujue-grid { grid-template-columns: 1fr; } }
-@media(max-width:640px) { .sop-cards-row { grid-template-columns: repeat(2, 1fr); } }
-
+/* ═══════════ 改善逻辑框架卡 ═══════════ */
+.framework-card {
+  background: var(--bg-card-solid); border-radius: var(--radius);
+  border: 1px solid var(--border); margin-bottom: 14px;
+  padding: 20px 24px; box-shadow: var(--shadow);
+  overflow: hidden;
+}
+body.dark .framework-card { background: var(--bg-card-solid); }
+.framework-title {
+  text-align: center; font-size: 15px; font-weight: 800;
+  color: var(--text); margin-bottom: 18px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.framework-title .icon-bolt {
+  display: inline-block; width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  color: #fff; font-size: 14px; line-height: 28px; text-align: center;
+}
+.framework-compare {
+  display: flex; gap: 16px; align-items: stretch;
+}
+.framework-compare > div { flex: 1; }
+.framework-old, .framework-new {
+  border-radius: var(--radius-sm); padding: 16px 18px;
+  position: relative; overflow: hidden;
+}
+.framework-old {
+  background: linear-gradient(135deg, #fef2f2, #fff5f5);
+  border: 1px solid #fecaca;
+}
+body.dark .framework-old { background: linear-gradient(135deg, rgba(220,38,38,.08), rgba(239,68,68,.04)); border-color: rgba(220,38,38,.2); }
+.framework-new {
+  background: linear-gradient(135deg, #eff6ff, #f0f9ff);
+  border: 2px solid #93c5fd;
+}
+body.dark .framework-new { background: linear-gradient(135deg, rgba(37,99,235,.1), rgba(59,130,246,.06)); border-color: rgba(59,130,246,.3); }
+.framework-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 12px; display: inline-block; margin-bottom: 10px;
+}
+.framework-old .framework-label { background: #fecaca; color: #991b1b; }
+body.dark .framework-old .framework-label { background: rgba(220,38,38,.2); color: #fca5a5; }
+.framework-new .framework-label { background: #bfdbfe; color: #1e3a8a; }
+body.dark .framework-new .framework-label { background: rgba(37,99,235,.2); color: #93c5fd; }
+.framework-flow {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  font-size: 12px; font-weight: 700; line-height: 1.8;
+}
+.framework-old .framework-flow { color: #991b1b; }
+body.dark .framework-old .framework-flow { color: #fca5a5; }
+.framework-new .framework-flow { color: #1e40af; }
+body.dark .framework-new .framework-flow { color: #93c5fd; }
+.framework-flow .arr { color: #94a3b8; font-size: 14px; margin: 0 2px; }
+.framework-vs {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 900; color: #7c3aed;
+  writing-mode: vertical-lr; letter-spacing: 2px;
+  padding: 0 4px;
+}
+.framework-new-tag {
+  position: absolute; top: -2px; right: -2px;
+  background: #22c55e; color: #fff; font-size: 9px;
+  font-weight: 800; padding: 2px 8px; border-radius: 0 8px 0 8px;
+  letter-spacing: .5px;
+}
+.framework-bottom {
+  text-align: center; margin-top: 14px; padding-top: 12px;
+  border-top: 1px dashed var(--border);
+  font-size: 12px; font-weight: 700; color: #7c3aed;
+  letter-spacing: .5px;
+}
+body.dark .framework-bottom { color: #a78bfa; }
+@media (max-width: 700px) {
+  .framework-compare { flex-direction: column; }
+  .framework-vs { writing-mode: horizontal-tb; padding: 4px 0; }
+}
 </style>
 </head>
-<body>
-
-<!-- Mobile Hamburger -->
-<button class="hamburger-btn" onclick="toggleMobileSidebar()" title="菜单">☰</button>
-<div id="mobile-overlay" onclick="toggleMobileSidebar()"></div>
+<body class="is-admin">
 
 <div id="zb-layout">
 
@@ -704,24 +563,19 @@ body.dark .onboard-footer { border-top-color: rgba(255,255,255,0.06); }
   </div>
   <div class="zb-nav-lbl">数据模块</div>
   <div class="zb-nav-item" onclick="zbNav('sop',this)">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg> SOP速查
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg> 检测框架
   </div>
-  <div class="zb-nav-item active" onclick="zbNav('bigscreen',this)">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"></rect><line x1="8" y1="2" x2="8" y2="22"></line><line x1="16" y1="2" x2="16" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg> 数据大屏
-  </div>
-  <div class="zb-nav-item" onclick="zbNav('dashboard',this)">
+  <div class="zb-nav-item active" onclick="zbNav('dashboard',this)">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> 数据看板
   </div>
-  <div class="zb-nav-lbl" style="margin-top:4px">检查项分类</div>
-  <div class="zb-nav-item" onclick="zbNavSection('cat-display')">① 机身屏幕</div>
-  <div class="zb-nav-item" onclick="zbNavSection('cat-back')">② 机身后壳</div>
-  <div class="zb-nav-item" onclick="zbNavSection('cat-repair')">③ 苹果拆修</div>
-  <div class="zb-nav-item" onclick="zbNavSection('cat-func')">④ 功能检查</div>
-  <div class="zb-nav-item" onclick="zbNavSection('cat-flow')">⑤ 扫码拍照入库</div>
-  <div class="zb-nav-lbl" style="margin-top:4px">新手专区</div>
-  <div class="zb-nav-item" onclick="zbNav('koujue',this)">
-    <span style="font-size:16px">📣</span> 口诀汇总
-  </div>
+  <div class="zb-nav-lbl" style="margin-top:4px">执行手法分类</div>
+  <div class="zb-nav-item" onclick="zbNavSection('hb-sec1')">① 机身外壳外观/拆修</div>
+  <div class="zb-nav-item" onclick="zbNavSection('hb-sec2')">② 碎裂检查</div>
+  <div class="zb-nav-item" onclick="zbNavSection('hb-sec3')">③ 屏幕外观/拆修</div>
+  <div class="zb-nav-item" onclick="zbNavSection('hb-sec4')">④ 充电检测/尾插</div>
+  <div class="zb-nav-item" onclick="zbNavSection('hb-sec5')">⑤ 屏幕显示界面</div>
+  <div class="zb-nav-item" onclick="zbNavSection('hb-sec6')">⑥ 摄像头检测</div>
+  <div class="zb-nav-item" onclick="zbNavSection('hb-sec7')">⑦ 拆机内部看点</div>
   <div class="zb-sidebar-footer">
     <div id="zbSidebarActionRow">
       <button onclick="toggleDarkMode()" title="切换暗色模式" id="darkModeBtn">☽</button>
@@ -736,545 +590,534 @@ body.dark .onboard-footer { border-top-color: rgba(255,255,255,0.06); }
 <!-- ====== 主内容区 ====== -->
 <div id="zb-main">
 
-<!-- ========== PAGE: SOP速查 ========== -->
+<!-- ========== PAGE: 检测框架 ========== -->
 <div class="zb-page" id="zb-page-sop">
 
-<!-- SOP 五大分类卡片 -->
-<div class="sop-cards-row" style="margin-top:8px">
-  <div class="sop-cat-card c1" onclick="zbNavSection('cat-display')">
-    <div class="scc-bar"></div>
-    <div class="scc-icon">🖥</div>
-    <div class="scc-name">机身屏幕</div>
-    <div class="scc-count">19 项检查</div>
-    <div class="scc-badge key">含 10 项重点</div>
-  </div>
-  <div class="sop-cat-card c2" onclick="zbNavSection('cat-back')">
-    <div class="scc-bar"></div>
-    <div class="scc-icon">🔩</div>
-    <div class="scc-name">机身后壳</div>
-    <div class="scc-count">16 项检查</div>
-    <div class="scc-badge key">含 9 项重点</div>
-  </div>
-  <div class="sop-cat-card c3" onclick="zbNavSection('cat-repair')">
-    <div class="scc-bar"></div>
-    <div class="scc-icon">🛠</div>
-    <div class="scc-name">苹果拆修</div>
-    <div class="scc-count">15 项检查</div>
-    <div class="scc-badge key">含 9 项重点</div>
-  </div>
-  <div class="sop-cat-card c4" onclick="zbNavSection('cat-func')">
-    <div class="scc-bar"></div>
-    <div class="scc-icon">⚙</div>
-    <div class="scc-name">功能检查</div>
-    <div class="scc-count">16 项检查</div>
-    <div class="scc-badge key">含 7 项重点</div>
-  </div>
-  <div class="sop-cat-card c5" onclick="zbNavSection('cat-flow')">
-    <div class="scc-bar"></div>
-    <div class="scc-icon">📱</div>
-    <div class="scc-name">扫码入库</div>
-    <div class="scc-count">14 项检查</div>
-    <div class="scc-badge key">含 4 项重点</div>
-  </div>
-</div>
-
 <div class="top-bar">
-  <div class="marquee-wrap" id="mqSop"><span class="marquee-inner mq-run" style="--mq-start: 0px; --mq-dur: 12s;">重庆库质检数据与实操标准 · 红标=必检重点 黄标=易漏提醒 · 检查前请确认工位清洁、工具齐全</span></div>
+  <div class="marquee-wrap" id="mqSop"><span class="marquee-inner mq-run" style="--mq-start: 0px; --mq-dur: 12s;">重庆库质检执行手法标准 · 严格按此文档执行 · 红标=重点 黄标=易漏 · 指差法已强制上视频稽核</span></div>
   <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-    <span style="font-size:10px;color:var(--text-muted)">快捷键: Ctrl+F 搜索 · Ctrl+E 全部展开 · Ctrl+W 全部折叠</span>
+    <span style="font-size:10px;color:var(--text-muted)">Ctrl+F 搜索 · 点击板块标题展开/折叠 · 勾选框记录进度</span>
   </div>
 </div>
 
 <div class="sticky-filter-bar">
   <div class="sticky-filter-inner">
     <span style="font-size:11px;font-weight:600;color:var(--text-secondary);flex-shrink:0">筛选</span>
-    <input type="text" id="searchInput" placeholder="搜索检测项、关键词…" oninput="doSearch()" style="height:28px;font-size:11px;padding:3px 10px;border-radius:7px;border:1px solid var(--border);background:var(--kpi-bg);color:var(--text);outline:none;flex:1;min-width:150px;max-width:300px">
+    <input type="text" id="searchInput" placeholder="搜索检测项、关键词…" oninput="hbSearch()" style="height:28px;font-size:11px;padding:3px 10px;border-radius:7px;border:1px solid var(--border);background:var(--kpi-bg);color:var(--text);outline:none;flex:1;min-width:150px;max-width:300px">
     <div class="sticky-divider"></div>
-    <span class="cat-tab active" id="catAll" onclick="filterByCategory('all',this)">全部</span>
-    <span class="cat-tab" id="catKey" onclick="filterByCategory('key',this)">重点项</span>
+    <span class="cat-tab active" onclick="hbFilterAll(this)">全部</span>
+    <span class="cat-tab" onclick="hbFilterKey(this)">重点项</span>
     <div class="sticky-divider"></div>
-    <label class="mode-switch key-swt">
-      <input type="checkbox" id="keyModeToggle" onchange="toggleKeyMode()"> 重点模式
-    </label>
-    <label class="mode-switch edit-swt admin-only">
-      <input type="checkbox" id="editModeToggle" onchange="toggleEditMode()"> 编辑模式
-    </label>
-    <div class="sticky-divider"></div>
-    <span class="cat-tab" onclick="expandAll()">展开全部</span>
-    <span class="cat-tab" onclick="collapseAll()">折叠全部</span>
+    <span class="cat-tab" onclick="hbExpandAll()">展开全部</span>
+    <span class="cat-tab" onclick="hbCollapseAll()">折叠全部</span>
+    <span class="cat-tab" onclick="hbToggleAllChecks()">全部勾检</span>
+    <span class="cat-tab" onclick="hbResetChecks()" style="color:#dc2626">↺ 重置</span>
   </div>
 </div>
 
-<!-- SOP Sections -->
-<div id="sopContent">
-<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-  <button onclick="toggleTrainMode()" id="trainModeBtn" style="padding:6px 14px;border-radius:20px;border:2px solid rgba(16,185,129,0.4);background:rgba(16,185,129,0.06);color:#059669;cursor:pointer;font-size:12px;font-weight:600;white-space:nowrap;transition:all .15s;display:flex;align-items:center;gap:4px" onmouseover="this.style.background='rgba(16,185,129,0.12)'" onmouseout="this.style.background='rgba(16,185,129,0.06)'">📖 培训模式</button>
-<!-- Process Flow Bar -->
-<div id="flowBar" style="display:flex;align-items:center;gap:0;padding:8px 16px;margin-bottom:12px;background:rgba(255,255,255,0.70);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:12px;border:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,0.04);overflow-x:auto;flex-shrink:0">
-  <span style="font-size:10px;font-weight:700;color:var(--text-muted);margin-right:8px;white-space:nowrap">🛠 验机流程</span>
-  <span class="flow-step active" onclick="zbNavSection('cat-display')" style="display:flex;align-items:center;gap:4px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.15s;color:#2563eb;background:rgba(37,99,235,0.08)">
-    <span style="width:18px;height:18px;border-radius:50%;background:#8b5cf6;color:#fff;font-size:10px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">1</span> 机身屏幕
-  </span>
-  <span style="color:var(--text-muted);font-size:10px;margin:0 2px">➔</span>
-  <span class="flow-step" onclick="zbNavSection('cat-back')" style="display:flex;align-items:center;gap:4px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.15s;color:var(--text-secondary);background:transparent">
-    <span style="width:18px;height:18px;border-radius:50%;background:var(--yellow);color:#fff;font-size:10px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">2</span> 机身后壳
-  </span>
-  <span style="color:var(--text-muted);font-size:10px;margin:0 2px">➔</span>
-  <span class="flow-step" onclick="zbNavSection('cat-repair')" style="display:flex;align-items:center;gap:4px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.15s;color:var(--text-secondary);background:transparent">
-    <span style="width:18px;height:18px;border-radius:50%;background:var(--red);color:#fff;font-size:10px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">3</span> 苹果拆修
-  </span>
-  <span style="color:var(--text-muted);font-size:10px;margin:0 2px">➔</span>
-  <span class="flow-step" onclick="zbNavSection('cat-func')" style="display:flex;align-items:center;gap:4px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.15s;color:var(--text-secondary);background:transparent">
-    <span style="width:18px;height:18px;border-radius:50%;background:#10b981;color:#fff;font-size:10px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">4</span> 功能检查
-  </span>
-  <span style="color:var(--text-muted);font-size:10px;margin:0 2px">➔</span>
-  <span class="flow-step" onclick="zbNavSection('cat-flow')" style="display:flex;align-items:center;gap:4px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.15s;color:var(--text-secondary);background:transparent">
-    <span style="width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;font-size:10px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">5</span> 扫码拍照入库
-  </span>
+<!-- 统计条 -->
+<div class="hb-stats-row" id="hbStatsRow">
+  <div class="hb-stat-card">
+    <div class="hb-stat-num" style="color:#2563eb" id="hbTotalCount">22</div>
+    <div class="hb-stat-label">检查项总数</div>
+  </div>
+  <div class="hb-stat-card">
+    <div class="hb-stat-num" style="color:#dc2626" id="hbWarnCount">10</div>
+    <div class="hb-stat-label">⚠️ 重点关注项</div>
+  </div>
+  <div class="hb-stat-card">
+    <div class="hb-stat-num" style="color:#27ae60" id="hbDoneCount">0</div>
+    <div class="hb-stat-label">已完成勾检</div>
+  </div>
+  <div class="hb-stat-card">
+    <div class="hb-stat-num" style="color:#7c3aed">7</div>
+    <div class="hb-stat-label">检测板块</div>
+  </div>
 </div>
 
-<!-- ====== ① 机身屏幕 ====== -->
-<div class="card" id="cat-display" style="padding:0;overflow:hidden">
-<div class="cat-header" onclick="toggleTreeCat(this)" style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none">
-  <span class="cat-arrow">▼</span>
-  <div class="card-title-bar" style="background:#8b5cf6"></div>
-  <span style="font-weight:700;font-size:16px">🖥 ① 机身屏幕</span>
-  <span style="font-size:11px;color:var(--text-muted);margin-left:auto">19项</span>
-<button class="btn-edit-cat" title="编辑分类名称">✎</button></div>
-<div class="cat-body">
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">3</span>内屏掉漆/划伤<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>若检查到内屏掉漆/划伤，使用菲林卡尺测量出直径并点清数量，在APP界面勾选对应选项。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">4</span>屏幕裂痕检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>若检查到裂痕需使用菲林卡尺测量出直径并点清数量。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">5</span>屏幕支架破损检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>若检查到支架破损需使用菲林卡尺测量出长度。<br><b>判定：</b>支架只磕碰未破损算外壳磕碰，有破损的算支架破损。折叠屏机型的屏幕保护胶条也算屏幕支架。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">6</span>音频网罩检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>检查音频网罩是否变形/破损或缺失，在APP界面勾选对应选项。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">7</span>屏幕凸起/褶皱检查<span class="step-tags"><span class="tag tag-yellow">注意豁免</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>若检查到凸点或褶皱，使用菲林卡尺测量出直径并点清数量。<br><b>豁免范围：</b>安卓机型距离屏幕边缘10mm范围内的一圈、屏下指纹模块边缘5mm范围内的一圈为豁免范围。小窗屏和折叠机主屏不看褶皱。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">8</span>屏幕盖板打磨凹陷检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>使用530瓶子垂直贴紧屏幕检查是否可看到缝隙或对向透光 → 若能看到需将0.3mm塞规放入缝隙判定。仅直面屏机型检查；曲面屏机型只检查波浪形纹路。OPPO Find X8系列不执行。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">9</span>折叠机折痕/凹印/凸起检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>若检查到折叠机有发白折痕、凹印或凸起，根据检查情况勾选。<br><b>判定：</b>发白折痕需区分轻微和明显；凹印需直径＞3mm才判定；主屏凸起直径需＞1mm，折叠处凸起不算。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">10</span>折叠机保护膜检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>检查折叠机屏幕是否存在保护膜 → 判断是否为原厂 → 检查贴膜情况（保护膜上的划痕/气泡/进灰按屏幕标准勾选）。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">11</span>折叠机支架缝隙检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>折叠机展开后，使用0.3mm塞规检测左右两边4个位置。塞规需与屏幕平行，不可斜插或过力。若触发支架破损/缺失&gt;2mm则无需检测此项。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">12</span>折叠屏鼓包/蝴蝶扣检查<span class="step-tags"><span class="tag tag-yellow">新版B3新增</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>折叠屏折叠过程查看是否存在局部鼓胀、外拱现象。完全展开查看蝴蝶扣是否存在胶条凹陷、变形、翘起。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">13</span>屏幕白底拍照（折叠机）</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>打开拍照手机【质检小工具】→ 点击【质检拍照】→ 扫描二维码 → 1倍焦距下点击拍照 → 确定上传。折叠机需展开主屏+副屏各拍一张白底照。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">14</span>屏幕显示检查（黑白灰三色）<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="highlight-card"><table><tbody><tr><td>判定标准</td><td>手机距眼睛15-20cm，APP默认亮度下切换黑、白、灰纯色界面检查。每个界面至少停留4s。亮度过低需调到70%以上。</td></tr><tr><td>检查项</td><td>进灰、气泡、坏点、色斑、漏液、黑色背景有色块、白底局部发暗、条纹、亮点/亮斑</td></tr><tr><td>易漏原因</td><td>切换界面太快（&lt;4s）、亮度不够70%看不出暗病、只检查部分颜色界面</td></tr></tbody></table><div class="koujue">"黑白灰各4秒，亮度七成不能少"</div></div><div class="block"><span class="block-title">📝 质检手法</span>切换黑→白→灰纯色界面，每界面至少停留4秒。默认亮度下检查，亮度过低时调整到70%以上。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">15</span>OLED屏隐藏暗线检查<span class="step-tags"><span class="tag tag-yellow">易漏</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>OLED屏检查条纹时，双手同时按压屏幕上/下方中间位置，看是否会出现隐藏暗线。屏碎及漏液的不执行此操作。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">16</span>屏幕泛红/泛黄检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>眼睛距离手机30cm，在肉眼可见泛红/泛黄情况下，使用手机拍照来区分不可拍/可拍。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">17</span>透图/状态栏分层检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>检查是否有透图及状态栏分层。状态栏外透图需使用菲林卡尺测量直径。肉眼可观察到时需iPhone 12/13 Pro拍照区分可拍/不可拍。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">18</span>屏幕黑边/红线检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>使用手电辅助检查屏幕四边黑边是否对齐、黑边宽度是否一致。四边各有一条红线的机器，检查红线是否缺失（直面屏正视查看，瀑布屏侧边查看左右红线）。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">19</span>屏幕材质/偏光片/支架检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>息屏下借助手电筒检查屏幕材质。紫光灯距离屏幕5-10cm照射检查底色。偏光片端正置于显示区域上方3cm内，正视停顿观察孔位颜色。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="highlight-card"><table><tbody><tr><td>判定标准</td><td>苹果6/7/8号孔深蓝色；安卓12号孔黑色或深蓝色。折叠机只检查副屏。</td></tr></tbody></table></div></div></div>
-<button class="btn-add-tree-item">+ 添加检查项</button><div class="tree-item is-key"><div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">18</span><span class="step-tags"><span class="tag tag-red">重点</span><span class="tag tag-yellow">易漏</span></span>安卓-屏幕拆修情况</div><div class="tree-body"><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">1</span>外屏-有胶水溢出/撬痕</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">2</span>外屏-感应孔样式与示例不符</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">3</span>外屏-APP黑边红线有缺失</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">4</span>外屏-黑边宽度不匹配（app未配置红线缺失才有此项）</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">5</span>外屏-紫光灯照射边缘内屏异常（华为系列）</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">6</span>工具-屏幕偏光检测异常（安卓）</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">7</span>外屏-触摸键灯局部不亮</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">8</span>屏幕-屏幕材质不符</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">9</span>昆仑玻璃检查（华为机型）</div><div class="tree-body"></div></div></div></div></div></div>
-
-<!-- ====== ② 机身后壳 ====== -->
-<div class="card" id="cat-back" style="padding:0;overflow:hidden">
-<div class="cat-header" onclick="toggleTreeCat(this)" style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none">
-  <span class="cat-arrow">▼</span>
-  <div class="card-title-bar" style="background:var(--yellow)"></div>
-  <span style="font-weight:700;font-size:16px">🔩 ② 机身后壳</span>
-  <span style="font-size:11px;color:var(--text-muted);margin-left:auto">16项</span>
-<button class="btn-edit-cat" title="编辑分类名称">✎</button></div>
-<div class="cat-body">
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">1</span>整体外观目视检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>视线正对后壳，转动手机在不同角度下检查整个手机背面 → 翻转检查边框。<br><b>检查范围：</b>边框包括卡托、尾插、按键、耳机孔、屏幕支架。折叠屏需展开检查。<br><b>原则：</b>目视发现瑕疵或不确认异常，需用手触摸确认。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">2</span>裂痕检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="highlight-card"><table><tbody><tr><td>判定标准</td><td>金属外壳裂纹≤0.3mm算磕碰，＞0.3mm算碎裂；塑料后壳裂纹用指甲判定是否有触感，有触感算碎裂，无触感算磕碰。</td></tr><tr><td>注意事项</td><td>质检项长度相同时勾选较轻的项，如裂痕长度为2mm时勾选【≤2mm】，而不是【2mm-10mm】。</td></tr></tbody></table><div class="koujue">"裂痕必量，金属0.3塑料看触感"</div></div><div class="block"><span class="block-title">📝 质检手法</span>检查到裂痕需使用菲林卡尺测量裂痕两端之间最长的距离，然后勾选对应选项并提交。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">3</span>刻字检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>若后壳检查到有刻字，区分非官方刻字/官方刻字。<br><b>判定：</b>【刻字小于50%】或【刻字超过50%】是指非官方刻字总面积占后壳总面积比例，不以字体分布区域判定。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">4</span>褶皱检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>若检查到褶皱需使用菲林卡尺测量出长度并勾选对应选项。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">5</span>机身弯曲变形检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="highlight-card"><table><tbody><tr><td>判定标准</td><td>外壳卡托、尾插、按键、耳机孔周围等有凸起的变形都算机身弯曲。</td></tr><tr><td>注意事项</td><td>后盖摄像头模组较大无法紧贴桌边时，以屏幕面紧贴桌边检测。四角为R角的手机需在距翘起顶部5mm处测量。</td></tr></tbody></table></div><div class="block"><span class="block-title">📝 质检手法</span>手机边框对着眼睛方向旋转查看是否弯曲变形 → 较长直边紧贴桌边 → 菲林卡尺测量桌边到翘起顶部的距离。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">6</span>脱胶/缝隙检查<span class="step-tags"><span class="tag tag-red">重点</span><span class="tag tag-yellow">易漏</span></span></div>
-<div class="tree-body"><div class="highlight-card"><table><tbody><tr><td>判定标准</td><td>塞规不可斜插或使用边角插。检查区域包含所有外壳与其他部件连接处。</td></tr></tbody></table><div class="koujue">"塞规平行放，轻松能入就算脱"</div></div><div class="block"><span class="block-title">📝 质检手法</span>用手捏住0.3mm塞规顶部位置平行放入缝隙，若能轻松放入则判定【脱胶缝隙≥0.3mm】，若感受到阻力且塞规弯曲则判定【无】。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">7</span>摄像头镜头进灰检查<span class="step-tags"><span class="tag tag-yellow">易漏</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>保持眼睛距手机30cm，顶部向上倾斜45°，左右偏移手机检查前后摄镜头内是否有进灰。若检查到进灰，使用菲林卡尺测量灰尘直径并点清数量。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">8</span>后壳进灰检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>若检查到手机后壳内有灰尘，在APP界面勾选【后壳进灰】。<br><b>豁免：</b>灰尘直径≤0.5mm且数量≤5粒不算后壳进灰。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">9</span>外壳缺失/Logo掉落</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>若手机外壳完全缺失或嵌入式logo掉落，在APP界面勾选【外壳缺失/logo掉落】。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">10</span>部件缺失检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>检查尾插金属保护圈、摄像头保护罩、顶部红外装置镜片、按键（除home指纹键）是否缺失/断裂/脱落，若有勾选【其他异常】。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">11</span>后盖与镜头保护罩连接处胶水溢出<span class="step-tags"><span class="tag tag-red">重点</span><span class="tag tag-yellow">高漏检</span></span></div>
-<div class="tree-body"><div class="highlight-card"><table><tbody><tr><td>标准</td><td>连接处无胶水溢出痕迹，缝隙均匀无白点。</td></tr><tr><td>怎么看</td><td>镜头朝上，45°侧光，用指甲沿连接缝滑动一圈。</td></tr></tbody></table><div class="koujue">"转一圈，摸一圈，缝隙白点不能过"</div></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">12</span>后壳漆面受损<span class="step-tags"><span class="tag tag-red">重点</span><span class="tag tag-yellow">高漏检</span></span></div>
-<div class="tree-body"><div class="highlight-card"><table><tbody><tr><td>标准</td><td>漆面完整，无掉漆/划痕/凹陷/起皮。</td></tr><tr><td>怎么看</td><td>正面强光确认无明显瑕疵 → 侧光30°检查漆面平整度。</td></tr></tbody></table><div class="koujue">"先平面后边角，侧光看漆面"</div></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">13</span>感应孔样式检查<span class="step-tags"><span class="tag tag-red">重点</span><span class="tag tag-yellow">高漏检</span></span></div>
-<div class="tree-body"><div class="highlight-card"><table><tbody><tr><td>标准</td><td>感应孔形状/位置/数量与当批次示例一致。</td></tr><tr><td>怎么看</td><td>拿示例机/照片并排对比，确认开孔位置和形状。</td></tr></tbody></table><div class="koujue">"不对示例只看实物，十个有九个会出错"</div></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">14</span>按键处溢胶检查<span class="step-tags"><span class="tag tag-red">重点</span><span class="tag tag-yellow">高漏检</span></span></div>
-<div class="tree-body"><div class="highlight-card"><table><tbody><tr><td>标准</td><td>音量键/电源键边缘无缝、无胶水残留。</td></tr><tr><td>怎么看</td><td>按压按键 → 观察按键缝隙是否有胶挤出；手指沿按键边缘轻摸。</td></tr></tbody></table><div class="koujue">"按一下，摸一圈，黏手就不能过"</div></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">15</span>后壳更换检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>检查手机后壳是否被更换过。三星折叠屏W23-25借助紫光灯检查。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">16</span>后摄/闪光灯/麦克风网检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>检查后摄印记或镜片缺失 → 闪光灯是否偏移或镜片缺失 → 后摄保护圈是否缺失或镜圈缝隙变大 → 麦克风网是否缺失。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-<button class="btn-add-tree-item">+ 添加检查项</button><div class="tree-item is-key"><div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">17</span>安卓-机身维修情况</div><div class="tree-body"><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">1</span>后壳-与中框有溢胶/撬痕</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">2</span>后壳-样式不匹配</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">3</span>后壳-壳内漆面受损</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">4</span>后壳-后盖与镜头保护罩连接处有胶水溢出</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">5</span>后壳-后盖与摄像头缝隙大于
-0.5mm</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">6</span>后盖-闪光灯有偏移大于0.3mm</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">7</span>后壳-扬声器网/麦克风网缺失</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">8</span>后壳-贴标盖章【拆机内部】</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">9</span>后壳-导电棉/缓冲棉/石墨贴纸缺
-失【拆机内部】</div><div class="tree-body"></div></div><div class="tree-item"><div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">10</span>后壳-中框封胶异常【拆机内部】</div><div class="tree-body"></div></div></div></div></div></div>
-
-<!-- ====== ③ 苹果拆修 ====== -->
-<div class="card" id="cat-repair" style="padding:0;overflow:hidden">
-<div class="cat-header" onclick="toggleTreeCat(this)" style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none">
-  <span class="cat-arrow">▼</span>
-  <div class="card-title-bar" style="background:var(--red)"></div>
-  <span style="font-weight:700;font-size:16px">🛠 ③ 苹果拆修</span>
-  <span style="font-size:11px;color:var(--text-muted);margin-left:auto">15项</span>
-<button class="btn-edit-cat" title="编辑分类名称">✎</button></div>
-<div class="cat-body">
-<div class="tree-item is-key">
-<div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">2</span>屏幕/后壳连接处溢胶/撬痕检查<span class="step-tags"><span class="tag tag-red">重点</span><span class="tag tag-yellow">高漏检</span></span></div>
-<div class="tree-body"><div class="highlight-card"><table><tbody><tr><td>检查范围</td><td>屏幕/后壳与其它部件连接处、支架与中框连接处（含折叠屏副屏）。</td></tr></tbody></table><div class="koujue">"屏幕朝下看脱胶，指甲刮缝查溢胶"</div></div><div class="block"><span class="block-title">📝 质检手法</span>目视检查屏幕四边是否脱胶（屏幕朝下检查）→ 屏幕/后壳连接处是否有溢胶/撬痕 → 目视不确认时用指甲刮动确认。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">3</span>感应孔样式与示例不符检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>眼睛正视手机，目视检查感应孔是否和原厂不符。苹果机型使用手电筒辅助检查。折叠屏大副屏需检查，小副屏不需检查。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">4</span>原彩显示检查（苹果机型）</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>下拉状态栏长按亮度条 → 查看是否有原彩图标。iPhone 8及以后机型有原彩功能。缺失或没有 →【屏幕-无原彩显示】。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">5</span>爱思助手验机检查<span class="step-tags"><span class="tag tag-yellow">易漏</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>APP界面靓机助手回显异常 → 插线连接电脑打开爱思助手查看验机报告是否有拆修记录。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">6</span>未知部件提示检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>状态栏或关于本机出现未知部件等提示 → 勾选对应部件异常。<br><b>华为Mate 60/Pura 70/Mate 70系列：</b>连接充电器 → 更新应用 → 连接充电器2-3次检查是否弹窗。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">7</span>电池健康度检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>进入设置 → 电池 → 电池健康 → 截图 → 关于本机 → 截图 → 上传。B2C卖场手机电池健康度&lt;83%需更换电池。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">8</span>昆仑玻璃检查（华为机型）<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>配置【更换非昆仑玻璃】项的华为机型，在息屏状态下使用手电（白光）照射屏幕盖板，检查颜色是否为蓝色系，若不是判定为更换非昆仑屏。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">9</span>卡槽/扬声器/尾插/按键开孔弧度检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>用卡针取出卡托 → 手电辅助检查卡槽颜色、开孔弧度、小型号及是否更换卡座 → 检查所有扬声器和麦克风网是否缺失、开孔弧度是否正常 → 检查尾插及螺丝是否缺失/更换/损坏 → 检查所有按键是否缺失及开孔弧度是否正常。<br><b>华为机型：</b>需检查中框切面(指纹键区域)交接处是否有明显台阶感。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">10</span>iPhone17Pro/17ProMax外壳翻新检查<span class="step-tags"><span class="tag tag-yellow">新版B3新增</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 后壳检查</span>紫光灯贴紧后玻璃，查看颜色是否为紫色/蓝色（星宇橙色需微微抬起紫光灯露出"月牙"光区查看，深蓝色需用手遮挡周围光线）。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="block"><span class="block-title">📝 充电口检查</span>查看是否有一圈高光处理的金属圈嵌入充电口内。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="block"><span class="block-title">📝 闪光灯/麦克风倒角</span>斜看是否存在斜切面/高光倒角。后置麦克风斜看是否存在漏斗形状。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="block"><span class="block-title">📝 刀纹检查</span>使用放大镜查看中框与后玻璃接合处的中框边缘有无刀纹，无刀纹为原装。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">11</span>手工拆机操作<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作流程</span>拧下底部螺丝 → 检查螺丝是否缺失/凸起/滑丝/不符 → 15-20cm目视检查缝隙 → 不确认时用刀片沿缝隙刮查溢胶 → 刀片垂直插入长边（LCD屏不能滴酒精）→ 刀片翘起拉缝 → 拨片插入沿长边划动 → 刀片从顶部插入翘起 → 从卡槽另一边小心打开手机（张开角度≤90°）。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="block"><span class="block-title">⚠ 关键注意</span>拆机时保持屏幕常亮；插入拨片不能太深以防滑断排线；下刀避开按键和卡托位置。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">12</span>内部拆修痕迹检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 检查清单</span>1. 内部是否有维修标识贴纸或盖章<br>2. 贴纸/海绵/零部件是否缺失、破损、更换或维修<br>3. 排线是否翘起或飞线，是否有焊油/焊锡残留<br>4. 内部固定螺丝是否缺失、型号不符或滑牙<br>5. 防水标是否变红，内部有浸液发霉/生锈<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="highlight-card"><table><tbody><tr><td>屏幕IC检测</td><td>紫光灯距离屏幕IC 5cm范围内照射，观察是否呈现荧光青（适用12-17系列）。</td></tr></tbody></table></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">13</span>更换电池操作（B2C卖场健康度&lt;83%）</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作流程</span>取下电池排线螺丝和屏蔽罩 → 镊子拨开电池排线 → 电池边缘滴酒精 → 镊子轻轻翘起电池（避开排线）→ 清理残胶 → 领新电池贴电池胶 → 扣排线接口 → 按压电池四边角 → 装回屏蔽罩螺丝。<br><b>注意：</b>翘电池力度适中，禁止暴力撬。一定要避开底部排线。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">14</span>贴内部防拆标</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>质检码带星号的需贴内部防拆标 → 贴在电池接口和屏幕排线接口位置并覆盖螺丝。若内部已有友商标签直接覆盖。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">15</span>激光雷达检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>使用iPhone 13 Pro录像模式+闪光灯常亮+微距模式，距离5cm左右查看颜色是否正常（iPhone17Pro/17ProMax不检）。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-<button class="btn-add-tree-item">+ 添加检查项</button></div></div>
-
-<!-- ====== ④ 功能检查 ====== -->
-<div class="card" id="cat-func" style="padding:0;overflow:hidden">
-<div class="cat-header" onclick="toggleTreeCat(this)" style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none">
-  <span class="cat-arrow">▼</span>
-  <div class="card-title-bar" style="background:#10b981"></div>
-  <span style="font-weight:700;font-size:16px">⚙ ④ 功能检查</span>
-  <span style="font-size:11px;color:var(--text-muted);margin-left:auto">16项</span>
-<button class="btn-edit-cat" title="编辑分类名称">✎</button></div>
-<div class="cat-body">
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">1</span>充电功能检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>检查尾插接口是否破损 → 若未破损连接充电器（最多同时操作4台）→ 捏住充电线左右晃动4次、上下晃动2次（Type-C和Lighting两面都查）。<br><b>快充检查：</b>华为Mate 40 Pro/Mate X5/Mate 60系列/Pura 70系列必须使用原装充电器检测超级快充。<br><b>判定：</b>出现受潮/潮湿/无法充电提示 → 充电【异常】。尾插破损 → 直接判定充电异常。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">2</span>充电器/线检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>检查充电器/线是否存在破损、接口内部是否存在断裂/变形。充电线有压痕需查看对折处是否有破损至裸露线材。破损/断裂/变形 → 拦截。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">3</span>爬虫信息核对<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>核对首页爬虫信息，检查本机实际情况和爬虫信息是否相符，勾选本机基本情况和系统相关选项。<br><b>注意：</b>ROOT、BL锁和华为监管机以APP回显结果为准。爬虫信息标红的需重点核实。全红时需重新获取。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">4</span>SIM卡槽/卡托检查<span class="step-tags"><span class="tag tag-yellow">易漏</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>取卡针插入卡槽孔 → 卡托弹出 → 检查卡槽孔内是否有异物、卡托是否突出或表面断裂变形 → 取出卡托检查是否更换（查看IMEI和颜色）→ 装入测试SIM卡（优先电信卡，双卡机一个必须是电信）。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">5</span>振动 &amp; 按键功能检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>点击振动按钮检查振动反馈 → 连续按压3次音量+键 → 连续按压3次音量-键 → 拨动3次静音键 → 按压1次电源键。若有其他按键需连续按压/滑动3次确定功能正常。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">6</span>闪光灯检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>侧翻手机查看闪光灯是否开启且颜色正常。无法打开需返回桌面下拉打开闪光灯核实。部分机型电量&lt;15%无法开启，需补电后再检。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">7</span>相机功能检查（前后摄）<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 对焦检查</span>后摄对准近处参照物，在默认倍焦和广角下查看对焦 → 对准远处参照物，切换广角/1X/长焦/人像模式检查。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="block"><span class="block-title">📝 坏点和有斑</span>白色卡片遮挡后摄/前摄，白底下观察 → 若有斑，用红色卡片遮挡红底下复核。先确认配置是"白底有斑"还是"红底有斑"。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="highlight-card"><table><tbody><tr><td>易漏原因</td><td>切换倍焦太快没等画面稳定、只查后摄不查前摄、白底看到斑没做红底复核</td></tr></tbody></table></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">8</span>音频功能检查（听筒/扬声器/麦克风）<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>切换听筒播放/扬声器播放检查异常 → 录音对着麦克风喊"123" → 播放录音检查异常和送话弱情况。异常时使用本机录音软件复核。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">9</span>ID检查 &amp; 账户解锁<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>跳转设置页面 → 查看是否存在ID并截图 → 生物识别和密码 → 录入指纹并验证 → 录入面容并验证 → 设置密码000000。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">10</span>通话/SIM卡信号检查<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>插入SIM卡 → 拨打运营商客服电话（电信10000/移动10086/联通10010）→ 检查是否无法通话。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">11</span>触摸功能检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>用力按压5个按钮 → 滑动屏幕将所有灰色触点变绿。安卓虚拟按键也属于触摸功能。折叠屏需展开检查主屏+合拢检查副屏。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">12</span>WIFI/蓝牙/NFC/无线充电检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>根据质检过程判定WIFI/蓝牙是否正常 → 启用NFC → 将手机放NFC感应区域 → 观察NFC和无线充电功能。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">13</span>指南针/重力感应/距离感应/光线感应</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>转动手机检查指南针和重力感应 → 用手遮挡手机顶部检查距离感应和光线感应。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">14</span>折叠机转轴/悬停/屏幕切换检查<span class="step-tags"><span class="tag tag-yellow">新版B3新增</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>开合折叠机至90°左右检查悬停功能 → 展开2秒看主屏是否亮屏 → 闭合2秒看副屏是否亮屏（OPPO Find N/N2不检测悬停）。转轴无法完全合拢/打开、异响、松动、卡顿→【转轴异常】。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">15</span>手写笔检查（部分机型）</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>取出手写笔检查外观 → 测试功能按键 → 在屏幕上滑动检查功能 → 插回检查是否可完全插入。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">16</span>游戏手机散热风扇/呼吸灯检查</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 质检手法</span>检查散热风扇是否转、有异响 → 查看呼吸灯是否有节奏亮起（仅部分机型检查）。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-<button class="btn-add-tree-item">+ 添加检查项</button></div></div>
-
-<!-- ====== ⑤ 扫码质检 & 拍照入库 ====== -->
-<div class="card" id="cat-flow" style="padding:0;overflow:hidden">
-<div class="cat-header" onclick="toggleTreeCat(this)" style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none">
-  <span class="cat-arrow">▼</span>
-  <div class="card-title-bar" style="background:var(--blue)"></div>
-  <span style="font-weight:700;font-size:16px">📱 ⑤ 扫码质检 &amp; 拍照入库</span>
-  <span style="font-size:11px;color:var(--text-muted);margin-left:auto">14项 · 必备流程</span>
-<button class="btn-edit-cat" title="编辑分类名称">✎</button></div>
-<div class="cat-body">
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">1</span>取机 &amp; 清理工作台</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>在货架对应区域按从左往右顺序拿取机器。质检区域最多出现2筐机器，调拨时最多12台每次。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">2</span>连接WIFI &amp; 进入质检APP</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>解锁手机 → 点击【请选择WIFI】→ 连接 → 点击【ZZ_Android】（部分站点是 ZZ_Apple）→ 点击【允许】→【始终允许】→【手动检测】。<br><b>注意：</b>若跳转出视频播放界面，需对手机进行老化测试。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">3</span>扫描货位二维码 &amp; 上架<span class="step-tags"><span class="tag tag-green">扫码</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>取手机扫描视频播放架二维码 → 手机界面显示对应货位信息 → 将手机放到对应货位并连接数据线。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="highlight-card"><table><tbody><tr><td>指示灯规则</td><td>等待连接：亮黄灯 · 连接成功：亮蓝灯 · 完成老化：亮绿灯 · 异常：亮红灯交组长处理</td></tr><tr><td>电量规则</td><td>低于30%：自动充电至30%以上 → 播视频10分钟 · 30%-80%：充电3分钟 → 播视频10分钟 · 高于80%：充电3分钟 → 放电到80%以下 → 播视频10分钟</td></tr></tbody></table></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">4</span>登录质检系统</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>扫描员工ID二维码进入质检页面。无法扫码时，手动输入员工ID，点击【确认】。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">5</span>系统版本检查（苹果15/16系列）<span class="step-tags"><span class="tag tag-yellow">易漏</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>苹果15、16系列进入质检界面若出现版本低于iOS26的提示，需通过爱思助手升级到iOS26及以上。<br><b>注意：</b>上传关于本机图片时需对更新后的内容进行上传；系统更新后若报告中版本未更新，需人工修改。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">6</span>清洁后壳（预备外壳检查）</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>按压酒精喷头打湿无尘布 → 用无尘布从下往上来回擦拭后壳一遍（包含边框及后摄镜头），保证外壳洁净。顽固污渍使用530清洗剂。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">7</span>提交质检报告<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>系统对质检报告进行判定 → 如需要拍照则弹出拍照二维码 → 连续点两下【双击提交】提交报告。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">8</span>瑕疵拍照<span class="step-tags"><span class="tag tag-red">重点</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>点击【瑕疵&amp;主板拍照】→ 扫描拍照二维码 → 在质检手机上找到对应瑕疵项 → 拍照手机切换到2倍焦距 → 白色背景下对准瑕疵部位拍照 → 手指滑动框选最严重的瑕疵 → 确定。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="highlight-card"><table><tbody><tr><td>拍照要求</td><td>拍照前擦拭瑕疵位置；选取同类瑕疵中最严重的；横平竖直调整角度；不允许出现二维码、人脸、人手</td></tr></tbody></table></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">9</span>拆机留底图拍照（苹果12-16系列）</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>返回小工具界面 → 点击【留档图】→ 点击【主板图】→ 扫描质检码 → 按标准示例图2倍焦拍摄 → 提交。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item is-key">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">10</span>手工装机<span class="step-tags"><span class="tag tag-yellow">易漏</span></span></div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>屏幕对齐摄像头/按键等孔位轻轻装入机身 → 按压四边使紧密贴合 → 用螺丝刀将底部螺丝装回。<br><b>装机后检查：</b>内部是否有异物或螺丝掉落；屏幕显示/触摸/home键功能完好；装机平整度，四边完全贴合无缝隙且无黑胶溢出。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">11</span>贴外部防拆标</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 贴标规则</span>· 普通机：底部+顶部各1张 · 升降摄像头机：2张统一贴机身 · 后置大面积摄像头机：顶部无法贴时贴右侧边 · 上下折叠机：共6张 · 翻盖机：后盖上下各1张+上方屏幕1张 · 外折叠大屏/三折叠机：共6张 · 安卓可拆后盖类：贴主板螺丝位<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="block"><span class="block-title">⚠ 注意事项</span>贴标前清洁位置。不能遮挡屏幕显示区、听筒网、扬声器孔、卡托、卡针孔、感应器孔、送话孔。必须包含一张带二维码的贴在底部或重要位置。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">12</span>手机还原操作</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 苹果</span>设置 → 通用 → 传输或还原iPhone → 抹掉所有内容与设置。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="block"><span class="block-title">📝 安卓</span>设置 → 系统与更新 → 重置手机 → 恢复出厂设置。<button class="btn-blk-del" title="删除此内容块">×</button></div><div class="block"><span class="block-title">⚠ 华为荣耀</span>重启后激活到账户界面检查激活锁提示。荣耀50/50Pro需关机后重新开机激活到账户界面，重复3次。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">13</span>打印质检码 &amp; 匹配手机盒</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>质检结束后打印质检码贴到对应手机上 → 根据IMEI在货架上找到对应手机盒 → 检查充电器和机器是否匹配、品牌是否一致。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-
-<div class="tree-item">
-<div class="tree-header open" onclick="this.classList.toggle('open')"><span class="tree-arrow">▶</span><span class="step-num">14</span>贴充电器防拆标 &amp; 装盒入库</div>
-<div class="tree-body"><div class="block"><span class="block-title">📝 操作</span>充电器防拆标损坏或缺失 → 取防拆标分别贴在充电头和充电线上 → 将充电头和充电线装回手机盒 → 将手机装入手机盒 → 周转入库。<button class="btn-blk-del" title="删除此内容块">×</button></div></div></div>
-<button class="btn-add-tree-item">+ 添加检查项</button></div></div>
-
-</div><!-- /sopContent -->
+<!-- 改善逻辑框架 -->
+<div class="framework-card">
+  <div class="framework-title">
+    <span class="icon-bolt">⚡</span> 从"跟着 App 走"到"有框架地看"
+  </div>
+  <div class="framework-compare">
+    <div class="framework-old">
+      <span class="framework-label">❌ 旧模式</span>
+      <div class="framework-flow">
+        App 到哪步<span class="arr">→</span>点哪看哪<span class="arr">→</span>没有轻重概念<span class="arr">→</span>容易串台<span class="arr">→</span><strong>惯性失误高</strong>
+      </div>
+    </div>
+    <div class="framework-vs">VS</div>
+    <div class="framework-new">
+      <span class="framework-new-tag">NEW</span>
+      <span class="framework-label">✅ 新模式 · Claude Code 驱动</span>
+      <div class="framework-flow">
+        大框架先行<span class="arr">→</span>轻重分级明确<span class="arr">→</span>逐层排查<span class="arr">→</span>指差法+目视<span class="arr">→</span><strong>减少漏看漏判</strong>
+      </div>
+    </div>
+  </div>
+  <div class="framework-bottom">
+    🔑 核心思路：不是让一线"多记住几条规则"，而是给他们一个"不用记也能对"的逻辑框架
+  </div>
+</div>
+
+<!-- 工序流程条 -->
+<div class="hb-flow-bar-wrap">
+  <div class="hb-flow-bar">
+    <span class="hb-flow-step"><span class="step-num">1</span> 扫码连接</span>
+    <span class="hb-flow-arrow">→</span>
+    <span class="hb-flow-step active"><span class="step-num">2</span> 外壳外观<span class="hb-flow-label">本手册</span></span>
+    <span class="hb-flow-arrow">→</span>
+    <span class="hb-flow-step active"><span class="step-num">3</span> 屏幕外观&amp;显示<span class="hb-flow-label">本手册</span></span>
+    <span class="hb-flow-arrow">→</span>
+    <span class="hb-flow-step active"><span class="step-num">4</span> 充电检测<span class="hb-flow-label">本手册</span></span>
+    <span class="hb-flow-arrow">→</span>
+    <span class="hb-flow-step"><span class="step-num">5</span> 屏幕显示</span>
+    <span class="hb-flow-arrow">→</span>
+    <span class="hb-flow-step"><span class="step-num">6</span> 摄像头</span>
+    <span class="hb-flow-arrow">→</span>
+    <span class="hb-flow-step"><span class="step-num">7</span> 拆机看点</span>
+    <span class="hb-flow-arrow">→</span>
+    <span class="hb-flow-step"><span class="step-num">8</span> 瑕疵拍照提交</span>
+  </div>
+  <div class="hb-legend-bar">
+    <span class="hb-legend-title">核心技法：</span>
+    <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;margin-right:10px"><span class="hb-legend-dot zhicha"></span> 指差法（手指指向+目视）</span>
+    <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;margin-right:10px"><span class="hb-legend-dot mushi"></span> 目视检测（逐行扫描）</span>
+    <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px"><span class="hb-legend-dot celiang"></span> 测量工具（卡尺/塞规）</span>
+  </div>
+</div>
+
+<!-- ====== 七大检测板块 ====== -->
+<div class="handbook-sections">
+
+<!-- SEC 1: 机身外壳外观 / 拆修 -->
+<div class="hb-section hb-sec1" id="hb-sec1">
+  <div class="hb-section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+    <div class="hb-section-icon">📦</div>
+    <div class="hb-section-header-text">
+      <div class="hb-section-num">板块 1</div>
+      <div class="hb-section-title">机身外壳外观 / 拆修质检手法</div>
+    </div>
+    <span class="hb-section-toggle">▼</span>
+  </div>
+  <div class="hb-section-body">
+
+    <div class="hb-check" data-id="1-1">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">1.1</span>
+          <span class="hb-check-title">后壳 — 样式不匹配 / 与中框有溢胶或撬痕</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <div class="hb-tech-row">
+          <span class="hb-tech-tag zhicha"><span class="tag-dot"></span>指差法</span>
+          <span class="hb-tech-tag mushi"><span class="tag-dot"></span>目视检测</span>
+        </div>
+        <ul class="hb-step-list">
+          <li><strong>胶水检查：</strong>使用指差法，环绕机身一周检测有无胶水溢出（QA 内部已强制要求使用指差法，上了视频稽核）</li>
+          <li><strong>有无换壳：</strong>可根据 LOGO 字体、机身质感、后壳与中框的贴合度、颜色，以及后壳与中框的成色差异综合判定</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hb-check" data-id="1-2">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">1.2</span>
+          <span class="hb-check-title">壳内漆面受损</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <div class="hb-tech-row">
+          <span class="hb-tech-tag mushi"><span class="tag-dot"></span>目视检测</span>
+          <span class="hb-tech-tag celiang"><span class="tag-dot"></span>测量工具</span>
+        </div>
+        <ul class="hb-step-list">
+          <li><strong>后壳四边边缘（10mm 豁免区域内）：</strong>手持手机正视后壳，尾插与桌面呈 <span class="hb-threshold">90°</span>，查看有无 <span class="hb-threshold">&gt;10mm</span> 的壳内掉漆</li>
+          <li><strong>后壳其余区域：</strong>不限制任何角度观察检测，同时可利用反光折射查找壳内起层、掉漆、破损的瑕疵处</li>
+        </ul>
+        <div class="hb-highlight info">💡 10mm 以内为豁免区；超出 10mm 或不在边缘区域 → 判定</div>
+      </div>
+    </div>
+
+    <div class="hb-check" data-id="1-3">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">1.3</span>
+          <span class="hb-check-title">后盖与镜头保护罩连接处有胶水溢出</span>
+          <span class="hb-warn-badge">⚠️ 易漏</span>
+        </div>
+        <div class="hb-tech-row">
+          <span class="hb-tech-tag zhicha"><span class="tag-dot"></span>指差法</span>
+        </div>
+        <ul class="hb-step-list">
+          <li>沿后盖与镜头保护罩连接处，环绕一周使用指差法核实有无溢胶</li>
+          <li><strong>注意：</strong>按键溢胶、折叠屏后盖贴合处溢胶也需要判定</li>
+          <li><strong>注意：</strong>闪光灯内部异物，直径大于 <span class="hb-threshold">0.5mm</span> 判定此项</li>
+        </ul>
+        <div class="hb-highlight warn">⚠️ 按键溢胶、折叠屏后盖贴合处溢胶 → 同样判定！</div>
+      </div>
+    </div>
+
+    <div class="hb-check" data-id="1-4">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">1.4</span>
+          <span class="hb-check-title">后盖 — 闪光灯有偏移 &gt; 0.3mm</span>
+          <span class="hb-warn-badge">⚠️ 易漏</span>
+        </div>
+        <div class="hb-highlight warn">⚠️ 闪光灯偏移指<strong>镜片偏移</strong>，所有灯芯偏移不作判定！</div>
+      </div>
+    </div>
+
+    <div class="hb-check" data-id="1-5">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">1.5</span>
+          <span class="hb-check-title">部分零件维修更换 — 镜片更换</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <div class="hb-highlight tip">🔍 辅助判断项（以下任一项异常均需关注）：</div>
+        <ul class="hb-step-list">
+          <li>镜片内部皱褶</li>
+          <li>镜片高度明显低沉（与保护罩衔接处对比）</li>
+          <li>镜片反光异常</li>
+          <li>闪光灯异物及手法</li>
+          <li><strong>华为 Mate50 系列专项：</strong>后摄模组上的 LOGO 字体是否有明显的粗体</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SEC 2: 碎裂检查 -->
+<div class="hb-section hb-sec2" id="hb-sec2">
+  <div class="hb-section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+    <div class="hb-section-icon">🔍</div>
+    <div class="hb-section-header-text">
+      <div class="hb-section-num">板块 2</div>
+      <div class="hb-section-title">外壳外观 — 碎裂检查</div>
+    </div>
+    <span class="hb-section-toggle">▼</span>
+  </div>
+  <div class="hb-section-body">
+
+    <div class="hb-check" data-id="2-1">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">2.1</span>
+          <span class="hb-check-title">外壳碎裂</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <div class="hb-tech-row">
+          <span class="hb-tech-tag zhicha"><span class="tag-dot"></span>指差法</span>
+          <span class="hb-tech-tag mushi"><span class="tag-dot"></span>目视检测</span>
+        </div>
+        <ul class="hb-step-list">
+          <li>指差法 + 目视检测，从左至右、从上至下，检测有无碎裂</li>
+          <li>注意中框上的装饰条裂纹</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SEC 3: 屏幕外观 / 拆修 -->
+<div class="hb-section hb-sec3" id="hb-sec3">
+  <div class="hb-section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+    <div class="hb-section-icon">📱</div>
+    <div class="hb-section-header-text">
+      <div class="hb-section-num">板块 3</div>
+      <div class="hb-section-title">屏幕外观 / 拆修质检手法</div>
+    </div>
+    <span class="hb-section-toggle">▼</span>
+  </div>
+  <div class="hb-section-body">
+
+    <div class="hb-check" data-id="3-1">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">3.1</span>
+          <span class="hb-check-title">外屏 — 有胶水溢出 / 撬痕</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <div class="hb-tech-row">
+          <span class="hb-tech-tag zhicha"><span class="tag-dot"></span>指差法</span>
+        </div>
+        <ul class="hb-step-list">
+          <li>使用指差法，环绕屏幕一周检测是否有胶水溢出</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hb-check" data-id="3-2">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">3.2</span>
+          <span class="hb-check-title">外屏 — 感应孔样式与示例不符</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <ul class="hb-step-list">
+          <li><strong>安卓：</strong>不对光、不反光，查看感应孔有无异常形状、异常颜色</li>
+          <li><strong>苹果：</strong>需要手电筒照射；顶部长条形感应孔异常的为白灰色，原装为茶褐色</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hb-check" data-id="3-3">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">3.3</span>
+          <span class="hb-check-title">外屏 — APP 黑边红线有缺失</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <ul class="hb-step-list">
+          <li><strong>检测方法：</strong>直视对看手机，手机充电尾插垂直地面，观察四边的红线</li>
+          <li><strong>瀑布屏机型</strong>（如 Mate30 Pro 系列、Mate40 Pro 系列、vivo NEX 3S）：两侧的黑边红线需要从侧边竖直查看</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hb-check" data-id="3-4">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">3.4</span>
+          <span class="hb-check-title">屏幕外观 — 碎裂 / 深划痕</span>
+        </div>
+        <div class="hb-tech-row">
+          <span class="hb-tech-tag zhicha"><span class="tag-dot"></span>指差法</span>
+          <span class="hb-tech-tag mushi"><span class="tag-dot"></span>目视检测</span>
+        </div>
+        <ul class="hb-step-list">
+          <li>指差法 + 目视检测，从左至右、从上至下，检测有无碎裂</li>
+          <li>深划痕超过 <span class="hb-threshold">1mm</span> 按照碎裂判定</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SEC 4: 充电检测 / 尾插 -->
+<div class="hb-section hb-sec4" id="hb-sec4">
+  <div class="hb-section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+    <div class="hb-section-icon">🔌</div>
+    <div class="hb-section-header-text">
+      <div class="hb-section-num">板块 4</div>
+      <div class="hb-section-title">充电检测 / 尾插接口内部检查</div>
+    </div>
+    <span class="hb-section-toggle">▼</span>
+  </div>
+  <div class="hb-section-body">
+
+    <div class="hb-check" data-id="4-1">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">4.1</span>
+          <span class="hb-check-title">充电接口 / 尾插检测</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <ul class="hb-step-list">
+          <li>数据线无法完全插入接口，插口部分仍裸露在外部 → 判定异常</li>
+          <li>质检时手机插拔充电线没有阻尼感，再把充电口朝下左右轻微晃动充电线出现自动脱落 → 判定没有阻尼感、接触不良</li>
+          <li>充电接口损坏，露金属铜片、外部塑料破损/缺口 → 判定异常</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SEC 5: 屏幕显示界面 -->
+<div class="hb-section hb-sec5" id="hb-sec5">
+  <div class="hb-section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+    <div class="hb-section-icon">🖥️</div>
+    <div class="hb-section-header-text">
+      <div class="hb-section-num">板块 5</div>
+      <div class="hb-section-title">屏幕显示界面</div>
+    </div>
+    <span class="hb-section-toggle">▼</span>
+  </div>
+  <div class="hb-section-body">
+
+    <div class="hb-check" data-id="5-1">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">5.1</span>
+          <span class="hb-check-title">屏幕显示"黑、白、灰"纯色检测</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <ul class="hb-step-list">
+          <li>每个界面至少停留 <span class="hb-threshold">4 秒</span>检测</li>
+          <li>手机距眼睛 15cm-20cm，APP 默认亮度下切换黑、白、灰纯色界面检查整个屏幕显示问题</li>
+          <li>检测完立马熄屏，检测整个屏幕有无压伤</li>
+        </ul>
+        <div class="hb-highlight warn">
+          ⚠️ <strong>压伤判定规则：</strong><br>
+          ✅ 屏幕息屏界面、黑色显示界面可见彩色光斑/光点 → 压伤<br>
+          ✅ 屏幕息屏状态下可见内屏有变色（一般是老化或屏幕拆修造成的边缘损伤）<br>
+          ❌ <strong>不以</strong>反光下才可见的泛红现象判定压伤<br>
+          ✅ 不反光、不对光依然出现红色 → 判定压伤<br>
+          ✅ 不反光、不对光出现的其他颜色（蓝、黄、绿）→ 判定压伤<br>
+          ✅ 反光下可见的蓝、黄、绿色 → 判定压伤
+        </div>
+        <p style="font-size:12px;color:var(--text-secondary);margin-top:8px;">检测方式：以圈形环绕，从左至右，从外至里，检测整个显示界面。</p>
+      </div>
+    </div>
+
+    <div class="hb-check" data-id="5-2">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">5.2</span>
+          <span class="hb-check-title">后验机器 — 权重勾选注意</span>
+          <span class="hb-warn-badge">⚠️ 易漏</span>
+        </div>
+        <div class="hb-highlight warn">⚠️ 后验机器，不要抄作业！不要跟着商户勾选，根据实际显示情况勾选。</div>
+        <p style="font-size:12px;color:var(--text-secondary);margin:8px 0;">例如：商户选择「状态栏透图可拍」，实际还有「状态栏以外不可拍」→ 注意勾选权重</p>
+        <p style="font-size:11px;font-weight:700;color:#dc2626;">权重逻辑：</p>
+        <ol style="font-size:12px;color:var(--text-secondary);padding-left:18px;line-height:1.8;">
+          <li>状态栏以外透图直径 &gt;30mm 或数量 &gt;10</li>
+          <li>状态栏以外透图（可拍）</li>
+          <li>状态栏以外透图（不可拍）</li>
+          <li>状态栏分层</li>
+          <li>状态栏透图（可拍）</li>
+          <li>状态栏透图（不可拍）</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SEC 6: 摄像头检测 -->
+<div class="hb-section hb-sec6" id="hb-sec6">
+  <div class="hb-section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+    <div class="hb-section-icon">📸</div>
+    <div class="hb-section-header-text">
+      <div class="hb-section-num">板块 6</div>
+      <div class="hb-section-title">摄像头检测</div>
+    </div>
+    <span class="hb-section-toggle">▼</span>
+  </div>
+  <div class="hb-section-body">
+
+    <div class="hb-check" data-id="6-1">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">6.1</span>
+          <span class="hb-check-title">苹果摄像头白底无斑截图留存</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <ul class="hb-step-list">
+          <li>入仓机器检测后<strong>不要还原</strong>，同时在相机白底截图留证</li>
+          <li>后验机器也需白底留证</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hb-check" data-id="6-2">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">6.2</span>
+          <span class="hb-check-title">相机检测手法</span>
+        </div>
+        <ul class="hb-step-list">
+          <li>屏幕亮度调整至 <span class="hb-threshold">100%</span></li>
+          <li>关闭微距</li>
+          <li>检测时长：<span class="hb-threshold">1 分 30 秒</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SEC 7: 拆机内部看点 -->
+<div class="hb-section hb-sec7" id="hb-sec7">
+  <div class="hb-section-header" onclick="this.parentElement.classList.toggle('collapsed')">
+    <div class="hb-section-icon">🔧</div>
+    <div class="hb-section-header-text">
+      <div class="hb-section-num">板块 7</div>
+      <div class="hb-section-title">部分零件维修更换（拆机内部看点）</div>
+    </div>
+    <span class="hb-section-toggle">▼</span>
+  </div>
+  <div class="hb-section-body">
+
+    <div class="hb-check" data-id="7-1">
+      <div class="hb-check-box" onclick="hbToggleCheck(this)"></div>
+      <div class="hb-check-body">
+        <div class="hb-check-header">
+          <span class="hb-check-num">7.1</span>
+          <span class="hb-check-title">拆机内部看点</span>
+          <span class="hb-warn-badge">⚠️ 重点</span>
+        </div>
+        <div class="hb-highlight tip">🍎 <strong>苹果：</strong>固定盖板、尾插、以及 iPhone 14 Pro / 15 Pro 固定盖板更换问题</div>
+        <ul class="hb-step-list">
+          <li>在 iPhone 14 Pro 或 iPhone 15 Pro 机型上，更换了专属于 iPhone 14 Pro Max 或 iPhone 15 Pro Max 的铁片部件 → 勾选此项</li>
+        </ul>
+        <div class="hb-highlight tip" style="margin-top:12px;">🤖 <strong>安卓：</strong>部分零件上的贴纸破损/擦拭/缺失 ≥10mm 或缺失 → 勾选此项</div>
+        <div class="hb-highlight warn" style="margin-top:12px;">
+          ⚠️ <strong>第 14 条定义注意事项：</strong>
+          <ul style="font-size:12px;margin:6px 0 0 16px;line-height:1.8;">
+            <li>无线充本体破损/擦拭/缺失 ≥10mm → 勾选此项 <strong>【图16】</strong></li>
+            <li>无线充下方的贴纸破损/擦拭/缺失 → 不算异常</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /handbook-sections -->
+
+<!-- 关键阈值速查 -->
+<div class="hb-threshold-card">
+  <h4>📐 关键阈值速查</h4>
+  <div class="hb-threshold-row"><span>壳内掉漆豁免（边缘）</span><span class="hb-threshold-val">≤ 10mm</span></div>
+  <div class="hb-threshold-row"><span>深划痕 = 碎裂</span><span class="hb-threshold-val hi">&gt; 1mm</span></div>
+  <div class="hb-threshold-row"><span>闪光灯镜片偏移</span><span class="hb-threshold-val hi">&gt; 0.3mm</span></div>
+  <div class="hb-threshold-row"><span>屏幕显示每界面停留</span><span class="hb-threshold-val">≥ 4秒</span></div>
+  <div class="hb-threshold-row"><span>检测距离</span><span class="hb-threshold-val">15–20cm</span></div>
+  <div class="hb-threshold-row"><span>尾插与桌面角度</span><span class="hb-threshold-val">90°</span></div>
+  <div class="hb-threshold-row"><span>金属裂纹判定</span><span class="hb-threshold-val hi">&gt; 0.3mm</span></div>
+</div>
+
+<!-- 判定口诀 -->
+<div class="hb-threshold-card" style="margin-top:10px">
+  <h4>📋 判定口诀</h4>
+  <div style="font-size:11px;color:var(--text-secondary);line-height:1.9;">
+    "反光泛红不算压，不反光有色必须判"<br>
+    "镜片偏移才判定，灯芯偏移不要管"<br>
+    "边缘10mm豁免，超出掉漆必判定"<br>
+    "深划痕超1mm，一律按碎裂判定"<br>
+    "左到右上到下，不跳行不漏区"
+  </div>
+</div>
+
 </div><!-- /zb-page-sop -->
 
 
-<!-- ========== PAGE: 数据大屏 ========== -->
-<div class="zb-page active" id="zb-page-bigscreen">
-
-<div class="bs-header">
-  <div class="bs-header-left">
-    <div>
-      <div class="bs-title">重庆库质检数据大屏</div>
-      <div class="bs-title-sub">CQ · REAL-TIME QUALITY DASHBOARD</div>
-    </div>
-  </div>
-  <div class="bs-header-right">
-    <span class="bs-update-badge" id="bsUpdateTime">数据更新时间：--</span>
-    <button class="bs-fs-btn" onclick="toggleBigScreenFS()" title="全屏大屏模式">⛶ 全屏</button>
-    <div style="text-align:right">
-      <div class="bs-clock" id="bsClock">00:00:00</div>
-      <div class="bs-clock-date" id="bsDate">----年--月--日</div>
-    </div>
-  </div>
-</div>
-
-<div class="bs-content">
-  <!-- KPI Row -->
-  <div class="bs-kpi-row">
-    <div class="bs-kpi-card red">
-      <div class="bs-kpi-icon">⚠️</div>
-      <div class="bs-kpi-value" id="bsTotalProblems">37</div>
-      <div class="bs-kpi-label">质检差异总数</div>
-      <div class="bs-kpi-sub">客观执行差异累计</div>
-    </div>
-    <div class="bs-kpi-card blue">
-      <div class="bs-kpi-icon">👥</div>
-      <div class="bs-kpi-value" id="bsTotalPeople">15</div>
-      <div class="bs-kpi-label">涉及质检员</div>
-      <div class="bs-kpi-sub">有差异记录的人员</div>
-    </div>
-    <div class="bs-kpi-card yellow">
-      <div class="bs-kpi-icon">🔍</div>
-      <div class="bs-kpi-value" id="bsTopProblem" style="font-size:22px">后摄白底拍照有斑</div>
-      <div class="bs-kpi-label">TOP1 高频问题</div>
-      <div class="bs-kpi-sub" id="bsTopProblemCnt">出现 3 次</div>
-    </div>
-    <div class="bs-kpi-card green">
-      <div class="bs-kpi-icon">📅</div>
-      <div class="bs-kpi-value" id="bsMonthFocus">相机问题</div>
-      <div class="bs-kpi-label" style="font-size:12px">本月攻坚方向</div>
-      <div class="bs-kpi-sub" id="bsFocusCount">7个相关问题</div>
-    </div>
-  </div>
-
-  <!-- Chart Row -->
-  <div class="bs-chart-row">
-    <div class="bs-chart-card">
-      <div class="bs-chart-title">TOP 10 高频问题项</div>
-      <div class="bs-chart-box" id="bsProblemBarChart"></div>
-    </div>
-    <div class="bs-chart-card">
-      <div class="bs-chart-title">问题分布概览</div>
-      <div class="bs-chart-box" id="bsDistributionPie"></div>
-    </div>
-  </div>
-
-  <!-- Full Width: Person Ranking Bar -->
-  <div class="bs-chart-card bs-full-row">
-    <div class="bs-chart-title">质检员差异排名</div>
-    <div class="bs-chart-box" id="bsPersonBarChart" style="height:300px"></div>
-  </div>
-
-  <!-- Bottom Ticker -->
-  <div class="bs-ticker">
-    <span class="bs-ticker-label">🔴 重点关注</span>
-    <span class="bs-ticker-text" id="bsTickerText">加载中...</span>
-  </div>
-</div>
-
-</div><!-- /zb-page-bigscreen -->
-
 <!-- ========== PAGE: 数据看板 ========== -->
-<div class="zb-page" id="zb-page-dashboard">
+<div class="zb-page active" id="zb-page-dashboard">
 
 <div class="top-bar">
   <div class="marquee-wrap" id="mqDash"><span class="marquee-inner mq-run" style="--mq-start: 604px; --mq-dur: 12s;">数据驱动质量管理 · 上传Excel自动生成排名 · 点击卡片查看明细</span></div>
@@ -1282,7 +1125,6 @@ body.dark .onboard-footer { border-top-color: rgba(255,255,255,0.06); }
     <label class="btn-glass green admin-only" style="cursor:pointer">
       <input type="file" id="excelUpload" accept=".xlsx,.xls,.csv" onchange="handleExcelUpload(this)" style="display:none"> 📥 上传Excel
     </label>
-    <button class="btn-glass admin-only" onclick="clearDashboardData()" id="btnClear" disabled style="color:#ef4444;border-color:rgba(239,68,68,0.3)">🗑 清除数据</button>
     <button class="btn-glass red admin-only" onclick="exportShareVersion()" id="btnExport">💾 导出分享版</button>
     <button class="btn-glass admin-only" onclick="exportDataJson()" id="btnJson">📄 导出JSON</button>
   </div>
@@ -1336,10 +1178,10 @@ body.dark .onboard-footer { border-top-color: rgba(255,255,255,0.06); }
     <span style="font-size:10px;color:var(--text-muted)">点击行查看详情</span>
   </div>
   <!-- 个人QA客观执行情况表 -->
-  <div style="padding:8px 14px;font-size:11px;font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">👤 个人QA客观执行情况 <button onclick="exportTableToCSV('topPersonTable','人员差异排名.csv')" style="font-size:10px;padding:2px 10px;border-radius:12px;border:1px solid var(--border);background:var(--kpi-bg);color:var(--text-secondary);cursor:pointer">📥 导出CSV</button></div>
+  <div style="padding:8px 14px;font-size:11px;font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border);border-top:1px solid var(--border)">👤 个人QA客观执行情况</div>
   <div style="overflow-x:auto"><table class="rank-table" id="topPersonTable"><thead><tr><th>#</th><th>姓名</th><th>差异数</th><th>差异率</th><th>涉及问题</th></tr></thead><tbody><tr class="rank-1"><td><b>1</b></td><td>郑豪</td><td><b>5</b></td><td>13.5%</td><td style="max-width:280px"><span class="prob-tag">1.5mm-5mm且数量=1</span><span class="prob-tag">电池健康值不符</span><span class="prob-tag">外屏-感应孔样式与示例不符</span><span class="prob-tag">后壳-后盖与镜头保护罩连接处有胶水溢出</span><span class="prob-tag">2mm-10mm</span></td></tr><tr class="rank-2"><td><b>2</b></td><td>徐庆林</td><td><b>5</b></td><td>13.5%</td><td style="max-width:280px"><span class="prob-tag">部分零件维修更换</span><span class="prob-tag">无保护膜</span><span class="prob-tag">外屏-感应孔样式与示例不符</span><span class="prob-tag">外屏-屏幕支架更换-Xray</span><span class="prob-tag">外屏-APP黑边红线有缺失</span></td></tr><tr class="rank-3"><td><b>3</b></td><td>蒋金才</td><td><b>4</b></td><td>10.8%</td><td style="max-width:280px"><span class="prob-tag">后摄白底拍照有斑 x2</span><span class="prob-tag">拍照坏点</span><span class="prob-tag">状态栏以外透图（不可拍）</span></td></tr><tr class=""><td><b>4</b></td><td>文强</td><td><b>3</b></td><td>8.1%</td><td style="max-width:280px"><span class="prob-tag">屏幕边缘脱胶</span><span class="prob-tag">脱胶缝隙 ≥0.3mm</span><span class="prob-tag">后壳-壳内漆面受损</span></td></tr><tr class=""><td><b>5</b></td><td>钟成</td><td><b>3</b></td><td>8.1%</td><td style="max-width:280px"><span class="prob-tag">后壳-与中框有溢胶/撬痕</span><span class="prob-tag">刻字小于50%</span><span class="prob-tag">状态栏以外透图（可拍）</span></td></tr><tr class=""><td><b>6</b></td><td>杨彪</td><td><b>3</b></td><td>8.1%</td><td style="max-width:280px"><span class="prob-tag">后壳-壳内漆面受损</span><span class="prob-tag">部分零件维修更换</span><span class="prob-tag">1.5mm-5mm且数量=1</span></td></tr><tr class=""><td><b>7</b></td><td>蒋俊辉</td><td><b>2</b></td><td>5.4%</td><td style="max-width:280px"><span class="prob-tag">后壳-与中框有溢胶/撬痕</span><span class="prob-tag">拍照坏点</span></td></tr><tr class=""><td><b>8</b></td><td>李代富</td><td><b>2</b></td><td>5.4%</td><td style="max-width:280px"><span class="prob-tag">显示异常/无法正常显示 x2</span></td></tr><tr class=""><td><b>9</b></td><td>陈珍珍</td><td><b>2</b></td><td>5.4%</td><td style="max-width:280px"><span class="prob-tag">漏液（坏点＞0.5mm）</span><span class="prob-tag">外壳开孔切割弧度与原装不符</span></td></tr><tr class=""><td><b>10</b></td><td>余宗琳</td><td><b>2</b></td><td>5.4%</td><td style="max-width:280px"><span class="prob-tag">后壳-样式不匹配</span><span class="prob-tag">异常</span></td></tr><tr class=""><td><b>11</b></td><td>杨辉</td><td><b>2</b></td><td>5.4%</td><td style="max-width:280px"><span class="prob-tag">画面异常</span><span class="prob-tag">后壳-卡槽小型号与本机不一致/缺失</span></td></tr><tr class=""><td><b>12</b></td><td>张亚锋</td><td><b>1</b></td><td>2.7%</td><td style="max-width:280px"><span class="prob-tag">脱胶缝隙 ≥0.3mm</span></td></tr><tr class=""><td><b>13</b></td><td>System</td><td><b>1</b></td><td>2.7%</td><td style="max-width:280px"><span class="prob-tag">异常</span></td></tr><tr class=""><td><b>14</b></td><td>朱震皓</td><td><b>1</b></td><td>2.7%</td><td style="max-width:280px"><span class="prob-tag">状态栏以外透图（可拍）</span></td></tr><tr class=""><td><b>15</b></td><td>李攀</td><td><b>1</b></td><td>2.7%</td><td style="max-width:280px"><span class="prob-tag">后摄白底拍照有斑</span></td></tr></tbody></table></div>
   <!-- TOP问题项排名 -->
-  <div style="padding:8px 14px;font-size:11px;font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">🔍 TOP问题项排名 <button onclick="exportTableToCSV('topProblemTable','问题项排名.csv')" style="font-size:10px;padding:2px 10px;border-radius:12px;border:1px solid var(--border);background:var(--kpi-bg);color:var(--text-secondary);cursor:pointer">📥 导出CSV</button></div>
+  <div style="padding:8px 14px;font-size:11px;font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border);border-top:1px solid var(--border)">🔍 TOP问题项排名</div>
   <div style="overflow-x:auto"><table class="rank-table" id="topProblemTable"><thead><tr><th>#</th><th>问题项</th><th>数量</th><th>占比</th></tr></thead><tbody><tr class="rank-1"><td><b>1</b></td><td>后摄白底拍照有斑</td><td>3</td><td><span class="rank-pct-bar" style="width:80px"></span>8.1%</td></tr><tr class="rank-2"><td><b>2</b></td><td>后壳-与中框有溢胶/撬痕</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class="rank-3"><td><b>3</b></td><td>1.5mm-5mm且数量=1</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>4</b></td><td>显示异常/无法正常显示</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>5</b></td><td>后壳-壳内漆面受损</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>6</b></td><td>部分零件维修更换</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>7</b></td><td>拍照坏点</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>8</b></td><td>脱胶缝隙 ≥0.3mm</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>9</b></td><td>异常</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>10</b></td><td>外屏-感应孔样式与示例不符</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>11</b></td><td>状态栏以外透图（可拍）</td><td>2</td><td><span class="rank-pct-bar" style="width:53.33333333333333px"></span>5.4%</td></tr><tr class=""><td><b>12</b></td><td>屏幕边缘脱胶</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>13</b></td><td>漏液（坏点＞0.5mm）</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>14</b></td><td>后壳-样式不匹配</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>15</b></td><td>画面异常</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>16</b></td><td>电池健康值不符</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>17</b></td><td>状态栏以外透图（不可拍）</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>18</b></td><td>外壳开孔切割弧度与原装不符</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>19</b></td><td>刻字小于50%</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>20</b></td><td>无保护膜</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>21</b></td><td>外屏-屏幕支架更换-Xray</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>22</b></td><td>外屏-APP黑边红线有缺失</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>23</b></td><td>后壳-后盖与镜头保护罩连接处有胶水溢出</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>24</b></td><td>后壳-卡槽小型号与本机不一致/缺失</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr><tr class=""><td><b>25</b></td><td>2mm-10mm</td><td>1</td><td><span class="rank-pct-bar" style="width:26.666666666666664px"></span>2.7%</td></tr></tbody></table></div>
 </div>
 
@@ -1376,7 +1218,6 @@ body.dark .onboard-footer { border-top-color: rgba(255,255,255,0.06); }
       <div style="display:flex;gap:8px;margin-top:8px">
         <span id="personModalTotal" style="font-size:10px;padding:2px 10px;border-radius:12px;background:rgba(37,99,235,0.1);color:#2563eb">共 0 条</span>
       </div>
-      <div id="personDetailSummary" style="margin-top:8px;line-height:1.8;display:none"></div>
     </div>
     <div style="padding:0;max-height:55vh;overflow-y:auto">
       <table class="rank-table" style="border:none">
@@ -1388,23 +1229,6 @@ body.dark .onboard-footer { border-top-color: rgba(255,255,255,0.06); }
 </div>
 
 </div><!-- /zb-page-dashboard -->
-
-
-<!-- ========== PAGE: 口诀汇总 ========== -->
-<div class="zb-page" id="zb-page-koujue">
-
-<div class="top-bar">
-  <div class="marquee-wrap" id="mqKj"><span class="marquee-inner mq-run" style="--mq-start: 0px; --mq-dur: 18s;">📣 质检口诀大全 — 背熟口诀，漏检不愁 · 新手上岗必读</span></div>
-  <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
-    <span style="font-size:10px;color:var(--text-muted)">💡 点击口诀可跳转到对应检查项</span>
-  </div>
-</div>
-
-<div id="koujueContent">
-  <div style="text-align:center;padding:40px;color:var(--text-muted);font-size:13px">正在加载口诀...</div>
-</div>
-
-</div><!-- /zb-page-koujue -->
 
 <!-- ========== PAGE: 漏检黑名单 ========== -->
 <div class="zb-page" id="zb-page-blacklist">
@@ -1441,58 +1265,6 @@ body.dark .onboard-footer { border-top-color: rgba(255,255,255,0.06); }
 
 </div><!-- /zb-main -->
 </div><!-- /zb-layout -->
-
-<!-- ====== 新手引导弹窗 ====== -->
-<div class="onboard-overlay show" id="onboardOverlay">
-  <div class="onboard-box">
-    <div class="onboard-header">
-      <h2>👋 欢迎加入重庆库质检团队！</h2>
-      <p>5 分钟看懂验机全流程，新手变熟手</p>
-    </div>
-    <div class="onboard-steps">
-      <div class="onboard-step">
-        <div class="onboard-step-icon c1">1</div>
-        <div class="onboard-step-info">
-          <h4>🖥 机身屏幕检查</h4>
-          <p>看屏幕划伤、裂痕、显示异常、折叠屏折痕等 19 项</p>
-        </div>
-      </div>
-      <div class="onboard-step">
-        <div class="onboard-step-icon c2">2</div>
-        <div class="onboard-step-info">
-          <h4>🔩 机身后壳检查</h4>
-          <p>查后壳裂痕、脱胶、进灰、漆面、按键等 16 项</p>
-        </div>
-      </div>
-      <div class="onboard-step">
-        <div class="onboard-step-icon c3">3</div>
-        <div class="onboard-step-info">
-          <h4>🛠 苹果拆修判断</h4>
-          <p>辨别溢胶撬痕、原彩显示、爱思验机、内部拆修等 15 项</p>
-        </div>
-      </div>
-      <div class="onboard-step">
-        <div class="onboard-step-icon c4">4</div>
-        <div class="onboard-step-info">
-          <h4>⚙ 功能检查</h4>
-          <p>测充电、相机、音频、通话、触摸、折叠屏等 16 项</p>
-        </div>
-      </div>
-      <div class="onboard-step">
-        <div class="onboard-step-icon c5">5</div>
-        <div class="onboard-step-info">
-          <h4>📱 扫码拍照入库</h4>
-          <p>扫码上架、清洁拍照、装机贴标、还原入库等 14 项</p>
-        </div>
-      </div>
-    </div>
-    <div class="onboard-footer">
-      <button class="onboard-btn" onclick="finishOnboarding()">🎯 开始学习</button>
-      <button class="onboard-skip" onclick="finishOnboarding()">稍后再说，先看看</button>
-    </div>
-  </div>
-</div>
-
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
 
@@ -1585,32 +1357,14 @@ function zbNav(page, el) {
   if (el) el.classList.add('active');
   if (page === 'sop') document.getElementById('zb-main').scrollTop = 0;
   initMarquees();
-  // Close mobile sidebar
-  if (window.innerWidth <= 768) {
-    var sidebar = document.getElementById('zb-sidebar');
-    if (sidebar.classList.contains('mobile-open')) toggleMobileSidebar();
-  }
 }
 
 function zbNavSection(id) {
   zbNav('sop', document.querySelector('.zb-nav-item.active'));
-  // Update flow bar active state
-  document.querySelectorAll('.flow-step').forEach(function(f) { f.classList.remove('active'); });
-  var flowSteps = document.querySelectorAll('.flow-step');
-  var catIds = ['cat-display','cat-back','cat-repair','cat-func','cat-flow'];
-  var idx = catIds.indexOf(id);
-  if (idx >= 0 && flowSteps[idx]) flowSteps[idx].classList.add('active');
   setTimeout(function() {
     var el = document.getElementById(id);
     if (el) el.scrollIntoView({behavior:'smooth',block:'start'});
-    // Close mobile sidebar after navigation
-    if (window.innerWidth <= 768) {
-      var sidebar = document.getElementById('zb-sidebar');
-      if (sidebar.classList.contains('mobile-open')) toggleMobileSidebar();
-    }
   }, 100);
-  // Re-init marquee
-  setTimeout(initMarquees, 300);
 }
 
 function scrollToEl(id) {
@@ -1637,26 +1391,6 @@ function initMarquees() {
 }
 
 // ===== Dark Mode =====
-function toggleMobileSidebar() {
-  var sidebar = document.getElementById('zb-sidebar');
-  var overlay = document.getElementById('mobile-overlay');
-  var btn = document.querySelector('.hamburger-btn');
-  var isOpen = sidebar.classList.toggle('mobile-open');
-  if (overlay) overlay.classList.toggle('show', isOpen);
-  if (btn) btn.textContent = isOpen ? '✕' : '☰';
-}
-// Close mobile sidebar when a nav item is clicked
-document.addEventListener('click', function(e) {
-  var sidebar = document.getElementById('zb-sidebar');
-  if (window.innerWidth <= 768 && sidebar.classList.contains('mobile-open')) {
-    var clickedOnSidebar = e.target.closest('#zb-sidebar');
-    var clickedOnHamburger = e.target.closest('.hamburger-btn');
-    if (!clickedOnSidebar && !clickedOnHamburger) {
-      toggleMobileSidebar();
-    }
-  }
-});
-
 function toggleDarkMode() {
   document.body.classList.toggle('dark');
   var isDark = document.body.classList.contains('dark');
@@ -1667,7 +1401,7 @@ try { if (localStorage.getItem('qc_dark') === '1') { document.body.classList.add
 
 // ===== Key Mode =====
 function markKeySteps() {
-  document.querySelectorAll('.tree-item').forEach(function(s) {
+  document.querySelectorAll('.step').forEach(function(s) {
     if (s.querySelector('.tag-red, .tag-yellow')) s.classList.add('is-key');
   });
 }
@@ -1703,7 +1437,9 @@ function restoreSOP() {
     var data = JSON.parse(raw);
     var sop = document.getElementById('sopContent');
     if (!sop || !data.html) return false;
-    sop.innerHTML = data.html.replace(/ onclick="[^"]*"/g, '');
+    // Strip old onclick attributes from tree headers
+    var cleanHtml = data.html.replace(/ onclick="[^"]*"/g, '');
+    sop.innerHTML = cleanHtml;
     // Re-bind edit buttons
     if (document.body.classList.contains('edit-mode')) {
       editBtnInjected = false;
@@ -1720,34 +1456,28 @@ function withAutoSave(fn) {
     return result;
   };
 }
-// Watch for changes and auto-save
+// Watch for changes and auto-save (delay start to avoid overwriting restore)
+
+  // Clear auto-save if from old version with onclick bug
+  var raw = localStorage.getItem('qc_sop_backup');
+  if (raw && raw.indexOf('toggleTreeNode') >= 0) {
+    // Old data has onclick bug, clean it
+    var data = JSON.parse(raw);
+    data.html = data.html.replace(/ onclick="[^"]*"/g, '');
+    localStorage.setItem('qc_sop_backup', JSON.stringify(data));
+  }
+var _autoSaveReady = false;
+setTimeout(function() { _autoSaveReady = true; }, 2000);
 (function() {
   var sop = document.getElementById('sopContent');
   if (sop) {
     var observer = new MutationObserver(function() {
-      autoSaveSOP();
+      if (_autoSaveReady) autoSaveSOP();
     });
     observer.observe(sop, { childList: true, subtree: true, characterData: true });
   }
 })();
-// Check for saved content on load
-(function() {
-  var raw = localStorage.getItem('qc_sop_backup');
-  if (raw) {
-    try {
-      var data = JSON.parse(raw);
-      var savedTime = new Date(data.time);
-      var now = new Date();
-      var hoursSinceSave = (now - savedTime) / 3600000;
-      // Only prompt if saved within 24 hours
-      if (hoursSinceSave < 24) {
-        var timeStr = savedTime.toLocaleString('zh-CN');
-        var shouldRestore = confirm('检测到上次编辑内容（' + timeStr + '），是否恢复？');
-        if (shouldRestore) restoreSOP();
-      }
-    } catch(e) {}
-  }
-})();
+// (old SOP restore removed - content migrated to handbook format)
 
 function toggleEditMode() {
   var cb = document.getElementById('editModeToggle');
@@ -1765,30 +1495,6 @@ function toggleEditModeSidebar() {
   cb.checked = !cb.checked; toggleEditMode();
 }
 
-function oneClickEdit() {
-  zbNav('sop', document.querySelector('.zb-nav-item'));
-  setTimeout(function() {
-    if (document.body.classList.contains('edit-mode')) {
-      document.body.classList.remove('edit-mode');
-      try { document.getElementById('editModeToggle').checked = false; } catch(e) {}
-      document.getElementById('oneClickEditLabel').textContent = '开启编辑';
-      return;
-    }
-    if (!document.body.classList.contains('is-admin')) {
-      var pw1 = prompt('管理员密码：');
-      if (pw1 !== 'zhijian2026') { if (pw1 !== null) alert('密码错误'); return; }
-      document.body.classList.add('is-admin');
-      sessionStorage.setItem('qc_admin', '1');
-    }
-    var pw2 = prompt('编辑密码：');
-    if (pw2 !== 'admin123') { if (pw2 !== null) alert('密码错误'); return; }
-    document.body.classList.add('edit-mode');
-    try { document.getElementById('editModeToggle').checked = true; } catch(e) {}
-    editBtnInjected = false;
-    injectEditButtons();
-    document.getElementById('oneClickEditLabel').textContent = '退出编辑';
-  }, 300);
-}
 function toggleAdminMode() {
   if (document.body.classList.contains('is-admin')) {
     document.body.classList.remove('is-admin');
@@ -1818,34 +1524,17 @@ function toggleAdminMode() {
 function injectEditButtons() {
   editBtnInjected = true;
   document.querySelectorAll('.tree-header').forEach(function(h) {
-    if (h.querySelector('[data-action]')) return;
-    var actions = [
-      ['edit-sub', 'add-sub', '\u21B3', '添加子级'],
-      ['edit-add', 'add-block', '+', '添加内容'],
-      ['edit-rename', 'edit-title', '\u270E', '编辑名称'],
-      ['edit-del', 'del-item', '\u00D7', '删除此项']
-    ];
-    actions.forEach(function(a) {
-      var s = document.createElement('span');
-      s.className = 'edit-btn ' + a[0];
-      s.setAttribute('data-action', a[1]);
-      s.textContent = a[2]; s.title = a[3];
-      s.addEventListener('click', function(e) {
-        e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        var act = this.getAttribute('data-action');
-        var hdr = this.closest('.tree-item');
-        if (hdr) hdr = hdr.querySelector('.tree-header');
-        if (!hdr) return;
-        if (act === 'add-block') showAddBlockModal(hdr);
-        else if (act === 'add-sub') showAddSubModal(hdr);
-        else if (act === 'del-item') deleteTreeItem(hdr);
-        else if (act === 'edit-title') editItemTitle(hdr);
-      }, true);
-      h.appendChild(s);
-    });
+    if (h.querySelector('.edit-btn')) return;
+    var sub = document.createElement('span');
+    sub.className = 'edit-btn edit-sub'; sub.textContent = '↳';
+    sub.title = '添加子级';
+    h.appendChild(sub);
+    var plus = document.createElement('span');
+    plus.className = 'edit-btn edit-add'; plus.textContent = '+';
+    plus.title = '添加内容';
+    h.appendChild(plus);
   });
 }
-
 function addBlockEditButtons(block) {
   if (block.querySelector('.btn-blk-del')) return;
   var del = document.createElement('button');
@@ -2089,26 +1778,14 @@ function createTreeItem(parent, title, num) {
   div.className = 'tree-item';
   var numSpan = '<span class=\"step-num\">' + num + '</span>';
   if (!num) numSpan = '';
-  div.innerHTML = '<div class=\"tree-header\" onclick=\"toggleTreeNode(this)\"><span class=\"tree-arrow\">&#9654;</span>' + numSpan + escapeHtml(title) + '</div><div class=\"tree-body\"></div>';
+  div.innerHTML = '<div class=\"tree-header\" onclick=\"toggleTreeNode(this)\"><span class=\"tree-arrow\">&#9654;</span>' + numSpan + title + '</div><div class=\"tree-body\"></div>';
   parent.appendChild(div);
   if (editBtnInjected) {
     var hdr = div.querySelector('.tree-header');
-    var delBtn = document.createElement('button');
-    delBtn.className = 'btn-del'; delBtn.textContent = '×';
-    delBtn.onclick = function(e) { e.stopPropagation(); deleteTreeItem(hdr); };
-    hdr.appendChild(delBtn);
-    var editBtn = document.createElement('button');
-    editBtn.className = 'btn-edit-item'; editBtn.textContent = '✎';
-    editBtn.onclick = function(e) { e.stopPropagation(); editItemTitle(hdr); };
-    hdr.appendChild(editBtn);
-    var subBtn = document.createElement('button');
-    subBtn.className = 'btn-add-sub'; subBtn.textContent = '↳';
-    subBtn.onclick = function(e) { e.stopPropagation(); showAddSubModal(hdr); };
-    hdr.appendChild(subBtn);
-    var addBtn = document.createElement('button');
-    addBtn.className = 'btn-add-blk'; addBtn.textContent = '+';
-    addBtn.onclick = function(e) { e.stopPropagation(); showAddBlockModal(hdr); };
-    hdr.appendChild(addBtn);
+    var plus = document.createElement('span');
+    plus.className = 'edit-btn'; plus.textContent = '+'; plus.title = '添加内容';
+    plus.onclick = function(e) { e.stopPropagation(); showAddBlockModal(hdr); };
+    hdr.appendChild(plus);
   }
   div.scrollIntoView({behavior:'smooth',block:'center'});
   return div;
@@ -2258,54 +1935,20 @@ function expandAll() {
 }
 function collapseAll() {
   document.querySelectorAll('.tree-header').forEach(function(h) { h.classList.remove('open'); });
-  document.querySelectorAll('.cat-body').forEach(function(b) { b.classList.add('hidden'); });
-  document.querySelectorAll('.cat-header').forEach(function(h) { h.classList.add('collapsed'); });
 }
 
 // ===== Search =====
 function doSearch() {
   // Always clean previous highlights before searching
-  document.querySelectorAll('.search-highlight').forEach(function(el) {
-    var parent = el.parentNode;
-    parent.replaceChild(document.createTextNode(el.textContent), el);
-    parent.normalize();
-  });
+  document.querySelectorAll('.highlight').forEach(function(el) { el.outerHTML = el.textContent; });
   var q = document.getElementById('searchInput').value.trim().toLowerCase();
-  if (!q) { expandAll(); return; }
-  // Collapse all first, then expand only matching items
-  collapseAll();
-  document.querySelectorAll('.tree-body').forEach(function(body) {
+  if (!q) { return; }
+  document.querySelectorAll('.step-body').forEach(function(body) {
     if (body.textContent.toLowerCase().indexOf(q) >= 0) {
-      // Expand this tree-body
-      body.style.display = 'block';
-      // Expand parent tree-header
-      var header = body.previousElementSibling;
-      if (header && header.classList.contains('tree-header')) {
-        header.classList.add('open');
-      }
-      // Expand ancestor tree items
-      var parent = body.parentElement;
-      while (parent) {
-        if (parent.classList.contains('tree-body')) {
-          parent.style.display = 'block';
-          var ph = parent.previousElementSibling;
-          if (ph && ph.classList.contains('tree-header')) ph.classList.add('open');
-        }
-        if (parent.classList.contains('cat-body')) {
-          parent.classList.remove('hidden');
-          var ch = parent.previousElementSibling;
-          if (ch && ch.classList.contains('cat-header')) ch.classList.remove('collapsed');
-        }
-        parent = parent.parentElement;
-      }
-      highlightText(body, q);
+      body.classList.add('show');
+      body.previousElementSibling.classList.add('open');
       body.scrollIntoView({behavior:'smooth',block:'center'});
-    }
-  });
-  // Also search in block content for nested matches
-  document.querySelectorAll('.block').forEach(function(block) {
-    if (block.textContent.toLowerCase().indexOf(q) >= 0) {
-      highlightText(block, q);
+      highlightText(body, q);
     }
   });
 }
@@ -2314,13 +1957,11 @@ function highlightText(el, q) {
   var nodes = [];
   while (walker.nextNode()) nodes.push(walker.currentNode);
   nodes.forEach(function(node) {
-    // Skip already highlighted nodes and empty nodes
-    if (node.parentElement && node.parentElement.classList.contains('search-highlight')) return;
     var text = node.textContent.toLowerCase();
     var idx = text.indexOf(q);
     if (idx >= 0) {
       var span = document.createElement('span');
-      span.innerHTML = escapeHtml(node.textContent.substring(0, idx)) + '<span class="search-highlight" style="background:#fde68a;padding:2px 3px;border-radius:3px;font-weight:600">' + escapeHtml(node.textContent.substring(idx, idx + q.length)) + '</span>' + escapeHtml(node.textContent.substring(idx + q.length));
+      span.innerHTML = node.textContent.substring(0, idx) + '<span class="highlight" style="background:#fde68a;padding:2px 3px;border-radius:3px;font-weight:600">' + node.textContent.substring(idx, idx + q.length) + '</span>' + node.textContent.substring(idx + q.length);
       node.parentNode.replaceChild(span, node);
     }
   });
@@ -2330,92 +1971,11 @@ function highlightText(el, q) {
 function filterByCategory(cat, el) {
   document.querySelectorAll('#zb-page-sop .cat-tab').forEach(function(t) { t.classList.remove('active'); });
   if (el) el.classList.add('active');
-  document.querySelectorAll('.card[id^="cat-"]').forEach(function(c) { c.style.display = ''; });
-  document.querySelectorAll('.tree-item').forEach(function(s) {
+  document.querySelectorAll('.step').forEach(function(s) {
     if (cat === 'all') { s.style.display = ''; }
     else if (cat === 'key') { s.style.display = s.classList.contains('is-key') ? '' : 'none'; }
   });
 }
-
-
-// ===== Training Mode =====
-var trainItems = [];
-var trainIndex = 0;
-var trainActive = false;
-
-function collectTrainItems() {
-  trainItems = [];
-  var cats = ['cat-display','cat-back','cat-repair','cat-func','cat-flow'];
-  cats.forEach(function(catId) {
-    var cat = document.getElementById(catId);
-    if (!cat) return;
-    var headers = cat.querySelectorAll('.tree-header');
-    headers.forEach(function(h) {
-      var title = h.textContent.replace(/[×+↳✎\u21B3\u270E\u00D7]/g,'').trim();
-      if (title) trainItems.push({header: h, title: title, cat: cat});
-    });
-  });
-}
-
-function toggleTrainMode() {
-  trainActive = !trainActive;
-  var bar = document.getElementById('trainBar');
-  var btn = document.getElementById('trainModeBtn');
-  if (trainActive) {
-    collectTrainItems();
-    trainIndex = 0;
-    bar.style.display = 'flex';
-    btn.style.background = 'rgba(16,185,129,0.15)';
-    btn.textContent = '📖 培训中...';
-    showTrainItem(0);
-  } else {
-    bar.style.display = 'none';
-    btn.style.background = 'rgba(16,185,129,0.06)';
-    btn.textContent = '📖 培训模式';
-    // Remove all highlights
-    document.querySelectorAll('.train-highlight').forEach(function(el){el.classList.remove('train-highlight')});
-  }
-}
-
-function showTrainItem(idx) {
-  if (idx < 0 || idx >= trainItems.length) return;
-  trainIndex = idx;
-  var item = trainItems[idx];
-  // Expand category
-  var catBody = item.cat.querySelector('.cat-body');
-  if (catBody) catBody.classList.remove('hidden');
-  var catHeader = item.cat.querySelector('.cat-header');
-  if (catHeader) catHeader.classList.remove('collapsed');
-  // Expand item
-  item.header.classList.add('open');
-  // Highlight
-  document.querySelectorAll('.train-highlight').forEach(function(el){el.classList.remove('train-highlight')});
-  item.header.closest('.tree-item').classList.add('train-highlight');
-  // Scroll
-  item.header.scrollIntoView({behavior:'smooth',block:'center'});
-  // Update bar
-  document.getElementById('trainTitle').textContent = item.title;
-  document.getElementById('trainProgress').textContent = (idx+1) + '/' + trainItems.length;
-  var catNames = {0:'机身屏幕',1:'机身后壳',2:'苹果拆修',3:'功能检查',4:'扫码拍照入库'};
-  var catIdx = ['cat-display','cat-back','cat-repair','cat-func','cat-flow'].indexOf(item.cat.id);
-  document.getElementById('trainCat').textContent = catNames[catIdx] || '--';
-}
-
-function trainNext() { showTrainItem(trainIndex + 1); }
-function trainPrev() { showTrainItem(trainIndex - 1); }
-
-// Keyboard navigation
-document.addEventListener('keydown', function(e) {
-  if (!trainActive) return;
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); trainNext(); }
-  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); trainPrev(); }
-  if (e.key === 'Escape') toggleTrainMode();
-});
-
-// CSS for training highlight
-var trainStyle = document.createElement('style');
-trainStyle.textContent = '.train-highlight{box-shadow:0 0 0 4px rgba(16,185,129,0.4)!important;border-radius:8px!important;transition:box-shadow 0.3s!important;position:relative;z-index:5!important}';
-document.head.appendChild(trainStyle);
 
 // ===== Dashboard =====
 var dashboardData = null;
@@ -2462,15 +2022,13 @@ function switchDashView(view, el) {
 function handleExcelUpload(input) {
   var file = input.files[0];
   if (!file) return;
-  var msgEl = document.getElementById('uploadMsg');
-  if (msgEl) msgEl.innerHTML = '<span style="color:#f59e0b">⏳ 正在解析 Excel...</span>';
   var reader = new FileReader();
   reader.onload = function(e) {
     try {
       var wb = XLSX.read(e.target.result, {type:'array'});
       var ws = wb.Sheets[wb.SheetNames[0]];
       var rows = XLSX.utils.sheet_to_json(ws, {header:1});
-      if (rows.length < 2) { alert('Excel文件为空或格式不正确'); if (msgEl) msgEl.textContent = '数据更新时间：--'; return; }
+      if (rows.length < 2) { alert('Excel文件为空或格式不正确'); return; }
 
       var header = rows[0];
       var col = {
@@ -2569,11 +2127,8 @@ function handleExcelUpload(input) {
       document.getElementById('btnExport').disabled = false;
       document.getElementById('btnJson').disabled = false;
 
-      var msgEl2 = document.getElementById('uploadMsg');
-      if (msgEl2) msgEl2.textContent = '已导入 ' + total + ' 条差异记录，' + Object.keys(personMap).length + ' 名质检员';
-      // Save to localStorage
-      try { localStorage.setItem('qc_dash_data', JSON.stringify(dashboardData)); } catch(e) {}
-      document.getElementById('btnClear').disabled = false;
+      var msgEl = document.getElementById('uploadMsg');
+      if (msgEl) msgEl.textContent = '已导入 ' + total + ' 条差异记录，' + Object.keys(personMap).length + ' 名质检员';
 
       // Render trend chart if date data available
       if (dateList.length > 1 && typeof echarts !== 'undefined') {
@@ -2582,7 +2137,6 @@ function handleExcelUpload(input) {
         document.querySelectorAll('#trendTabs .trend-tab').forEach(function(b,i){ b.classList.toggle('active', i===0); });
         document.querySelectorAll('#dimensionTabs .trend-tab').forEach(function(b,i){ b.classList.toggle('active', i===0); });
         document.getElementById('trendCard').style.display = '';
-  updateSOPDefectBadges();
         renderPersonTrendChart(dashboardData, 'day');
       }
 
@@ -2790,22 +2344,8 @@ function showPersonDetailModal(personName) {
   if (!dashboardData || !dashboardData.personRecords) return;
   var records = dashboardData.personRecords[personName] || [];
   if (records.length === 0) return;
-  // Aggregate by problem
-  var agg = {};
-  records.forEach(function(r) {
-    agg[r.problem] = (agg[r.problem] || 0) + 1;
-  });
-  var sorted = Object.entries(agg).sort(function(a,b) { return b[1] - a[1]; });
-  var totalUnique = sorted.length;
   document.getElementById('personModalTitle').textContent = '👤 ' + personName + ' · 差异明细';
-  document.getElementById('personModalTotal').textContent = '共 ' + records.length + ' 条 · ' + totalUnique + ' 类';
-  // Problem summary
-  var summaryHtml = sorted.map(function(p) {
-    return '<span style="display:inline-block;margin:2px 6px 2px 0;padding:2px 8px;border-radius:10px;background:rgba(239,68,68,0.08);font-size:11px">' + p[0] + ' <b style="color:#ef4444">' + p[1] + '</b></span>';
-  }).join('');
-  document.getElementById('personDetailSummary').innerHTML = summaryHtml;
-  document.getElementById('personDetailSummary').style.display = '';
-  // Detail table
+  document.getElementById('personModalTotal').textContent = '共 ' + records.length + ' 条';
   var tbody = document.getElementById('personDetailBody');
   tbody.innerHTML = records.map(function(r, i) {
     return '<tr><td>' + (i + 1) + '</td><td>' + r.date + '</td><td style="text-align:left">' + r.problem + '</td></tr>';
@@ -2840,87 +2380,23 @@ function renderWithData(data) {
   document.getElementById('topPerson').textContent = data.personList.length > 0 ? data.personList[0].name : '--';
   document.getElementById('btnExport').disabled = false;
   document.getElementById('btnJson').disabled = false;
-  document.getElementById('btnClear').disabled = false;
   var msgEl = document.getElementById('uploadMsg');
   if (msgEl) msgEl.textContent = '数据更新时间：' + (data.updatedAt || '未知');
-  // Save to localStorage
-  try { localStorage.setItem('qc_dash_data', JSON.stringify(data)); } catch(e) {}
   // Render trend chart if date data available
   if (data.dateList && data.dateList.length > 1 && typeof echarts !== 'undefined') {
     currentTrendView = 'day';
-    currentTrendDimension = 'person';
     document.querySelectorAll('#trendTabs .trend-tab').forEach(function(b,i){ b.classList.toggle('active', i===0); });
-    document.querySelectorAll('#dimensionTabs .trend-tab').forEach(function(b,i){ b.classList.toggle('active', i===0); });
-    document.getElementById('personTrendChart').style.display = '';
-    document.getElementById('problemTrendChart').style.display = 'none';
-    setTimeout(function() { renderPersonTrendChart(data, 'day'); }, 200);
+    renderTrendChart(data.dateList, '日');
   }
-  updateSOPDefectBadges();
-}
-
-
-// ===== Dashboard-SOP Linkage =====
-function updateSOPDefectBadges() {
-  if (!dashboardData || !dashboardData.problemList) return;
-  var problemMap = {};
-  dashboardData.problemList.forEach(function(p) { problemMap[p.name] = p.cnt; });
-  document.querySelectorAll('.tree-header').forEach(function(h) {
-    // Remove old badges
-    var old = h.querySelector('.defect-badge');
-    if (old) old.remove();
-    var title = h.textContent.replace(/[×+↳✎\\u21B3\\u270E\\u00D7]/g,'').trim();
-    // Try to match with problem list
-    var matched = null;
-    Object.keys(problemMap).forEach(function(pname) {
-      if (title.indexOf(pname) >= 0 || pname.indexOf(title) >= 0) {
-        matched = problemMap[pname];
-      }
-    });
-    if (matched && matched > 0) {
-      var badge = document.createElement('span');
-      badge.className = 'defect-badge';
-      badge.textContent = matched;
-      badge.title = '出现' + matched + '次';
-      badge.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;border-radius:10px;background:'+(matched>=3?'#ef4444':'#f59e0b')+';color:#fff;font-size:10px;font-weight:700;margin-left:6px;padding:0 6px';
-      h.appendChild(badge);
-    }
-  });
 }
 
 // ===== Export =====
-// ===== Clear Data =====
-function clearDashboardData() {
-  if (!confirm('确定清除所有上传的数据吗？将恢复为默认示例数据。')) return;
-  dashboardData = null;
-  try { localStorage.removeItem('qc_dash_data'); } catch(e) {}
-  document.getElementById('btnClear').disabled = true;
-  document.getElementById('btnExport').disabled = true;
-  document.getElementById('btnJson').disabled = true;
-  var msgEl = document.getElementById('uploadMsg');
-  if (msgEl) msgEl.textContent = '数据更新时间：2026-05-30';
-  // Reload default embedded data
-  loadEmbeddedData();
-  // Clear trend chart
-  var dom = document.getElementById('personTrendChart');
-  if (dom && echarts) {
-    var chart = echarts.getInstanceByDom(dom);
-    if (chart) chart.clear();
-  }
-  dom = document.getElementById('problemTrendChart');
-  if (dom && echarts) {
-    var chart = echarts.getInstanceByDom(dom);
-    if (chart) chart.clear();
-  }
-  // Clear SOP defect badges
-  document.querySelectorAll('.defect-badge').forEach(function(b) { b.remove(); });
-}
-
 function exportShareVersion() {
   var html = document.documentElement.outerHTML;
   if (dashboardData) {
-    var exportData = {total:dashboardData.total,updatedAt:new Date().toISOString().slice(0,10),personList:dashboardData.personList,problemList:dashboardData.problemList,dateList:dashboardData.dateList,weekList:dashboardData.weekList,monthList:dashboardData.monthList,personProblemMap:dashboardData.personProblemMap};
-    html = html.replace(/var defaultData = \{[\s\S]*?\};/, 'var defaultData = ' + JSON.stringify(exportData) + ';');
-    html = html.replace(/(id="uploadMsg">)数据更新时间：[^<]*/, '$1数据更新时间：' + new Date().toISOString().slice(0,10));
+    var newData = JSON.stringify({total:dashboardData.total,updatedAt:new Date().toISOString().slice(0,10),personList:dashboardData.personList,problemList:dashboardData.problemList,dateList:dashboardData.dateList,weekList:dashboardData.weekList,monthList:dashboardData.monthList,personProblemMap:dashboardData.personProblemMap});
+    html = html.replace(/var defaultData = \{[\s\S]*?\};/, 'var defaultData = ' + newData + ';');
+    html = html.replace(/id="uploadMsg">数据更新时间：2026-06-05<]*</, 'id="uploadMsg">数据更新时间：' + new Date().toISOString().slice(0,10) + '<');
   }
   var blob = new Blob(['<!DOCTYPE html>\n' + html], {type:'text/html;charset=utf-8'});
   var url = URL.createObjectURL(blob);
@@ -2940,29 +2416,35 @@ function exportDataJson() {
   a.click();
   setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
 }
-
-// ===== Export Table to CSV =====
-function exportTableToCSV(tableId, filename) {
-  var table = document.getElementById(tableId);
-  if (!table) return;
-  var rows = table.querySelectorAll('tr');
-  var csv = [];
-  rows.forEach(function(row) {
-    var cols = [];
-    row.querySelectorAll('th, td').forEach(function(cell) {
-      var text = cell.textContent.replace(/"/g, '""').trim();
-      cols.push('"' + text + '"');
-    });
-    csv.push(cols.join(','));
-  });
-  var blob = new Blob(['\uFEFF' + csv.join('\n')], {type:'text/csv;charset=utf-8'});
+function exportDataJson() {
+  if (!dashboardData) return;
+  var data = {total:dashboardData.total,updatedAt:new Date().toISOString().slice(0,10),personList:dashboardData.personList,problemList:dashboardData.problemList};
+  var blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
-  a.href = url; a.download = filename;
-  a.click();
-  setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+  a.href = url; a.download = 'data.json';
+  a.click(); URL.revokeObjectURL(url);
 }
 
+
+// ===== Global Click Delegation (handles tree toggle + edit buttons) =====
+document.addEventListener('click', function(e) {
+  // Edit button clicked?
+  var editBtn = e.target.closest('.edit-btn');
+  if (editBtn) {
+    e.preventDefault(); e.stopPropagation();
+    var hdr = editBtn.closest('.tree-item').querySelector('.tree-header');
+    if (!hdr) return;
+    if (editBtn.classList.contains('edit-add')) showAddBlockModal(hdr);
+    else if (editBtn.classList.contains('edit-sub')) showAddSubModal(hdr);
+    return;
+  }
+  // Tree header clicked? (but not a button)
+  var header = e.target.closest('.tree-header');
+  if (header && e.target.tagName !== 'BUTTON' && !e.target.closest('button')) {
+    header.classList.toggle('open');
+  }
+}, true);
 // ===== Scroll / Keyboard =====
 document.getElementById('zb-main').addEventListener('scroll', function() {
   document.getElementById('backTop').classList.toggle('show', this.scrollTop > 400);
@@ -2977,629 +2459,11 @@ document.addEventListener('keydown', function(e) {
   if ((e.metaKey || e.ctrlKey) && e.key === 'w') { e.preventDefault(); collapseAll(); }
 });
 
-
-// ===== Big Screen =====
-var bsClockTimer = null;
-
-function startBigScreenClock() {
-  function tick() {
-    var now = new Date();
-    var h = String(now.getHours()).padStart(2, '0');
-    var m = String(now.getMinutes()).padStart(2, '0');
-    var s = String(now.getSeconds()).padStart(2, '0');
-    var clockEl = document.getElementById('bsClock');
-    if (clockEl) clockEl.textContent = h + ':' + m + ':' + s;
-    var dateEl = document.getElementById('bsDate');
-    if (dateEl) {
-      var weekdays = ['日','一','二','三','四','五','六'];
-      dateEl.textContent = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 星期' + weekdays[now.getDay()];
-    }
-  }
-  tick();
-  if (bsClockTimer) clearInterval(bsClockTimer);
-  bsClockTimer = setInterval(tick, 1000);
-}
-
-function stopBigScreenClock() {
-  if (bsClockTimer) { clearInterval(bsClockTimer); bsClockTimer = null; }
-}
-
-// Animate number from 0 to target
-function animateNumber(el, target, duration) {
-  if (!el) return;
-  var start = 0;
-  var startTime = null;
-  duration = duration || 800;
-  function step(timestamp) {
-    if (!startTime) startTime = timestamp;
-    var progress = Math.min((timestamp - startTime) / duration, 1);
-    // Ease out cubic
-    var eased = 1 - Math.pow(1 - progress, 3);
-    var current = Math.round(target * eased);
-    el.textContent = current;
-    if (progress < 1) {
-      requestAnimationFrame(step);
-    } else {
-      el.textContent = target;
-    }
-  }
-  requestAnimationFrame(step);
-}
-
-// Update all big screen data
-function updateBigScreen() {
-  var data = dashboardData;
-  if (!data) {
-    // Try to load from localStorage
-    try { data = JSON.parse(localStorage.getItem('qc_dash_data')); } catch(e) {}
-  }
-
-  // KPI values
-  var total = data ? data.total : 37;
-  var people = data ? data.personList.length : 15;
-  var topProb = data && data.problemList && data.problemList.length > 0 ? data.problemList[0].name : '后摄白底拍照有斑';
-  var topProbCnt = data && data.problemList && data.problemList.length > 0 ? data.problemList[0].cnt : 3;
-
-  animateNumber(document.getElementById('bsTotalProblems'), total, 1000);
-  animateNumber(document.getElementById('bsTotalPeople'), people, 800);
-
-  var topProbEl = document.getElementById('bsTopProblem');
-  if (topProbEl) {
-    topProbEl.textContent = topProb.length > 15 ? topProb.substring(0,14) + '…' : topProb;
-    topProbEl.title = topProb;
-  }
-  var topProbCntEl = document.getElementById('bsTopProblemCnt');
-  if (topProbCntEl) topProbCntEl.textContent = '出现 ' + topProbCnt + ' 次';
-
-  // Month focus
-  var camKeywords = ['后摄','前摄','拍照','相机','摄像','镜头','白底拍照','坏点','有斑'];
-  var camTotal = 0;
-  if (data && data.problemList) {
-    data.problemList.forEach(function(p) {
-      if (camKeywords.some(function(k) { return p.name.indexOf(k) >= 0; })) {
-        camTotal += p.cnt;
-      }
-    });
-  }
-  var focusEl = document.getElementById('bsMonthFocus');
-  var focusCntEl = document.getElementById('bsFocusCount');
-  if (camTotal >= data.total * 0.15 || camTotal >= 3) {
-    if (focusEl) focusEl.textContent = '相机问题';
-    if (focusCntEl) focusCntEl.textContent = camTotal + '个相关问题';
-  } else if (data && data.problemList && data.problemList.length > 0) {
-    if (focusEl) focusEl.textContent = data.problemList[0].name.substring(0,8);
-    if (focusCntEl) focusCntEl.textContent = '出现' + data.problemList[0].cnt + '次';
-  }
-
-  // Update time
-  var updateEl = document.getElementById('bsUpdateTime');
-  if (updateEl) {
-    var t = data && data.updatedAt ? data.updatedAt : '--';
-    updateEl.textContent = '数据更新：' + t;
-  }
-
-  // Render charts
-  renderBigScreenCharts(data);
-
-  // Update ticker
-  updateBigScreenTicker(data);
-}
-
-function renderBigScreenCharts(data) {
-  if (typeof echarts === 'undefined') return;
-
-  var isDark = true; // Big screen always dark
-  var textColor = '#94a3b8';
-  var barColors = ['#ef4444','#f59e0b','#f97316','#3b82f6','#8b5cf6','#ec4899','#06b6d4','#10b981','#6366f1','#14b8a6'];
-
-  // === Problem Bar Chart ===
-  var barDom = document.getElementById('bsProblemBarChart');
-  if (barDom && data && data.problemList) {
-    var barChart = echarts.getInstanceByDom(barDom);
-    if (barChart) barChart.clear(); else barChart = echarts.init(barDom);
-    var topProbs = data.problemList.slice(0, 10);
-    barChart.setOption({
-      tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-      grid: { top: 5, bottom: 0, left: 10, right: 30 },
-      xAxis: { type: 'value', axisLabel: { color: textColor, fontSize: 10 }, splitLine: { lineStyle: { color: 'rgba(100,120,180,0.1)' } } },
-      yAxis: { type: 'category', data: topProbs.map(function(p){ return p.name.length > 10 ? p.name.substring(0,9)+'…' : p.name; }).reverse(), axisLabel: { color: textColor, fontSize: 10 }, axisLine: { show: false }, axisTick: { show: false } },
-      series: [{
-        type: 'bar', data: topProbs.map(function(p,i){ return {value: p.cnt, itemStyle: {color: new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:barColors[i%10]},{offset:1,color:'rgba(15,23,42,0.3)'}])}}; }).reverse(),
-        barWidth: 14, label: { show: true, position: 'right', color: textColor, fontSize: 10 }
-      }]
-    }, true);
-    barChart.resize();
-  }
-
-  // === Distribution Pie Chart ===
-  var pieDom = document.getElementById('bsDistributionPie');
-  if (pieDom && data && data.problemList) {
-    var pieChart = echarts.getInstanceByDom(pieDom);
-    if (pieChart) pieChart.clear(); else pieChart = echarts.init(pieDom);
-
-    // Categorize problems
-    var cats = { '屏幕显示':0, '外壳后壳':0, '拆修痕迹':0, '功能检查':0, '拍照影像':0, '其他':0 };
-    data.problemList.forEach(function(p) {
-      var n = p.name;
-      if (n.indexOf('屏')>=0||n.indexOf('显示')>=0||n.indexOf('漏液')>=0||n.indexOf('坏点')>=0||n.indexOf('线')>=0||n.indexOf('透图')>=0) cats['屏幕显示'] += p.cnt;
-      else if (n.indexOf('后壳')>=0||n.indexOf('外壳')>=0||n.indexOf('脱胶')>=0||n.indexOf('缝隙')>=0||n.indexOf('漆面')>=0||n.indexOf('刻字')>=0||n.indexOf('壳')>=0) cats['外壳后壳'] += p.cnt;
-      else if (n.indexOf('拆修')>=0||n.indexOf('溢胶')>=0||n.indexOf('撬痕')>=0||n.indexOf('支架更换')>=0||n.indexOf('感应孔')>=0) cats['拆修痕迹'] += p.cnt;
-      else if (n.indexOf('拍照')>=0||n.indexOf('后摄')>=0||n.indexOf('前摄')>=0||n.indexOf('白底')>=0||n.indexOf('相机')>=0||n.indexOf('镜头')>=0) cats['拍照影像'] += p.cnt;
-      else if (n.indexOf('充电')>=0||n.indexOf('功能')>=0||n.indexOf('WIFI')>=0||n.indexOf('SIM')>=0||n.indexOf('通话')>=0||n.indexOf('触摸')>=0||n.indexOf('电池')>=0) cats['功能检查'] += p.cnt;
-      else cats['其他'] += p.cnt;
-    });
-    var pieData = Object.entries(cats).filter(function(e){ return e[1] > 0; }).map(function(e,i){
-      return { name: e[0], value: e[1], itemStyle: { color: barColors[i] } };
-    });
-
-    pieChart.setOption({
-      tooltip: { trigger: 'item', formatter: '{b}: {c} 次 ({d}%)' },
-      series: [{
-        type: 'pie', radius: ['50%','78%'], center: ['50%','52%'], data: pieData,
-        label: { color: textColor, fontSize: 11, formatter: '{b}\n{d}%' },
-        emphasis: { itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.5)' } }
-      }]
-    }, true);
-    pieChart.resize();
-  }
-
-  // === Person Bar Chart ===
-  var pDom = document.getElementById('bsPersonBarChart');
-  if (pDom && data && data.personList) {
-    var pChart = echarts.getInstanceByDom(pDom);
-    if (pChart) pChart.clear(); else pChart = echarts.init(pDom);
-    var topPeople = data.personList.slice(0, 10);
-    pChart.setOption({
-      tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
-      grid: { top: 5, bottom: 0, left: 80, right: 30 },
-      xAxis: { type: 'value', axisLabel: { color: textColor, fontSize: 10 }, splitLine: { lineStyle: { color: 'rgba(100,120,180,0.1)' } } },
-      yAxis: { type: 'category', data: topPeople.map(function(p){ return p.name; }).reverse(), axisLabel: { color: textColor, fontSize: 10 }, axisLine: { show: false }, axisTick: { show: false } },
-      series: [{
-        type: 'bar', data: topPeople.map(function(p,i){ return {value: p.cnt, itemStyle: {color: new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:barColors[i%10]},{offset:1,color:'rgba(15,23,42,0.3)'}])}}; }).reverse(),
-        barWidth: 16, label: { show: true, position: 'right', color: textColor, fontSize: 10 }
-      }]
-    }, true);
-    pChart.resize();
-  }
-}
-
-function updateBigScreenTicker(data) {
-  var tickerEl = document.getElementById('bsTickerText');
-  if (!tickerEl) return;
-  var items = [];
-  if (data && data.problemList) {
-    var top = data.problemList.slice(0, 5);
-    top.forEach(function(p) {
-      items.push('【' + p.name + '】出现 ' + p.cnt + ' 次');
-    });
-  }
-  if (items.length === 0) {
-    items = ['暂无数据，请上传 Excel 进行分析'];
-  }
-  // Double the text for seamless scrolling
-  tickerEl.textContent = items.join('  ·  ') + '  ·  ' + items.join('  ·  ');
-}
-
-function toggleBigScreenFS() {
-  document.body.classList.toggle('bs-fullscreen');
-  var btn = document.querySelector('.bs-fs-btn');
-  if (btn) btn.textContent = document.body.classList.contains('bs-fullscreen') ? '⛶ 退出全屏' : '⛶ 全屏';
-  // Resize charts
-  setTimeout(function() {
-    if (dashboardData) renderBigScreenCharts(dashboardData);
-  }, 400);
-}
-
-// Auto-switch to big screen: update data when dashboardData changes
-var _origRenderWithData = renderWithData;
-renderWithData = function(data) {
-  _origRenderWithData(data);
-  updateBigScreen();
-};
-
-// Also update on Excel upload
-var _origHandleExcelUpload_done = null;
-document.addEventListener('DOMContentLoaded', function() {
-  // Override the upload message callback to also update big screen
-  var uploadInput = document.getElementById('excelUpload');
-  if (uploadInput) {
-    var origOnChange = uploadInput.getAttribute('onchange');
-    uploadInput.setAttribute('onchange', origOnChange + '; setTimeout(updateBigScreen, 500);');
-  }
-
-  // Init big screen clock when big screen page becomes active
-  var bsPage = document.getElementById('zb-page-bigscreen');
-  if (bsPage) {
-    var bsObserver = new MutationObserver(function() {
-      if (bsPage.classList.contains('active')) {
-        startBigScreenClock();
-        if (dashboardData) updateBigScreen();
-        else {
-          // Try to load data
-          try {
-            var localData = JSON.parse(localStorage.getItem('qc_dash_data'));
-            if (localData && localData.total) {
-              dashboardData = localData;
-              updateBigScreen();
-            }
-          } catch(e) {}
-        }
-      } else {
-        stopBigScreenClock();
-      }
-    });
-    bsObserver.observe(bsPage, { attributes: true, attributeFilter: ['class'] });
-  }
-
-  // Initial clock start if big screen is active
-  if (bsPage && bsPage.classList.contains('active')) {
-    startBigScreenClock();
-  }
-
-  // Resize big screen charts on window resize
-  window.addEventListener('resize', function() {
-    if (document.getElementById('zb-page-bigscreen').classList.contains('active')) {
-      if (dashboardData) renderBigScreenCharts(dashboardData);
-    }
-  });
-});
-
-
-// ===== Onboarding =====
-function finishOnboarding() {
-  document.getElementById('onboardOverlay').classList.remove('show');
-  try { localStorage.setItem('qc_onboarded', '1'); } catch(e) {}
-}
-// Show onboarding on first visit
-(function() {
-  try {
-    if (!localStorage.getItem('qc_onboarded')) {
-      document.getElementById('onboardOverlay').classList.add('show');
-    }
-  } catch(e) {}
-})();
-
-// ===== Training Mode Upgrade =====
-var trainCompleted = {}; // {title: true}
-var trainTotalItems = 0;
-
-function loadTrainProgress() {
-  try {
-    var saved = JSON.parse(localStorage.getItem('qc_train_progress'));
-    if (saved) trainCompleted = saved;
-  } catch(e) { trainCompleted = {}; }
-}
-
-function saveTrainProgress() {
-  try { localStorage.setItem('qc_train_progress', JSON.stringify(trainCompleted)); } catch(e) {}
-}
-
-function updateTrainProgressUI() {
-  // Add checkmarks to tree headers
-  document.querySelectorAll('.tree-header').forEach(function(h) {
-    var title = extractItemTitle(h);
-    if (trainCompleted[title]) {
-      h.classList.add('training-done');
-    } else {
-      h.classList.remove('training-done');
-    }
-  });
-  // Update progress bar
-  var bar = document.getElementById('trainProgressFill');
-  var statsEl = document.getElementById('trainStatsBadge');
-  if (bar) {
-    var done = Object.keys(trainCompleted).length;
-    var pct = trainTotalItems > 0 ? Math.round(done / trainTotalItems * 100) : 0;
-    bar.style.width = pct + '%';
-    if (statsEl) {
-      if (pct >= 100) {
-        statsEl.textContent = '🎉 全部完成!';
-        statsEl.className = 'train-badge done-all';
-      } else {
-        statsEl.textContent = done + '/' + trainTotalItems;
-        statsEl.className = 'train-badge learning';
-      }
-    }
-  }
-}
-
-function extractItemTitle(header) {
-  // Extract clean title from header (remove numbers, tags, buttons)
-  var clone = header.cloneNode(true);
-  // Remove buttons
-  clone.querySelectorAll('button,.edit-btn,.step-tags,.train-check,.defect-badge').forEach(function(el) { el.remove(); });
-  var text = clone.textContent || '';
-  // Remove step number prefix
-  text = text.replace(/^\d+\s*/, '').trim();
-  return text.substring(0, 80);
-}
-
-function toggleTrainItemDone(header) {
-  var title = extractItemTitle(header);
-  if (trainCompleted[title]) {
-    delete trainCompleted[title];
-    header.classList.remove('training-done');
-  } else {
-    trainCompleted[title] = true;
-    header.classList.add('training-done');
-    // Animate check
-    header.style.transform = 'scale(1.03)';
-    setTimeout(function() { header.style.transform = ''; }, 200);
-  }
-  saveTrainProgress();
-  updateTrainProgressUI();
-}
-
-function collectTrainItems() {
-  trainItems = [];
-  trainTotalItems = 0;
-  var cats = ['cat-display','cat-back','cat-repair','cat-func','cat-flow'];
-  cats.forEach(function(catId) {
-    var cat = document.getElementById(catId);
-    if (!cat) return;
-    var headers = cat.querySelectorAll('.tree-header');
-    headers.forEach(function(h) {
-      var title = extractItemTitle(h);
-      if (title) {
-        trainItems.push({header: h, title: title, cat: cat});
-        trainTotalItems++;
-      }
-    });
-  });
-  document.getElementById('trainProgress').textContent = '1/' + trainItems.length;
-}
-
-function toggleTrainMode() {
-  trainActive = !trainActive;
-  var bar = document.getElementById('trainBar');
-  var btn = document.getElementById('trainModeBtn');
-  if (trainActive) {
-    loadTrainProgress();
-    collectTrainItems();
-    trainIndex = 0;
-    bar.style.display = 'flex';
-    btn.style.background = 'rgba(16,185,129,0.15)';
-    btn.textContent = '📖 培训中...';
-    updateTrainProgressUI();
-    showTrainItem(0);
-  } else {
-    bar.style.display = 'none';
-    btn.style.background = 'rgba(16,185,129,0.06)';
-    btn.textContent = '📖 培训模式';
-    document.querySelectorAll('.train-highlight').forEach(function(el){el.classList.remove('train-highlight')});
-    document.querySelectorAll('.tree-header.training-done').forEach(function(h){h.classList.remove('training-done')});
-    saveTrainProgress();
-  }
-}
-
-function showTrainItem(idx) {
-  if (idx < 0 || idx >= trainItems.length) return;
-  trainIndex = idx;
-  var item = trainItems[idx];
-  // Expand category
-  var catBody = item.cat.querySelector('.cat-body');
-  if (catBody) catBody.classList.remove('hidden');
-  var catHeader = item.cat.querySelector('.cat-header');
-  if (catHeader) catHeader.classList.remove('collapsed');
-  // Expand item
-  item.header.classList.add('open');
-  // Scroll to item's category card
-  var card = item.cat.closest('.card');
-  if (card) card.style.display = '';
-  // Highlight
-  document.querySelectorAll('.train-highlight').forEach(function(el){el.classList.remove('train-highlight')});
-  item.header.closest('.tree-item').classList.add('train-highlight');
-  // Scroll
-  item.header.scrollIntoView({behavior:'smooth',block:'center'});
-  // Update bar
-  document.getElementById('trainTitle').textContent = item.title;
-  document.getElementById('trainProgress').textContent = (idx+1) + '/' + trainItems.length;
-  var catNames = {0:'机身屏幕',1:'机身后壳',2:'苹果拆修',3:'功能检查',4:'扫码拍照入库'};
-  var catIdx = ['cat-display','cat-back','cat-repair','cat-func','cat-flow'].indexOf(item.cat.id);
-  document.getElementById('trainCat').textContent = catNames[catIdx] || '--';
-  // Show check status
-  var checkBtn = document.getElementById('trainCheckBtn');
-  if (checkBtn) {
-    if (trainCompleted[item.title]) {
-      checkBtn.classList.add('done');
-      checkBtn.textContent = '✓';
-    } else {
-      checkBtn.classList.remove('done');
-      checkBtn.textContent = '';
-    }
-  }
-  updateTrainProgressUI();
-}
-
-function trainMarkDone() {
-  if (trainIndex >= 0 && trainIndex < trainItems.length) {
-    toggleTrainItemDone(trainItems[trainIndex].header);
-    // Show updated check status
-    var item = trainItems[trainIndex];
-    var checkBtn = document.getElementById('trainCheckBtn');
-    if (checkBtn) {
-      if (trainCompleted[item.title]) {
-        checkBtn.classList.add('done');
-        checkBtn.textContent = '✓';
-      } else {
-        checkBtn.classList.remove('done');
-        checkBtn.textContent = '';
-      }
-    }
-  }
-}
-
-function resetTrainProgress() {
-  if (confirm('确定重置所有培训进度吗？')) {
-    trainCompleted = {};
-    saveTrainProgress();
-    updateTrainProgressUI();
-    document.getElementById('trainProgressFill').style.width = '0%';
-    var statsEl = document.getElementById('trainStatsBadge');
-    if (statsEl) { statsEl.textContent = '0/' + trainTotalItems; statsEl.className = 'train-badge learning'; }
-  }
-}
-
-// ===== Koujue Page =====
-function buildKoujuePage() {
-  var koujues = [];
-  var catNames = {
-    'cat-display': '① 机身屏幕',
-    'cat-back': '② 机身后壳',
-    'cat-repair': '③ 苹果拆修',
-    'cat-flow': '⑤ 扫码拍照入库',
-    'cat-func': '④ 功能检查'
-  };
-  var catIcons = {
-    'cat-display': '🖥',
-    'cat-back': '🔩',
-    'cat-repair': '🛠',
-    'cat-func': '⚙',
-    'cat-flow': '📱'
-  };
-
-  document.querySelectorAll('.koujue').forEach(function(kj) {
-    var text = kj.textContent.replace(/^[""]|[""]$/g, '').trim();
-    if (!text || text.length < 4) return;
-    // Find parent category
-    var card = kj.closest('.card');
-    var catId = card ? card.id : 'unknown';
-    var catName = catNames[catId] || '其他';
-    var catIcon = catIcons[catId] || '📋';
-    // Find parent tree-header title
-    var treeItem = kj.closest('.tree-item');
-    var fromTitle = '';
-    if (treeItem) {
-      var hdr = treeItem.querySelector('.tree-header');
-      if (hdr) {
-        fromTitle = extractItemTitle(hdr);
-      }
-    }
-    koujues.push({ text: text, cat: catName, icon: catIcon, from: fromTitle, catId: catId });
-  });
-
-  var container = document.getElementById('koujueContent');
-  if (!container) return;
-
-  if (koujues.length === 0) {
-    container.innerHTML = '<div style="text-align:center;padding:60px;color:var(--text-muted)"><div style="font-size:48px;margin-bottom:12px">📣</div><div style="font-size:14px;font-weight:600">暂无口诀</div><div style="font-size:11px;margin-top:4px">在 SOP 编辑模式中为检查项添加口诀后，将在此处汇总显示</div></div>';
-    return;
-  }
-
-  // Group by category
-  var grouped = {};
-  koujues.forEach(function(k) {
-    if (!grouped[k.cat]) grouped[k.cat] = { icon: k.icon, items: [] };
-    grouped[k.cat].items.push(k);
-  });
-
-  var html = '';
-  Object.keys(grouped).forEach(function(cat) {
-    var g = grouped[cat];
-    html += '<div class="card" style="padding:16px 20px"><div class="card-title"><div class="card-title-bar"></div>' + g.icon + ' ' + cat + ' <span style="font-size:11px;color:var(--text-muted);font-weight:400;margin-left:6px">' + g.items.length + ' 条口诀</span></div>';
-    html += '<div class="koujue-grid">';
-    g.items.forEach(function(k) {
-      html += '<div class="koujue-card" onclick="scrollToKoujueSource(\'' + k.catId + '\', \'' + k.from.replace(/'/g, "\'") + '\')" title="点击跳转到对应检查项" style="cursor:pointer">';
-      html += '<div class="kj-cat">' + k.icon + ' ' + k.cat + '</div>';
-      html += '<div class="kj-text">"' + k.text + '"</div>';
-      if (k.from) html += '<div class="kj-from">📎 来源：' + k.from + '</div>';
-      html += '</div>';
-    });
-    html += '</div></div>';
-  });
-
-  container.innerHTML = html;
-}
-
-function scrollToKoujueSource(catId, fromTitle) {
-  zbNav('sop', document.querySelectorAll('.zb-nav-item')[1]);
-  setTimeout(function() {
-    var card = document.getElementById(catId);
-    if (card) {
-      // Expand category
-      var catBody = card.querySelector('.cat-body');
-      if (catBody) catBody.classList.remove('hidden');
-      var catHeader = card.querySelector('.cat-header');
-      if (catHeader) catHeader.classList.remove('collapsed');
-      card.scrollIntoView({behavior:'smooth',block:'start'});
-      // Try to find and highlight the specific item
-      if (fromTitle) {
-        setTimeout(function() {
-          card.querySelectorAll('.tree-header').forEach(function(h) {
-            if (extractItemTitle(h) === fromTitle) {
-              h.classList.add('open');
-              h.closest('.tree-item').scrollIntoView({behavior:'smooth',block:'center'});
-              h.closest('.tree-item').style.boxShadow = '0 0 0 3px rgba(245,158,11,0.5)';
-              setTimeout(function() { h.closest('.tree-item').style.boxShadow = ''; }, 2000);
-            }
-          });
-        }, 300);
-      }
-    }
-  }, 200);
-}
-
-// ===== Override zbNav to rebuild koujue page when switching to it =====
-var _origZbNav = zbNav;
-zbNav = function(page, el) {
-  _origZbNav(page, el);
-  if (page === 'koujue') {
-    setTimeout(buildKoujuePage, 100);
-  }
-  if (page === 'sop') {
-    // Refresh train UI when entering SOP
-    loadTrainProgress();
-    setTimeout(function() {
-      collectTrainItems();
-      updateTrainProgressUI();
-    }, 200);
-  }
-};
-
-// ===== Keyboard shortcut for training mark =====
-document.addEventListener('keydown', function(e) {
-  if (!trainActive) return;
-  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); trainNext(); }
-  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); trainPrev(); }
-  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); trainMarkDone(); }
-  if (e.key === 'Escape') toggleTrainMode();
-});
-
 // ===== Init =====
 document.addEventListener('DOMContentLoaded', function() {
   markKeySteps();
-  loadTrainProgress();
+  loadSharedData();
   initMarquees();
-
-  // Restore dark mode
-  try {
-    if (localStorage.getItem('qc_dark') === '1') {
-      document.body.classList.add('dark');
-      var db = document.getElementById('darkModeBtn');
-      if (db) db.innerHTML = '&#9788;';
-    }
-  } catch(e) {}
-
-  // Restore admin state
-  if (sessionStorage.getItem('qc_admin') === '1') {
-    document.body.classList.add('is-admin');
-    var ab = document.getElementById('adminModeBtn');
-    if (ab) ab.innerHTML = '&#128275;';
-  }
-
-  // Load dashboard data: try localStorage first, then shared data
-  var localData = null;
-  try { localData = JSON.parse(localStorage.getItem('qc_dash_data')); } catch(e) {}
-  if (localData && localData.total) {
-    renderWithData(localData);
-    document.getElementById('btnClear').disabled = false;
-    // Render trend if date data available
-    if (localData.dateList && localData.dateList.length > 1 && typeof echarts !== 'undefined') {
-      setTimeout(function() { renderPersonTrendChart(localData, 'day'); }, 300);
-    }
-  } else {
-    loadSharedData();
-  }
 
   // Person table click → detail modal
   document.getElementById('topPersonTable').addEventListener('click', function(e) {
@@ -3614,47 +2478,140 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('personDetailModal').addEventListener('click', function(e) {
     if (e.target === this) closePersonDetailModal();
   });
-
-  // Resize trend charts when switching to dashboard
-  var dashPage = document.getElementById('zb-page-dashboard');
-  if (dashPage) {
-    var trendObserver = new MutationObserver(function() {
-      if (dashPage.classList.contains('active') && dashboardData && dashboardData.dateList && dashboardData.dateList.length > 1) {
-        setTimeout(function() {
-          if (currentTrendDimension === 'person') renderPersonTrendChart(dashboardData, currentTrendView);
-          else renderProblemTrendChart(dashboardData, currentTrendView);
-        }, 200);
-      }
-    });
-    trendObserver.observe(dashPage, { attributes: true, attributeFilter: ['class'] });
+  // Restore admin button icon
+  if (sessionStorage.getItem('qc_admin') === '1') {
+    document.body.classList.add('is-admin');
+    var ab = document.getElementById('adminModeBtn');
+    if (ab) ab.innerHTML = '&#128275;';
+  }
+  // Fix dark mode button
+  if (document.body.classList.contains('dark')) {
+    var db = document.getElementById('darkModeBtn');
+    if (db) db.innerHTML = '&#9788;';
   }
 });
+
+// ===== 执行手法手册交互 =====
+var HB_CHECK_KEY = 'qc_hb_checks';
+var hbCheckedSet = new Set();
+
+function hbLoadChecks() {
+  try { var arr = JSON.parse(localStorage.getItem(HB_CHECK_KEY) || '[]'); hbCheckedSet = new Set(arr); } catch(e) { hbCheckedSet = new Set(); }
+}
+function hbSaveChecks() { localStorage.setItem(HB_CHECK_KEY, JSON.stringify([...hbCheckedSet])); }
+
+function hbToggleCheck(el) {
+  var item = el.closest('.hb-check');
+  var id = item.dataset.id;
+  if (hbCheckedSet.has(id)) { hbCheckedSet.delete(id); item.classList.remove('checked'); }
+  else { hbCheckedSet.add(id); item.classList.add('checked'); }
+  hbSaveChecks(); hbUpdateStats();
+}
+
+function hbApplyChecks() {
+  document.querySelectorAll('.hb-check').forEach(function(item) {
+    if (hbCheckedSet.has(item.dataset.id)) item.classList.add('checked');
+  });
+  hbUpdateStats();
+}
+
+function hbResetChecks() {
+  if (!confirm('确定清除所有勾选记录？此操作不可撤销。')) return;
+  hbCheckedSet.clear(); hbSaveChecks();
+  document.querySelectorAll('.hb-check').forEach(function(item) { item.classList.remove('checked'); });
+  hbUpdateStats();
+}
+
+function hbToggleAllChecks() {
+  var items = document.querySelectorAll('.hb-check');
+  var allChecked = items.length > 0 && [...items].every(function(i){ return hbCheckedSet.has(i.dataset.id); });
+  items.forEach(function(item) {
+    if (allChecked) { hbCheckedSet.delete(item.dataset.id); item.classList.remove('checked'); }
+    else { hbCheckedSet.add(item.dataset.id); item.classList.add('checked'); }
+  });
+  hbSaveChecks(); hbUpdateStats();
+}
+
+function hbUpdateStats() {
+  var total = document.querySelectorAll('.hb-check').length;
+  var done = hbCheckedSet.size;
+  var warnTotal = document.querySelectorAll('.hb-warn-badge').length;
+  var elTotal = document.getElementById('hbTotalCount');
+  var elDone = document.getElementById('hbDoneCount');
+  var elWarn = document.getElementById('hbWarnCount');
+  if (elTotal) elTotal.textContent = total;
+  if (elDone) elDone.textContent = done;
+  if (elWarn) elWarn.textContent = warnTotal;
+}
+
+// Filter
+function hbFilterAll(btn) {
+  document.querySelectorAll('#zb-page-sop .cat-tab').forEach(function(t){ t.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.hb-check').forEach(function(item) { item.style.display = ''; });
+}
+
+function hbFilterKey(btn) {
+  document.querySelectorAll('#zb-page-sop .cat-tab').forEach(function(t){ t.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  document.querySelectorAll('.hb-check').forEach(function(item) {
+    if (item.querySelector('.hb-warn-badge')) item.style.display = '';
+    else item.style.display = 'none';
+  });
+}
+
+function hbSearch() {
+  var q = (document.getElementById('searchInput').value || '').toLowerCase();
+  document.querySelectorAll('.hb-check').forEach(function(item) {
+    if (!q) { item.style.display = ''; return; }
+    var text = item.textContent.toLowerCase();
+    item.style.display = text.indexOf(q) >= 0 ? '' : 'none';
+  });
+}
+
+// Expand/collapse
+function hbExpandAll() {
+  document.querySelectorAll('#zb-page-sop .hb-section').forEach(function(s){ s.classList.remove('collapsed'); });
+}
+function hbCollapseAll() {
+  document.querySelectorAll('#zb-page-sop .hb-section').forEach(function(s){ s.classList.add('collapsed'); });
+}
+
+// Lightbox
+function hbOpenLightbox(src, isVideo) {
+  var overlay = document.createElement('div');
+  overlay.className = 'hb-lightbox';
+  var media;
+  if (isVideo) {
+    media = document.createElement('video');
+    media.src = src; media.controls = true; media.autoplay = true;
+  } else {
+    media = document.createElement('img');
+    media.src = src;
+  }
+  var closeBtn = document.createElement('button');
+  closeBtn.className = 'hb-lightbox-close';
+  closeBtn.innerHTML = '✕';
+  closeBtn.onclick = function(e){ e.stopPropagation(); overlay.remove(); };
+  overlay.appendChild(media);
+  overlay.appendChild(closeBtn);
+  overlay.onclick = function(e){ if (e.target === overlay) overlay.remove(); };
+  document.body.appendChild(overlay);
+  document.addEventListener('keydown', function esc(e){
+    if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', esc); }
+  });
+}
+
+// Keyboard shortcuts for SOP page
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('zb-page-sop').classList.contains('active')) return;
+  if ((e.ctrlKey || e.metaKey) && e.key === 'e') { e.preventDefault(); hbExpandAll(); }
+  if ((e.ctrlKey || e.metaKey) && e.key === 'w') { e.preventDefault(); hbCollapseAll(); }
+});
+
+// Init
+hbLoadChecks();
+hbApplyChecks();
 </script>
-
-
-<!-- Training Mode Bar -->
-<div id="trainBar" style="display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);border-top:2px solid var(--blue);padding:10px 20px;z-index:200;flex-direction:column;gap:0;box-shadow:0 -4px 20px rgba(0,0,0,0.1);align-items:stretch">
-  <!-- Progress bar -->
-  <div class="train-progress-bar" style="margin-bottom:8px">
-    <div class="train-progress-fill" id="trainProgressFill" style="width:0%"></div>
-  </div>
-  <div style="display:flex;align-items:center;gap:12px">
-    <button onclick="trainPrev()" style="width:36px;height:36px;border-radius:50%;border:2px solid var(--blue);background:#fff;color:var(--blue);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0" title="上一步 (←)">◀</button>
-    <button id="trainCheckBtn" onclick="trainMarkDone()" class="train-check" title="标记完成 (空格键)" style="flex-shrink:0"></button>
-    <div style="flex:1;text-align:center;min-width:0">
-      <div style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" id="trainTitle">--</div>
-      <div style="font-size:10px;color:var(--text-muted);margin-top:1px;display:flex;align-items:center;justify-content:center;gap:6px">
-        <span id="trainProgress">0/0</span>
-        <span>|</span>
-        <span id="trainCat">--</span>
-        <span>|</span>
-        <span id="trainStatsBadge" class="train-badge learning">0/0</span>
-      </div>
-    </div>
-    <button onclick="trainNext()" style="width:36px;height:36px;border-radius:50%;border:2px solid var(--blue);background:var(--blue);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0" title="下一步 (→)">▶</button>
-    <button onclick="resetTrainProgress()" style="width:32px;height:32px;border-radius:50%;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:12px;flex-shrink:0;color:var(--text-muted)" title="重置进度">↺</button>
-    <button onclick="toggleTrainMode()" style="padding:5px 12px;border-radius:16px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:11px;color:var(--text-muted);flex-shrink:0;white-space:nowrap">✕ 退出</button>
-  </div>
-</div>
 
 </body></html>
